@@ -153,6 +153,11 @@ def model_info():
         with open("models/phase2/ews_metrics.json", "r") as f:
             phase2_metrics = json.load(f)
             
+    manifest = {}
+    if os.path.exists("models/phase2/model_manifest.json"):
+        with open("models/phase2/model_manifest.json", "r") as f:
+            manifest = json.load(f)
+            
     info = {
         "temporal_ews_model": {
             "dataset": "Dataset A (Financial Distress panel, Tehran Stock Exchange)",
@@ -178,7 +183,16 @@ def model_info():
     }
     if phase2_metrics:
         info["phase2_validated_model"] = phase2_metrics
+    if manifest:
+        info["model_manifest"] = {
+            "model_version": manifest.get("model_version", "1.2.1-hardened"),
+            "operating_threshold": manifest.get("operating_threshold", 0.08),
+            "experiment_identifier": manifest.get("experiment_identifier", "EXP-PHASE2-REPRO-001"),
+            "dataset_sha256": manifest.get("dataset_sha256", ""),
+            "status": manifest.get("status", "Hardened and Reproducibility Verified")
+        }
     return info
+
 
 
 @app.post("/predict", response_model=RiskPredictionResponse, tags=["Scoring"])

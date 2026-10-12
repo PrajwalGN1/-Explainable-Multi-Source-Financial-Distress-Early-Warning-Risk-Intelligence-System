@@ -1,0 +1,36 @@
+{
+  "test_n": 262,
+  "test_distress_cases": 11,
+  "test_recall_point": 0.2727,
+  "test_recall_wilson_95ci": [
+    0.0975,
+    0.5657
+  ],
+  "test_roc_auc_point": 0.7783,
+  "test_roc_auc_bootstrap_95ci": [
+    0.6491,
+    0.8848
+  ],
+  "test_pr_auc_point": 0.1946,
+  "test_pr_auc_bootstrap_95ci": [
+    0.0596,
+    0.4747
+  ],
+  "test_brier_score_point": 0.0387,
+  "test_bss_point": 0.037,
+  "test_bss_bootstrap_95ci": [
+    -0.045,
+    0.1286
+  ],
+  "test_bss_paired_ttest_p_value": 0.1997,
+  "val_bss_point": 0.0881,
+  "val_bss_bootstrap_95ci": [
+    -0.0132,
+    0.193
+  ],
+  "val_bss_paired_ttest_p_value": 0.0722,
+  "unseen_company_5fold_roc_auc_mean": 0.8301,
+  "unseen_company_5fold_roc_auc_sd": 0.0334,
+  "unseen_company_5fold_ap_mean": 0.1958,
+  "unseen_company_5fold_ap_sd": 0.0765
+}

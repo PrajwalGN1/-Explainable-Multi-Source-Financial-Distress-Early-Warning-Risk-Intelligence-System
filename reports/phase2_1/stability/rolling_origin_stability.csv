@@ -1,0 +1,4 @@
+Cutoff_Name,Train_Periods,Test_Periods,Train_N,Train_Distress,Test_N,Test_Distress,Test_Prevalence_Pct,Test_ROC_AUC,Test_PR_AUC,Test_Brier,Test_Recall@0.08,Test_Precision@0.08,Test_Specificity@0.08
+"Cutoff 1: Train T<=8, Test T=9",1..8,9..9,1996,85,232,4,1.72,0.9123,0.244,0.0797,1.0,0.031,0.4518
+"Cutoff 2: Train T<=9, Test T=10",1..9,10..10,2228,89,243,6,2.47,0.8418,0.1042,0.0721,1.0,0.0517,0.5359
+"Cutoff 3: Train T<=10, Test T=11-12",1..10,11..12,2471,95,517,14,2.71,0.8828,0.2001,0.0512,0.9286,0.0647,0.6262
