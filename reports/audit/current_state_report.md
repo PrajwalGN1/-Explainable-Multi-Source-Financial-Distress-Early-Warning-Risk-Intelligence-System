@@ -21,9 +21,11 @@ This audit evaluates the codebase strictly against empirical evidence in source 
 - **Project Root:** `D:\Financial Distress`
 - **Version Control Status:** **INITIALIZED (Phase 1 Baseline Established)**.
   - *Baseline Commit:* `509c866` (`baseline: initial state prior to Phase 1 audit remediation`)
-  - *Active Working Branch:* `upgrade/v1.1-audit-fixes`
-  - *Rollback Protection:* Guaranteed via Git baseline branch isolation.
-- **Uncommitted Changes:** Phase 1 remediations active on branch `upgrade/v1.1-audit-fixes` (dashboard band synchronization, calibrated alert rules, thread-safe API database caching).
+  - *Phase 1 Branch:* `upgrade/v1.1-audit-fixes` (Commit `50e232a`)
+  - *Active Working Branch:* `upgrade/v1.2-model-validation` (Phase 2 Model Validation & Stacking Refactoring)
+  - *Rollback Protection:* Guaranteed via Git branch isolation.
+- **Phase 2 Status:** Implemented. Synthetic proxies eliminated; operating threshold $\tau^*=0.08$ derived on validation fold; 41/41 regression tests passing.
+
 
 ### 2.2 Execution Runtime & Dependencies
 - **Active Python Environment:** Python 3.13.5 (`C:\Python313\python.exe`)

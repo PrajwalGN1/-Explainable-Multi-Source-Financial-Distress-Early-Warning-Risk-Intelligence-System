@@ -1,0 +1,93 @@
+{
+  "model_name": "Random Forest (Balanced, max_depth=5)",
+  "validation_metrics_optimal_tau": {
+    "threshold": 0.08,
+    "total": 517,
+    "distress_events": 14,
+    "base_rate_pct": 2.71,
+    "tn": 465,
+    "fp": 38,
+    "fn": 5,
+    "tp": 9,
+    "precision": 0.1915,
+    "recall": 0.6429,
+    "f1": 0.2951,
+    "f2": 0.4369,
+    "specificity": 0.9245,
+    "false_negative_rate": 0.3571,
+    "false_positive_rate": 0.0755,
+    "youden_j": 0.5673,
+    "roc_auc": 0.8828,
+    "pr_auc": 0.2001,
+    "brier_score": 0.0241,
+    "portfolio_flagged_count": 47,
+    "portfolio_flagged_pct": 9.09
+  },
+  "test_metrics_naive_050": {
+    "threshold": 0.5,
+    "total": 262,
+    "distress_events": 11,
+    "base_rate_pct": 4.2,
+    "tn": 251,
+    "fp": 0,
+    "fn": 11,
+    "tp": 0,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "f2": 0.0,
+    "specificity": 1.0,
+    "false_negative_rate": 1.0,
+    "false_positive_rate": 0.0,
+    "youden_j": 0.0,
+    "roc_auc": 0.7783,
+    "pr_auc": 0.1946,
+    "brier_score": 0.0387,
+    "portfolio_flagged_count": 0,
+    "portfolio_flagged_pct": 0.0
+  },
+  "test_metrics_optimal_tau": {
+    "threshold": 0.08,
+    "total": 262,
+    "distress_events": 11,
+    "base_rate_pct": 4.2,
+    "tn": 234,
+    "fp": 17,
+    "fn": 8,
+    "tp": 3,
+    "precision": 0.15,
+    "recall": 0.2727,
+    "f1": 0.1935,
+    "f2": 0.2344,
+    "specificity": 0.9323,
+    "false_negative_rate": 0.7273,
+    "false_positive_rate": 0.0677,
+    "youden_j": 0.205,
+    "roc_auc": 0.7783,
+    "pr_auc": 0.1946,
+    "brier_score": 0.0387,
+    "portfolio_flagged_count": 20,
+    "portfolio_flagged_pct": 7.63
+  },
+  "test_recall_95ci": [
+    0.0975,
+    0.5657
+  ],
+  "calibration": {
+    "val_brier_raw": 0.0512,
+    "val_brier_calibrated": 0.0241,
+    "test_brier_raw": 0.0626,
+    "test_brier_calibrated": 0.0387,
+    "val_calibrated_curve": {
+      "prob_true": [
+        0.0218,
+        0.2308
+      ],
+      "prob_pred": [
+        0.0211,
+        0.2685
+      ]
+    }
+  },
+  "feature_count": 163
+}

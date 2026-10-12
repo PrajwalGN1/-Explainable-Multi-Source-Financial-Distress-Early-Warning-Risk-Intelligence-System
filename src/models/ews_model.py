@@ -27,6 +27,7 @@ class TemporalEWSModel:
         self.calibrator: Optional[ProbabilityCalibrator] = None
         self.best_model = None
         self.best_model_name = ""
+        self.operating_threshold = 0.08 # Validated operational early warning threshold
         self.evaluation_results: Dict[str, any] = {}
 
     def prepare_data(self, df_raw: pd.DataFrame, train_max_time: int = 10, val_max_time: int = 12) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
@@ -135,6 +136,12 @@ class TemporalEWSModel:
         cal_prob = self.calibrator.predict_proba(X)[:, 1] if self.calibrator else raw_prob
         return raw_prob, cal_prob
 
+    def predict_distress(self, df: pd.DataFrame, threshold: Optional[float] = None) -> np.ndarray:
+        """Returns binary early-warning predictions at the configured operational threshold."""
+        _, cal_prob = self.predict_risk(df)
+        t = threshold if threshold is not None else self.operating_threshold
+        return (cal_prob >= t).astype(int)
+
     def save(self, model_dir: str = "models/ews"):
         os.makedirs(model_dir, exist_ok=True)
         joblib.dump(self.best_model, os.path.join(model_dir, "best_ews_model.joblib"))
@@ -143,6 +150,10 @@ class TemporalEWSModel:
             self.calibrator.save(os.path.join(model_dir, "ews_calibrator.joblib"))
         with open(os.path.join(model_dir, "ews_metrics.json"), "w", encoding="utf-8") as f:
             json.dump(self.evaluation_results, f, indent=2)
+        thresh_path = os.path.join(model_dir, "threshold_config.json")
+        if not os.path.exists(thresh_path):
+            with open(thresh_path, "w", encoding="utf-8") as f:
+                json.dump({"operating_threshold": self.operating_threshold}, f, indent=2)
         logger.info(f"EWS model artifacts successfully saved to {model_dir}")
 
     @staticmethod
@@ -155,4 +166,10 @@ class TemporalEWSModel:
         if os.path.exists(os.path.join(model_dir, "ews_metrics.json")):
             with open(os.path.join(model_dir, "ews_metrics.json"), "r", encoding="utf-8") as f:
                 instance.evaluation_results = json.load(f)
+        thresh_path = os.path.join(model_dir, "threshold_config.json")
+        if os.path.exists(thresh_path):
+            with open(thresh_path, "r", encoding="utf-8") as f:
+                cfg = json.load(f)
+                instance.operating_threshold = float(cfg.get("operating_threshold", 0.08))
         return instance
+

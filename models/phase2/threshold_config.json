@@ -1,0 +1,18 @@
+{
+  "operating_threshold": 0.08,
+  "selection_metric": "F2-Score (Recall >= 60% constraint)",
+  "selection_fold": "Validation Fold (T=11,12)",
+  "candidate_thresholds": [
+    0.05,
+    0.08,
+    0.1,
+    0.13,
+    0.17,
+    0.5
+  ],
+  "critical_alert_threshold": 0.17,
+  "high_alert_threshold": 0.13,
+  "watch_score_threshold": 8.0,
+  "high_score_threshold": 13.0,
+  "critical_score_threshold": 17.0
+}

@@ -1,0 +1,16 @@
+{
+  "phase": "Phase 2 Model Validation & Stacking Refactoring",
+  "primary_model_type": "RandomForestClassifier",
+  "preprocessor_type": "EWSPreprocessor",
+  "calibrator_type": "CalibratedClassifierCV (Platt / Sigmoid)",
+  "dataset_a_train_periods": "1 <= T <= 10 (N=2471)",
+  "dataset_a_val_periods": "11 <= T <= 12 (N=517)",
+  "dataset_a_test_periods": "T == 13 (N=262)",
+  "status": "Validated",
+  "synthetic_proxies_removed": true,
+  "operating_threshold": 0.08,
+  "test_roc_auc": 0.7783,
+  "test_pr_auc": 0.1946,
+  "test_recall": 0.2727,
+  "test_precision": 0.15
+}

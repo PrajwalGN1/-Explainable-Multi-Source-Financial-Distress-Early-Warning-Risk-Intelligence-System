@@ -1,0 +1,4 @@
+Experiment,Description,Val_ROC_AUC,Test_ROC_AUC,Test_PR_AUC,Test_Brier
+Experiment A (Stacking with Distorted Proxies),Original meta-model on x64/x81 formulas + val_a fitted,0.8195,0.6588,0.1294,0.0397
+Experiment B (Clean Temporal EWS - Random Forest),Single primary model without any synthetic proxies,0.8828,0.7783,0.1946,0.0387
+Experiment C (Proper Leak-Free OOF Stacking),"OOF on Train (T<=10) of RF + XGB + LR, evaluated on Val/Test",0.8845,0.7863,0.1739,0.0395

@@ -148,7 +148,12 @@ def model_info():
         with open("models/bankruptcy/bankruptcy_metrics.json", "r") as f:
             bankruptcy_metrics = json.load(f)
             
-    return {
+    phase2_metrics = {}
+    if os.path.exists("models/phase2/ews_metrics.json"):
+        with open("models/phase2/ews_metrics.json", "r") as f:
+            phase2_metrics = json.load(f)
+            
+    info = {
         "temporal_ews_model": {
             "dataset": "Dataset A (Financial Distress panel, Tehran Stock Exchange)",
             "prediction_horizon": "t+1 Forward Distress",
@@ -171,6 +176,10 @@ def model_info():
             "leakage_protection": "Trained exclusively on out-of-fold validation splits"
         }
     }
+    if phase2_metrics:
+        info["phase2_validated_model"] = phase2_metrics
+    return info
+
 
 @app.post("/predict", response_model=RiskPredictionResponse, tags=["Scoring"])
 def predict_risk(payload: RiskPredictionRequest):
