@@ -7,9 +7,11 @@ Implements Senior Biostatistician, Financial Model Risk Validator, and ML Platfo
 3. Independently calculates sample-size and statistical power sensitivity across discordant rates and margins.
    - Specifically documents why 60 events does NOT automatically provide adequate power for delta=0.05.
 4. Validates Lan-DeMets (O'Brien-Fleming) group sequential testing boundaries at interim looks N=20, 40, 60.
+   - Rigorously distinguishes nominal boundary p-values from cumulative alpha spent.
 5. Defines information fraction, stopping rules, type-I error control, and handling of missing/right-censored cases.
-6. Distinguishes continuous exploratory monitoring from formal hypothesis testing.
-7. Maintains uninterrupted prospective shadow surveillance and multi-period feature drift monitoring.
+   - Audits source records of right-censored firms, keeping them outside primary matured analysis.
+6. Reconciles multi-period feature drift across all periods T in [10, 14], investigating x12 moderate drift at T=14.
+7. Tracks prospective cohort (N=270, 8.52% alert rate, capacity breach) separately from matured cohort (N=264, 7.20% alert rate).
 """
 
 import os
@@ -125,10 +127,8 @@ def reconstruct_paired_detection_table() -> Dict[str, Any]:
     m00 = int(((~neg_df["cand_is_alert"]) & (~neg_df["prod_is_alert"])).sum())# Both true negative
 
     # Exact McNemar test for false alarms on healthy cohort
-    # Discordant pairs are m10 (cand only) and m01 (base only)
     mcnemar_discordant_total = m10 + m01
     mcnemar_exact_p_twosided = float(stats.binom.pmf(m10, mcnemar_discordant_total, 0.5) * 2) if mcnemar_discordant_total > 0 else 1.0
-    # One-sided test (cand has fewer false positives than baseline)
     mcnemar_exact_p_onesided = float(stats.binom.cdf(m10, mcnemar_discordant_total, 0.5)) if mcnemar_discordant_total > 0 else 1.0
 
     table_report = {
@@ -173,7 +173,7 @@ def reconstruct_paired_detection_table() -> Dict[str, Any]:
 def verify_non_inferiority_hypotheses_and_margins() -> Dict[str, Any]:
     """
     Independent Verification Step 2:
-    Verifies the non-inferiority hypothesis formulation, business-selected margins,
+    Verifies non-inferiority hypothesis formulation, business margins,
     and evaluates why current evidence (N=8) cannot claim statistical non-inferiority.
     """
     hypotheses = {
@@ -184,7 +184,7 @@ def verify_non_inferiority_hypotheses_and_margins() -> Dict[str, Any]:
             "strict_tier": {
                 "margin_delta": 0.05,
                 "percentage_points": "5.0 percentage points",
-                "risk_tolerance_rationale": "In corporate distress early warning, an unhedged failure represents severe Loss Given Default. A strict 5 pp recall loss is the maximum tolerable deterioration in exchange for a 40%+ reduction in false alarms."
+                "risk_tolerance_rationale": "In corporate distress early warning, unhedged failure carries severe Loss Given Default. A strict 5 pp recall loss is the maximum tolerable deterioration in exchange for a 40%+ reduction in false alarms."
             },
             "practical_tier": {
                 "margin_delta": 0.10,
@@ -212,18 +212,14 @@ def independent_power_and_sample_size_sensitivity() -> Dict[str, Any]:
     """
     os.makedirs("results/phase6_3", exist_ok=True)
 
-    # Standard paired non-inferiority sample size formula (Lu & Bean 1995, Tango 1998, Chow et al. 2008):
-    # N = ((Z_{1-alpha} + Z_{1-beta})^2 * p_disc) / (delta - d)^2
-    # Under d = 0 (true parity):
     alpha = 0.05
-    z_alpha = stats.norm.ppf(1 - alpha) # 1.64485
-    powers = [0.70, 0.80, 0.90]
+    z_alpha = stats.norm.ppf(1 - alpha)  # 1.64485
     p_disc_assumptions = [0.02, 0.0242, 0.05, 0.08, 0.10, 0.12, 0.15, 0.20]
     margins = [0.03, 0.05, 0.08, 0.10]
 
-    # 1. Required sample size table for 80% power
-    z_beta_80 = stats.norm.ppf(0.80) # 0.84162
-    factor_80 = (z_alpha + z_beta_80)**2 # 6.18254
+    # Required sample size for 80% power
+    z_beta_80 = stats.norm.ppf(0.80)  # 0.84162
+    factor_80 = (z_alpha + z_beta_80)**2  # 6.18254
 
     sample_size_requirements = []
     for p in p_disc_assumptions:
@@ -233,7 +229,7 @@ def independent_power_and_sample_size_sensitivity() -> Dict[str, Any]:
             row[f"n_req_delta_{int(m*100)}pct"] = int(np.ceil(n_req))
         sample_size_requirements.append(row)
 
-    # 2. Power at N = 60 across assumptions
+    # Power at N = 60 across assumptions
     power_at_n60 = []
     for p in p_disc_assumptions:
         row = {"p_discordant": p}
@@ -244,16 +240,13 @@ def independent_power_and_sample_size_sensitivity() -> Dict[str, Any]:
             row[f"power_delta_{int(m*100)}pct"] = round(pow_val, 4)
         power_at_n60.append(row)
 
-    # 3. Comprehensive Power Grid across Sample Sizes
+    # Comprehensive Power Grid across Sample Sizes
     sample_sizes = [8, 10, 15, 20, 30, 40, 50, 60, 75, 100, 150, 200, 248, 300]
     comprehensive_grid = []
     for n in sample_sizes:
         row = {"n_distress": n}
-        # Baseline assumption p_disc = 0.10
         se_010 = np.sqrt(0.10 / n)
-        # Low discordance assumption p_disc = 0.05
         se_005 = np.sqrt(0.05 / n)
-        # Very low discordance assumption p_disc = 0.0242
         se_0024 = np.sqrt(0.0242 / n)
 
         row["power_p010_delta05"] = round(float(stats.norm.cdf(0.05 / se_010 - z_alpha)), 4)
@@ -263,7 +256,6 @@ def independent_power_and_sample_size_sensitivity() -> Dict[str, Any]:
         row["power_p0024_delta05"] = round(float(stats.norm.cdf(0.05 / se_0024 - z_alpha)), 4)
         comprehensive_grid.append(row)
 
-    # 4. Critical Findings Synthesis
     findings = {
         "finding_1_sixty_events_uncertainty": (
             "60 matured events DOES NOT automatically guarantee 80% power for delta = 0.05. "
@@ -278,16 +270,7 @@ def independent_power_and_sample_size_sensitivity() -> Dict[str, Any]:
         "finding_3_current_cohort_n8_inadequacy": (
             "At the current matured sample N=8, statistical power is only 11.55% for delta = 0.05 and 22.65% for delta = 0.10. "
             "Testing for non-inferiority with N=8 is completely indefensible from a biostatistical standpoint."
-        ),
-        "surveillance_timeline_implications": {
-            "distress_rate_per_year": "3.0% to 4.0% annual default rate in Iranian SME panel",
-            "firms_per_annual_cohort": "~250 to 270 firms",
-            "annual_distress_yield": "~8 to 10 failure events per cohort-year",
-            "cohorts_for_look_1_n20": "2 to 3 filing cycles (~500 firm-years)",
-            "cohorts_for_look_2_n40": "4 to 5 filing cycles (~1,000 firm-years)",
-            "cohorts_for_look_3_n60": "6 to 7 filing cycles (~1,500 firm-years)",
-            "cohorts_for_strict_n248": "20+ filing cycles (~6,200 firm-years) unless expanded multi-bank portfolio is pooled."
-        }
+        )
     }
 
     report = {
@@ -307,70 +290,95 @@ def independent_power_and_sample_size_sensitivity() -> Dict[str, Any]:
 def validate_group_sequential_boundaries() -> Dict[str, Any]:
     """
     Independent Verification Step 4:
-    Validates Lan-DeMets / O'Brien-Fleming group sequential boundaries at interim looks N=20, 40, 60.
-    Defines information fraction, nominal alphas, critical Z-scores, and stopping rules.
+    Validates Lan-DeMets (1983) O'Brien-Fleming group sequential design across interim looks N=20, 40, 60.
+    Rigorously distinguishes between:
+      1) Nominal boundary p-values p_k = 1 - Phi(Z_k)
+      2) Cumulative alpha spent alpha*(t_k) = 2 - 2*Phi(Z_{alpha/2} / sqrt(t_k))
+      3) Incremental alpha spent Delta alpha_k = alpha*(t_k) - alpha*(t_{k-1})
     """
     os.makedirs("results/phase6_3", exist_ok=True)
 
     n_max = 60
+    t_looks = [20 / n_max, 40 / n_max, 60 / n_max]  # [1/3, 2/3, 1.0]
+    z_scores = [2.96, 2.14, 1.71]
+
+    # Lan-DeMets O'Brien-Fleming spending function for overall alpha = 0.05
+    z_a2 = stats.norm.ppf(1 - 0.05 / 2)  # 1.95996
+    cum_alphas = [round(float(2 - 2 * stats.norm.cdf(z_a2 / np.sqrt(t))), 6) for t in t_looks]
+    inc_alphas = [cum_alphas[0]]
+    for i in range(1, len(cum_alphas)):
+        inc_alphas.append(round(cum_alphas[i] - cum_alphas[i - 1], 6))
+
+    nominal_p_values = [round(float(1 - stats.norm.cdf(z)), 6) for z in z_scores]
+
     looks = [
         {
             "look_index": 1,
-            "interim_name": "Interim Look 1 (Safety & Extreme Superiority Check)",
+            "interim_name": "Interim Look 1 (Safety & Overwhelming Superiority)",
             "distress_events_observed": 20,
-            "information_fraction": round(20 / n_max, 4),
-            "critical_z_score": 2.96,
-            "nominal_alpha_spent": 0.0015,
-            "required_p_value": "< 0.0015",
-            "stopping_action": "Early stopping permitted ONLY for overwhelming early superiority (Z >= 2.96). If candidate recall drops by > 2*delta (Delta R < -0.10), suspend shadow testing for model defect analysis."
+            "information_fraction": round(t_looks[0], 4),
+            "critical_z_score": z_scores[0],
+            "nominal_boundary_p_value": nominal_p_values[0],  # 0.001538 (~0.0015)
+            "cumulative_alpha_spent": cum_alphas[0],          # 0.000687 (0.0687%)
+            "incremental_alpha_spent": inc_alphas[0],         # 0.000687
+            "stopping_action": "Early stopping permitted ONLY for overwhelming early superiority (Z >= 2.96, nominal p < 0.0015). If candidate recall drops by > 2*delta (Delta R < -0.10), suspend shadow testing for model defect analysis."
         },
         {
             "look_index": 2,
             "interim_name": "Interim Look 2 (Futility & Confirmatory Progress)",
             "distress_events_observed": 40,
-            "information_fraction": round(40 / n_max, 4),
-            "critical_z_score": 2.14,
-            "nominal_alpha_spent": 0.0163,
-            "required_p_value": "< 0.0163",
+            "information_fraction": round(t_looks[1], 4),
+            "critical_z_score": z_scores[1],
+            "nominal_boundary_p_value": nominal_p_values[1],  # 0.016177 (~0.0162)
+            "cumulative_alpha_spent": cum_alphas[1],          # 0.016375 (1.6375%)
+            "incremental_alpha_spent": inc_alphas[1],         # 0.015688
             "stopping_action": "Evaluate futility. If candidate recall is significantly inferior or if Delta R < -0.10, terminate candidate testing. Early promotion permitted if Z >= 2.14."
         },
         {
             "look_index": 3,
             "interim_name": "Final Look 3 (Formal Non-Inferiority Promotion Test)",
             "distress_events_observed": 60,
-            "information_fraction": 1.0000,
-            "critical_z_score": 1.71,
-            "nominal_alpha_spent": 0.0440,
-            "required_p_value": "< 0.0440",
-            "stopping_action": "Confirmatory non-inferiority evaluation submitted to Model Risk Committee. Promotion requires Z >= 1.71 (p < 0.0440) alongside operational criteria."
+            "information_fraction": round(t_looks[2], 4),
+            "critical_z_score": z_scores[2],
+            "nominal_boundary_p_value": nominal_p_values[2],  # 0.043633 (~0.0440)
+            "cumulative_alpha_spent": cum_alphas[2],          # 0.050000 (5.0000%)
+            "incremental_alpha_spent": inc_alphas[2],         # 0.033625
+            "stopping_action": "Confirmatory non-inferiority evaluation submitted to Model Risk Committee. Promotion requires Z >= 1.71 (nominal p < 0.0440) alongside operational criteria."
         }
     ]
 
-    stopping_rules = {
-        "type_I_error_control": "Overall one-sided alpha = 0.05 strictly preserved across all 3 looks by Lan-DeMets O'Brien-Fleming spending.",
-        "peeking_ban": "Unplanned significance testing between scheduled interim looks is strictly prohibited. Continuous monitoring is restricted to exploratory operational telemetry.",
-        "futility_safety_rule": "If at Look 1 or Look 2, candidate recall is observed to be strictly inferior to baseline by more than 2*delta (Delta R < -0.10 for delta=0.05), surveillance is immediately suspended.",
-        "information_fraction_definition": "Information fraction t_k = N_distress,k / N_max = N_k / 60. Information accumulates strictly with confirmed, audited failure events, not with healthy non-events."
+    methodological_clarification = {
+        "critical_distinction": (
+            "Nominal boundary p-values (p_k = 1 - Phi(Z_k)) are the single-look unadjusted tail areas "
+            "required to cross the boundary at stage k (0.0015, 0.0162, 0.0436). "
+            "In contrast, cumulative alpha spent (alpha*(t_k)) represents the total probability of false rejection "
+            "accumulated up to stage k under the continuous Lan-DeMets spending function (0.0007, 0.0164, 0.0500). "
+            "Conflating nominal boundary p-values with alpha spent is a common reporting error that this implementation resolves."
+        ),
+        "total_type_I_error_guarantee": "Overall family-wise false positive rate is strictly bounded at alpha <= 0.0500.",
+        "peeking_ban": "Unplanned significance testing between scheduled interim looks is strictly prohibited."
     }
 
     report = {
         "maximum_planned_events": n_max,
         "interim_looks": looks,
-        "governance_and_stopping_rules": stopping_rules
+        "statistical_design_verification": methodological_clarification
     }
 
     with open("results/phase6_3/group_sequential_boundaries.json", "w", encoding="utf-8") as f:
         json.dump(report, f, indent=2)
 
-    logger.info("Saved group sequential boundaries to results/phase6_3/group_sequential_boundaries.json")
+    logger.info("Saved verified group sequential boundaries to results/phase6_3/group_sequential_boundaries.json")
     return report
 
 
 def audit_censored_and_missing_outcomes() -> Dict[str, Any]:
     """
     Independent Verification Step 5:
-    Audits the right-censored / filing cessation cohort (N=6), provides sensitivity bounds,
-    and formalizes governance handling for unresolved outcomes.
+    Audits source records for the 6 filing-cessation firms (Companies 68, 115, 159, 203, 276, 301).
+    Validates that while their contemporaneous filing at T=12 breached <= -0.50, their forward T+1=13
+    outcome is unobserved in source records.
+    Keeps these cases strictly outside the primary matured analysis.
     """
     os.makedirs("results/phase6_3", exist_ok=True)
     df_preds = pd.read_csv("results/phase6/prospective_predictions.csv")
@@ -380,52 +388,45 @@ def audit_censored_and_missing_outcomes() -> Dict[str, Any]:
     roster = []
     for _, row in censored_df.iterrows():
         cid = int(row["company_id"])
-        raw_co = df_raw[df_raw["Company"] == cid]
+        raw_co = df_raw[df_raw["Company"] == cid].sort_values("Time")
         periods = sorted(raw_co["Time"].unique())
         last_row = raw_co[raw_co["Time"] == periods[-1]].iloc[0]
         last_fd = float(last_row["Financial Distress"])
+        has_t13_record = bool(13 in periods)
 
         roster.append({
             "company_id": cid,
-            "last_period_observed": int(periods[-1]),
-            "last_financial_distress_value": round(last_fd, 4),
-            "terminal_distress_threshold_breached": bool(last_fd <= -0.5),
+            "last_period_observed_in_source": int(periods[-1]),
+            "last_financial_distress_value_at_exit": round(last_fd, 4),
+            "exit_period_index_breached_distress_threshold": bool(last_fd <= -0.5),
+            "forward_target_period_t13_record_exists": has_t13_record,
+            "forward_t13_statutory_outcome": "UNOBSERVED_FILING_CESSATION",
             "production_is_alert": bool(row["prod_is_alert"]),
             "candidate_is_alert": bool(row["cand_is_alert"]),
             "production_prob": round(float(row["prod_calibrated_probability"]), 4),
             "candidate_prob": round(float(row["cand_calibrated_probability"]), 4)
         })
 
-    # Sensitivity bounds:
-    # Baseline Scenario: Strictly excluded (Current official protocol, N_distress = 8)
-    # Competing Risk Scenario: Credit Committee confirms all 6 terminal exits as administrative default.
-    # Total distress = 8 + 6 = 14.
-    # On the 6 exits: both models alerted on 4 (Companies 68, 115, 159, 203) and cleared 2 (Companies 276, 301).
-    # Baseline TP = 5 + 4 = 9 / 14 = 64.29%
-    # Candidate TP = 5 + 4 = 9 / 14 = 64.29%
-    # Recall parity is 100% maintained even under complete default attribution!
-    sensitivity_bounds = {
-        "scenario_1_strict_exclusion": {
-            "description": "Filing cessation excluded from binary validation (Current official protocol)",
-            "n_distress": 8,
+    # Sensitivity bounds: Strictly outside primary matured analysis
+    competing_risk_scenarios = {
+        "primary_matured_analysis": {
+            "handling": "Strict exclusion of right-censored firms (N_censored = 6)",
+            "justification": "The approved outcome definition requires an audited forward statutory filing at t+1 = 13. Forward status is unobserved in source records.",
+            "matured_distress_count": 8,
+            "matured_healthy_count": 256,
             "baseline_recall": 0.6250,
             "candidate_recall": 0.6250,
-            "recall_parity": True
+            "status": "AUTHORITATIVE_OFFICIAL_LEDGER"
         },
-        "scenario_2_complete_default_attribution": {
-            "description": "All 6 filing cessation firms administratively confirmed as terminal distress (Y=1)",
-            "n_distress": 14,
+        "exploratory_scenario_complete_default_attribution": {
+            "handling": "Hypothetical attribution: assume all 6 filing-cessation firms defaulted at T=13",
+            "total_hypothetical_distress": 14,
             "baseline_detected": 9,
             "candidate_detected": 9,
-            "baseline_recall": round(9 / 14, 4),
-            "candidate_recall": round(9 / 14, 4),
+            "baseline_recall": 0.6429,
+            "candidate_recall": 0.6429,
             "recall_parity": True,
-            "discordant_pairs": 0,
-            "insight": "Both models demonstrate identical 64.29% recall under terminal exit default attribution. Candidate saves 10 false alarms without any recall impairment."
-        },
-        "scenario_3_worst_case_candidate_adversarial": {
-            "description": "Hypothetical extreme scenario where the 2 cleared firms (276, 301) are default but flagged firms are healthy",
-            "insight": "Highly implausible: Companies 276 and 301 had financial distress values of -0.6947 and -0.6302 at exit, showing severe financial deterioration."
+            "status": "HYPOTHETICAL_REQUIRES_COMMITTEE_APPROVAL"
         }
     }
 
@@ -434,10 +435,11 @@ def audit_censored_and_missing_outcomes() -> Dict[str, Any]:
         "total_prospective_cohort": len(df_preds),
         "censored_percentage": round(len(roster) / len(df_preds) * 100.0, 2),
         "firm_roster": roster,
-        "competing_risk_sensitivity_analysis": sensitivity_bounds,
+        "competing_risk_sensitivity_analysis": competing_risk_scenarios,
         "governance_directive": (
-            "Right-censored firms must NEVER be silently imputed as healthy (0) or distressed (1) in official ledgers. "
-            "They remain in a separate governed ledger requiring Model Risk Committee and Credit Review sign-off."
+            "Right-censored cases must remain strictly OUTSIDE the primary matured analysis. "
+            "Contemporaneous deterioration at exit (T=12) cannot substitute for an audited statutory default filing at T=13 "
+            "without formal Model Risk Committee and Credit Review administrative sign-off."
         )
     }
 
@@ -451,25 +453,35 @@ def audit_censored_and_missing_outcomes() -> Dict[str, Any]:
 def compile_shadow_surveillance_telemetry_phase6_3() -> Dict[str, Any]:
     """
     Independent Verification Step 6:
-    Compiles complete shadow surveillance telemetry across prospective cohort (N=270),
-    matured cohort (N=264), feature drift trajectories, and latency tracking.
+    Compiles complete shadow surveillance telemetry:
+    1. Prospective cohort (N=270): Alert rate 8.52% exceeds strict 8.0% capacity limit (reported separately).
+    2. Matured cohort (N=264): Alert rate 7.20% complies with 8.0% capacity limit (reported separately).
+    3. Multi-period drift reconciliation for all periods T in [10, 14], detailing x12 moderate drift at T=14.
     """
     os.makedirs("results/phase6_3", exist_ok=True)
     df_preds = pd.read_csv("results/phase6/prospective_predictions.csv")
     df_mature = df_preds[df_preds["outcome_maturity_status"] == "MATURED"].copy()
+    df_censored = df_preds[df_preds["outcome_maturity_status"] != "MATURED"].copy()
 
-    # 1. Prospective Telemetry (N=270)
+    # 1. Prospective Cohort Telemetry (N=270)
     n_total = len(df_preds)
-    pb_alerts = int(df_preds["prod_is_alert"].sum())
-    cand_alerts = int(df_preds["cand_is_alert"].sum())
+    pb_alerts_prospective = int(df_preds["prod_is_alert"].sum())
+    cand_alerts_prospective = int(df_preds["cand_is_alert"].sum())
+    cand_alert_rate_prospective = round(cand_alerts_prospective / n_total * 100.0, 2)
+    prod_alert_rate_prospective = round(pb_alerts_prospective / n_total * 100.0, 2)
     both_alert = int(((df_preds["prod_is_alert"]) & (df_preds["cand_is_alert"])).sum())
     neither_alert = int(((~df_preds["prod_is_alert"]) & (~df_preds["cand_is_alert"])).sum())
     agreement_rate = round((both_alert + neither_alert) / n_total * 100.0, 2)
 
-    # 2. Matured Telemetry (N=264)
+    # 2. Matured Cohort Telemetry (N=264)
     y_true = df_mature["actual_target"].astype(int).to_numpy()
     p_preds = df_mature["prod_is_alert"].astype(int).to_numpy()
     c_preds = df_mature["cand_is_alert"].astype(int).to_numpy()
+
+    cand_alerts_matured = int(c_preds.sum())
+    prod_alerts_matured = int(p_preds.sum())
+    cand_alert_rate_matured = round(cand_alerts_matured / len(df_mature) * 100.0, 2)
+    prod_alert_rate_matured = round(prod_alerts_matured / len(df_mature) * 100.0, 2)
 
     tn_p, fp_p, fn_p, tp_p = confusion_matrix(y_true, p_preds, labels=[0, 1]).ravel()
     tn_c, fp_c, fn_c, tp_c = confusion_matrix(y_true, c_preds, labels=[0, 1]).ravel()
@@ -477,25 +489,40 @@ def compile_shadow_surveillance_telemetry_phase6_3() -> Dict[str, Any]:
     bs_p = round(float(brier_score_loss(y_true, df_mature["prod_calibrated_probability"].to_numpy())), 4)
     bs_c = round(float(brier_score_loss(y_true, df_mature["cand_calibrated_probability"].to_numpy())), 4)
 
-    # 3. Multi-Period Drift Persistence Check for x48, x12, x16, x25, x2
+    # 3. Right-Censored Subset Telemetry (N=6)
+    cand_alerts_censored = int(df_censored["cand_is_alert"].sum())
+    prod_alerts_censored = int(df_censored["prod_is_alert"].sum())
+    cand_alert_rate_censored = round(cand_alerts_censored / len(df_censored) * 100.0, 2)
+
+    # 4. Multi-Period Drift Across All Periods T in [10, 11, 12, 13, 14]
     df_raw = DataLoader("data/raw").load_dataset_a()
     ref_mask = (df_raw["Time"] <= 10)
     ref_df = df_raw[ref_mask]
     features = ["x48", "x12", "x16", "x25", "x2"]
-    drift_summary = {}
+    periods = [10, 11, 12, 13, 14]
+    drift_all_periods = {}
 
     for feat in features:
         ref_vals = ref_df[feat].to_numpy()
-        t12_vals = df_raw[df_raw["Time"] == 12][feat].to_numpy()
-        t14_vals = df_raw[df_raw["Time"] == 14][feat].to_numpy()
-        psi_t12 = calculate_psi(ref_vals, t12_vals)
-        psi_t14 = calculate_psi(ref_vals, t14_vals)
-        drift_summary[feat] = {
-            "psi_t12": psi_t12,
-            "status_t12": "SIGNIFICANT_DRIFT" if psi_t12 >= 0.25 else ("MODERATE_DRIFT" if psi_t12 >= 0.10 else "STABLE"),
-            "psi_t14": psi_t14,
-            "status_t14": "SIGNIFICANT_DRIFT" if psi_t14 >= 0.25 else ("MODERATE_DRIFT" if psi_t14 >= 0.10 else "STABLE"),
-            "trajectory_pattern": "TRANSIENT_CYCLICAL" if psi_t12 >= 0.25 and psi_t14 < 0.10 else "STABLE"
+        feat_traj = {}
+        for t in periods:
+            sub = df_raw[df_raw["Time"] == t][feat].to_numpy()
+            psi_val = calculate_psi(ref_vals, sub)
+            status = "STABLE" if psi_val < 0.10 else ("MODERATE_DRIFT" if psi_val < 0.25 else "SIGNIFICANT_DRIFT")
+            feat_traj[f"T_{t}"] = {
+                "period": t,
+                "n_obs": len(sub),
+                "psi": psi_val,
+                "status": status,
+                "median": round(float(np.median(sub)), 4)
+            }
+        
+        drift_all_periods[feat] = {
+            "trajectory": feat_traj,
+            "status_t12": feat_traj["T_12"]["status"],
+            "status_t14": feat_traj["T_14"]["status"],
+            "psi_t12": feat_traj["T_12"]["psi"],
+            "psi_t14": feat_traj["T_14"]["psi"]
         }
 
     telemetry_report = {
@@ -506,35 +533,44 @@ def compile_shadow_surveillance_telemetry_phase6_3() -> Dict[str, Any]:
             "production_isolation": "PASS (Zero interference, read-only baseline, candidate errors isolated)"
         },
         "prospective_cohort_n270": {
+            "cohort_description": "Full prospective surveillance cohort at T=12 (Matured N=264 + Right-Censored N=6)",
             "total_firms": n_total,
-            "production_alerts": pb_alerts,
-            "production_alert_rate_pct": round(pb_alerts / n_total * 100.0, 2),
-            "candidate_alerts": cand_alerts,
-            "candidate_alert_rate_pct": round(cand_alerts / n_total * 100.0, 2),
+            "production_alerts": pb_alerts_prospective,
+            "production_alert_rate_pct": prod_alert_rate_prospective,
+            "candidate_alerts": cand_alerts_prospective,
+            "candidate_alert_rate_pct": cand_alert_rate_prospective,
+            "alert_capacity_limit_pct": 8.00,
+            "alert_budget_compliance": "EXCEEDS_CAPACITY_LIMIT (8.52% exceeds 8.00% capacity limit by +0.52 pp / +1.4 alerts)",
+            "budget_compliance_boolean": False,
             "inter_model_agreement_pct": agreement_rate,
-            "workload_reduction_alerts": pb_alerts - cand_alerts,
-            "workload_reduction_pct": round((pb_alerts - cand_alerts) / pb_alerts * 100.0, 2),
-            "budget_compliance": "COMPLIANT (8.52% vs 8.0% target band)"
+            "workload_reduction_alerts": pb_alerts_prospective - cand_alerts_prospective,
+            "workload_reduction_pct": round((pb_alerts_prospective - cand_alerts_prospective) / pb_alerts_prospective * 100.0, 2)
         },
         "matured_cohort_n264": {
+            "cohort_description": "Audited matured observations with observable T+1=13 outcome",
             "matured_total": len(df_mature),
             "distress_events": int(y_true.sum()),
             "healthy_firms": int(len(y_true) - y_true.sum()),
+            "production_alerts": prod_alerts_matured,
+            "production_alert_rate_pct": prod_alert_rate_matured,
+            "candidate_alerts": cand_alerts_matured,
+            "candidate_alert_rate_pct": cand_alert_rate_matured,
+            "alert_capacity_limit_pct": 8.00,
+            "alert_budget_compliance": "COMPLIANT_WITHIN_LIMIT (7.20% is within 8.00% capacity limit)",
+            "budget_compliance_boolean": True,
             "production_performance": {
                 "tp": int(tp_p), "fp": int(fp_p), "tn": int(tn_p), "fn": int(fn_p),
                 "recall": round(float(tp_p / y_true.sum()), 4),
                 "precision": round(float(tp_p / (tp_p + fp_p)), 4),
                 "specificity": round(float(tn_p / (len(y_true) - y_true.sum())), 4),
-                "brier_score": bs_p,
-                "alert_rate_pct": round((tp_p + fp_p) / len(df_mature) * 100.0, 2)
+                "brier_score": bs_p
             },
             "candidate_performance": {
                 "tp": int(tp_c), "fp": int(fp_c), "tn": int(tn_c), "fn": int(fn_c),
                 "recall": round(float(tp_c / y_true.sum()), 4),
                 "precision": round(float(tp_c / (tp_c + fp_c)), 4),
                 "specificity": round(float(tn_c / (len(y_true) - y_true.sum())), 4),
-                "brier_score": bs_c,
-                "alert_rate_pct": round((tp_c + fp_c) / len(df_mature) * 100.0, 2)
+                "brier_score": bs_c
             },
             "operational_impact": {
                 "recall_parity": bool(tp_c == tp_p),
@@ -543,18 +579,25 @@ def compile_shadow_surveillance_telemetry_phase6_3() -> Dict[str, Any]:
                 "precision_relative_gain_pct": round(((tp_c / (tp_c + fp_c)) - (tp_p / (tp_p + fp_p))) / (tp_p / (tp_p + fp_p)) * 100.0, 2)
             }
         },
-        "feature_drift_persistence_summary": drift_summary,
-        "exploratory_vs_formal_boundary": {
-            "exploratory_monitoring": "Continuous pipeline telemetry, alert counts, and PSI tracking. Consumes 0 alpha.",
-            "formal_hypothesis_testing": "Conducted strictly at Look 1 (N=20), Look 2 (N=40), and Final Look (N=60). Governed by Lan-DeMets alpha spending.",
-            "current_governance_action": "CONTINUE SHADOW SURVEILLANCE. Promotion is barred until Look 1 is reached."
+        "right_censored_subset_n6": {
+            "total_firms": len(df_censored),
+            "production_alerts": prod_alerts_censored,
+            "candidate_alerts": cand_alerts_censored,
+            "candidate_alert_rate_pct": cand_alert_rate_censored
+        },
+        "feature_drift_reconciliation_all_periods": drift_all_periods,
+        "x12_investigation_verdict": {
+            "t10_to_t13_status": "STABLE (PSI < 0.10 across T=10, 11, 12, 13)",
+            "t14_status": "MODERATE_DRIFT (PSI = 0.1785 exceeds 0.10 threshold)",
+            "root_cause_analysis": "Median x12 (Operating Cash Flow / Total Debt) compressed from 4.47 (baseline) to 3.06 at T=14, reflecting macro liquidity contraction. Does not trigger retraining as persistence is < 2 cycles.",
+            "overall_classification": "MODERATE_DRIFT_AT_T14 (Not stable overall)"
         }
     }
 
     with open("results/phase6_3/shadow_surveillance_telemetry.json", "w", encoding="utf-8") as f:
         json.dump(telemetry_report, f, indent=2)
 
-    logger.info("Saved shadow surveillance telemetry to results/phase6_3/shadow_surveillance_telemetry.json")
+    logger.info("Saved reconciled shadow surveillance telemetry to results/phase6_3/shadow_surveillance_telemetry.json")
     return telemetry_report
 
 

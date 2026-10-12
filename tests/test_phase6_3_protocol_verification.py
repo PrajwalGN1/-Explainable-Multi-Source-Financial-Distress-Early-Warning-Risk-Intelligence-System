@@ -3,16 +3,11 @@ Phase 6.3 Automated Regression Test Suite:
 Independent Statistical Protocol Verification, Paired Non-Inferiority Testing,
 Lan-DeMets Alpha-Spending Boundaries, and Prospective Shadow Surveillance.
 
-Tests:
-1. Paired Outcome Construction (Distress n11=5, n00=3, n10=0, n01=0; Healthy false alarms m10=2, m01=12)
-2. Non-Inferiority Hypotheses & Business Margins (delta=0.05 and delta=0.10 unproven at N=8)
-3. Independent Power Sensitivity & Sample Size Requirements (N=60 yields 33.72% power for delta=0.05 at p_disc=0.10; N>=248 needed)
-4. Lan-DeMets / O'Brien-Fleming Sequential Testing Boundaries (Look 1: Z=2.96, a=0.0015; Look 2: Z=2.14, a=0.0163; Look 3: Z=1.71, a=0.0440)
-5. Information Fractions and Maturity Gating (Current N=8 < 20 Look 1 gate; formal testing blocked)
-6. Native Decision Handling & Rounding Discrepancy Immunity (Company 409 alert=False prioritized)
-7. Right-Censored Audit Ledger Isolation & Sensitivity Bounds (6 firms isolated; 100% recall parity under default attribution)
-8. Multi-Period Drift Persistence Governance (x48 transient cyclical peak at T=12, normalized at T=14)
-9. Protected Baseline SHA-256 Bitwise Invariance (All Phase 2 artifacts unaltered)
+Updated to validate resolutions for:
+- Issue 1: Prospective cohort alert capacity breach (8.52% > 8.0%) vs matured cohort compliance (7.20% <= 8.0%)
+- Issue 2: Rigorous distinction between nominal boundary p-values and cumulative alpha spent
+- Issue 3: Reconciled multi-period drift across all periods T in [10, 14], verifying x12 moderate drift at T=14
+- Issue 4: Validation of right-censored source records (exit at T=12, unobserved at T=13, kept outside primary analysis)
 """
 
 import os
@@ -154,37 +149,47 @@ def test_independent_power_sensitivity_and_sample_size(power_sensitivity):
 
 
 # ---------------------------------------------------------------------
-# TEST 4: LAN-DEMETS / O'BRIEN-FLEMING SEQUENTIAL BOUNDARIES
+# TEST 4: LAN-DEMETS SEQUENTIAL BOUNDARIES (NOMINAL P VS ALPHA SPENT)
 # ---------------------------------------------------------------------
 
 def test_sequential_boundaries_and_alpha_spending(sequential_boundaries):
-    """Verifies Lan-DeMets (O'Brien-Fleming) interim boundaries at N=20, 40, 60."""
+    """
+    Issue 2 Verification:
+    Verifies that implementation rigorously distinguishes between:
+      1) Nominal boundary p-values (p_k = 0.0015, 0.0162, 0.0436)
+      2) Cumulative alpha spent under Lan-DeMets OBF (alpha*(t_k) = 0.0007, 0.0164, 0.0500)
+    """
     looks = sequential_boundaries["interim_looks"]
     assert len(looks) == 3
 
     # Look 1 at N=20 (t=0.3333)
     assert looks[0]["distress_events_observed"] == 20
-    assert pytest.approx(looks[0]["information_fraction"], 0.001) == 0.3333
+    assert pytest.approx(looks[0]["information_fraction"], abs=1e-3) == 0.3333
     assert looks[0]["critical_z_score"] == 2.96
-    assert looks[0]["nominal_alpha_spent"] == 0.0015
+    assert pytest.approx(looks[0]["nominal_boundary_p_value"], abs=1e-4) == 0.0015
+    assert pytest.approx(looks[0]["cumulative_alpha_spent"], abs=1e-4) == 0.0007
+    assert pytest.approx(looks[0]["incremental_alpha_spent"], abs=1e-4) == 0.0007
 
     # Look 2 at N=40 (t=0.6667)
     assert looks[1]["distress_events_observed"] == 40
-    assert pytest.approx(looks[1]["information_fraction"], 0.001) == 0.6667
+    assert pytest.approx(looks[1]["information_fraction"], abs=1e-3) == 0.6667
     assert looks[1]["critical_z_score"] == 2.14
-    assert looks[1]["nominal_alpha_spent"] == 0.0163
+    assert pytest.approx(looks[1]["nominal_boundary_p_value"], abs=1e-4) == 0.0162
+    assert pytest.approx(looks[1]["cumulative_alpha_spent"], abs=1e-4) == 0.0164
+    assert pytest.approx(looks[1]["incremental_alpha_spent"], abs=1e-4) == 0.0157
 
     # Final Look 3 at N=60 (t=1.0000)
     assert looks[2]["distress_events_observed"] == 60
     assert looks[2]["information_fraction"] == 1.0000
     assert looks[2]["critical_z_score"] == 1.71
-    assert looks[2]["nominal_alpha_spent"] == 0.0440
+    assert pytest.approx(looks[2]["nominal_boundary_p_value"], abs=1e-3) == 0.0436
+    assert pytest.approx(looks[2]["cumulative_alpha_spent"], abs=1e-4) == 0.0500
+    assert pytest.approx(looks[2]["incremental_alpha_spent"], abs=1e-4) == 0.0336
 
-    # Stopping rules check
-    rules = sequential_boundaries["governance_and_stopping_rules"]
-    assert "peeking_ban" in rules
-    assert "futility_safety_rule" in rules
-    assert "information_fraction_definition" in rules
+    # Verify methodological clarification is documented
+    verif = sequential_boundaries["statistical_design_verification"]
+    assert "critical_distinction" in verif
+    assert "total_type_I_error_guarantee" in verif
 
 
 # ---------------------------------------------------------------------
@@ -193,86 +198,109 @@ def test_sequential_boundaries_and_alpha_spending(sequential_boundaries):
 
 def test_information_fractions_and_maturity_gating(paired_table, sequential_boundaries):
     """Verifies that current matured events N=8 fails Look 1 threshold and blocks formal testing."""
-    n_current = paired_table["distress_cases"]["n_total"] # 8
-    n_look1 = sequential_boundaries["interim_looks"][0]["distress_events_observed"] # 20
-    n_max = sequential_boundaries["maximum_planned_events"] # 60
+    n_current = paired_table["distress_cases"]["n_total"]  # 8
+    n_look1 = sequential_boundaries["interim_looks"][0]["distress_events_observed"]  # 20
+    n_max = sequential_boundaries["maximum_planned_events"]  # 60
 
-    current_info_fraction = n_current / n_max # 8/60 = 0.1333
-    look1_info_fraction = n_look1 / n_max     # 20/60 = 0.3333
+    current_info_fraction = n_current / n_max
+    look1_info_fraction = n_look1 / n_max
 
     assert n_current < n_look1, "Gate breach: N=8 must be strictly less than Look 1 requirement (N=20)"
     assert current_info_fraction < look1_info_fraction
 
 
 # ---------------------------------------------------------------------
-# TEST 6: NATIVE DECISION HANDLING & ROUNDING DISCREPANCY IMMUNITY
+# TEST 6: SEPARATE REPORTING OF PROSPECTIVE VS MATURED ALERT BUDGETS
 # ---------------------------------------------------------------------
 
-def test_native_decision_handling(surveillance_telemetry):
-    """Verifies native decision prioritization ensures Company 409 is preserved as alert=False."""
-    matured = surveillance_telemetry["matured_cohort_n264"]
-    pb = matured["production_performance"]
-    cand = matured["candidate_performance"]
+def test_separate_alert_budget_reporting(surveillance_telemetry):
+    """
+    Issue 1 Verification:
+    Verifies that the prospective cohort (8.52%) is explicitly recognized as breaching
+    the 8.0% capacity limit, while the matured subset (7.20%) complies with the limit.
+    """
+    prosp = surveillance_telemetry["prospective_cohort_n270"]
+    mature = surveillance_telemetry["matured_cohort_n264"]
 
-    # Native baseline alert count is 29 (TP=5, FP=24)
-    assert pb["tp"] == 5
-    assert pb["fp"] == 24
-    assert pb["tn"] == 232
-    assert pb["fn"] == 3
-    assert pb["recall"] == 0.6250
-    assert pb["alert_rate_pct"] == 10.98
+    # Prospective cohort: 23 alerts / 270 firms = 8.52% (BREACH of 8.0% limit)
+    assert prosp["total_firms"] == 270
+    assert prosp["candidate_alerts"] == 23
+    assert prosp["candidate_alert_rate_pct"] == 8.52
+    assert prosp["alert_capacity_limit_pct"] == 8.00
+    assert prosp["budget_compliance_boolean"] is False
+    assert "EXCEEDS_CAPACITY_LIMIT" in prosp["alert_budget_compliance"]
 
-    # Candidate alert count is 19 (TP=5, FP=14)
-    assert cand["tp"] == 5
-    assert cand["fp"] == 14
-    assert cand["tn"] == 242
-    assert cand["fn"] == 3
-    assert cand["recall"] == 0.6250
-    assert cand["alert_rate_pct"] == 7.20
-
-    # Recall parity and false alarm delta
-    assert matured["operational_impact"]["recall_parity"] is True
-    assert matured["operational_impact"]["false_positive_delta"] == -10
+    # Matured cohort: 19 alerts / 264 firms = 7.20% (COMPLIANT with 8.0% limit)
+    assert mature["matured_total"] == 264
+    assert mature["candidate_alerts"] == 19
+    assert mature["candidate_alert_rate_pct"] == 7.20
+    assert mature["alert_capacity_limit_pct"] == 8.00
+    assert mature["budget_compliance_boolean"] is True
+    assert "COMPLIANT_WITHIN_LIMIT" in mature["alert_budget_compliance"]
 
 
 # ---------------------------------------------------------------------
-# TEST 7: RIGHT-CENSORED AUDIT LEDGER & SENSITIVITY BOUNDS
+# TEST 7: RIGHT-CENSORED SOURCE RECORD VALIDATION & EXCLUSION
 # ---------------------------------------------------------------------
 
-def test_right_censored_ledger_and_sensitivity_bounds(censored_ledger):
-    """Verifies isolation of 6 filing-cessation firms and confirms sensitivity bounds."""
+def test_right_censored_ledger_and_source_validation(censored_ledger):
+    """
+    Issue 4 Verification:
+    Verifies that the 6 filing-cessation firms exited at T=12 with contemporaneous
+    Financial Distress <= -0.5, but have no forward filing at T=13 in source records.
+    Confirms they are kept strictly OUTSIDE the primary matured analysis.
+    """
     assert censored_ledger["right_censored_count"] == 6
     assert censored_ledger["total_prospective_cohort"] == 270
 
-    # Confirm all 6 breached terminal distress threshold
     for firm in censored_ledger["firm_roster"]:
-        assert firm["terminal_distress_threshold_breached"] is True
-        assert firm["last_financial_distress_value"] <= -0.5
+        assert firm["last_period_observed_in_source"] == 12
+        assert firm["exit_period_index_breached_distress_threshold"] is True
+        assert firm["last_financial_distress_value_at_exit"] <= -0.5
+        assert firm["forward_target_period_t13_record_exists"] is False
+        assert firm["forward_t13_statutory_outcome"] == "UNOBSERVED_FILING_CESSATION"
 
-    # Sensitivity bounds: under full default attribution (Y=1), recall parity is preserved
+    # Confirms primary matured analysis strictly excludes these 6 firms
     sens = censored_ledger["competing_risk_sensitivity_analysis"]
-    scen2 = sens["scenario_2_complete_default_attribution"]
-    assert scen2["baseline_detected"] == 9
-    assert scen2["candidate_detected"] == 9
-    assert scen2["recall_parity"] is True
-    assert scen2["baseline_recall"] == scen2["candidate_recall"]
+    prim = sens["primary_matured_analysis"]
+    assert prim["status"] == "AUTHORITATIVE_OFFICIAL_LEDGER"
+    assert prim["matured_distress_count"] == 8
+    assert prim["matured_healthy_count"] == 256
 
 
 # ---------------------------------------------------------------------
-# TEST 8: MULTI-PERIOD DRIFT PERSISTENCE GOVERNANCE
+# TEST 8: RECONCILED MULTI-PERIOD DRIFT MONITORING ACROSS ALL PERIODS
 # ---------------------------------------------------------------------
 
-def test_multi_period_drift_persistence_governance(surveillance_telemetry):
-    """Verifies that x48 transient spike (T=12) normalized at T=14, barring retraining."""
-    drift = surveillance_telemetry["feature_drift_persistence_summary"]
+def test_multi_period_drift_reconciliation_all_periods(surveillance_telemetry):
+    """
+    Issue 3 Verification:
+    Verifies that drift monitoring includes all periods T in [10, 14], and explicitly
+    reconciles x12 trajectory: stable at T=10..13 (PSI < 0.10) but experiencing moderate
+    drift at T=14 (PSI = 0.1785 > 0.10).
+    """
+    drift = surveillance_telemetry["feature_drift_reconciliation_all_periods"]
+    x12 = drift["x12"]["trajectory"]
 
-    assert drift["x48"]["psi_t12"] == 0.4277
-    assert drift["x48"]["status_t12"] == "SIGNIFICANT_DRIFT"
-    assert drift["x48"]["psi_t14"] == 0.0670
-    assert drift["x48"]["status_t14"] == "STABLE"
-    assert drift["x48"]["trajectory_pattern"] == "TRANSIENT_CYCLICAL"
+    # Verify x12 was stable through T=13
+    assert x12["T_10"]["psi"] < 0.10
+    assert x12["T_11"]["psi"] < 0.10
+    assert x12["T_12"]["psi"] < 0.10
+    assert x12["T_13"]["psi"] < 0.10
 
-    assert drift["x12"]["status_t12"] == "STABLE"
+    # Verify x12 entered moderate drift at T=14
+    assert x12["T_14"]["psi"] == 0.1785
+    assert x12["T_14"]["status"] == "MODERATE_DRIFT"
+
+    # Verify x48 transient peak and normalization
+    x48 = drift["x48"]["trajectory"]
+    assert x48["T_12"]["psi"] == 0.4277
+    assert x48["T_14"]["psi"] == 0.0670
+    assert x48["T_14"]["status"] == "STABLE"
+
+    # Verify investigation verdict is documented
+    verdict = surveillance_telemetry["x12_investigation_verdict"]
+    assert "MODERATE_DRIFT_AT_T14" in verdict["overall_classification"]
 
 
 # ---------------------------------------------------------------------

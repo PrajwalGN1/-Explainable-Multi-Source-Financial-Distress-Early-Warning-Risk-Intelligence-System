@@ -232,15 +232,6 @@
   "biostatistical_findings": {
     "finding_1_sixty_events_uncertainty": "60 matured events DOES NOT automatically guarantee 80% power for delta = 0.05. Under the realistic panel discordant assumption p_disc = 0.10, N=60 yields only 33.72% statistical power. To achieve 80% power at delta = 0.05 with p_disc = 0.10, N_distress >= 248 failure events are required.",
     "finding_2_when_sixty_events_is_adequate": "N = 60 provides adequate power (~79% to 80%) in exactly two distinct scenarios: 1) Practical Tier: If the business adopts margin delta = 0.10 under p_disc = 0.10 (power = 78.95%). 2) Ultra-High Concordance: If discordant rate between models is very low (p_disc <= 0.0242), power reaches 80.09% at delta = 0.05.",
-    "finding_3_current_cohort_n8_inadequacy": "At the current matured sample N=8, statistical power is only 11.55% for delta = 0.05 and 22.65% for delta = 0.10. Testing for non-inferiority with N=8 is completely indefensible from a biostatistical standpoint.",
-    "surveillance_timeline_implications": {
-      "distress_rate_per_year": "3.0% to 4.0% annual default rate in Iranian SME panel",
-      "firms_per_annual_cohort": "~250 to 270 firms",
-      "annual_distress_yield": "~8 to 10 failure events per cohort-year",
-      "cohorts_for_look_1_n20": "2 to 3 filing cycles (~500 firm-years)",
-      "cohorts_for_look_2_n40": "4 to 5 filing cycles (~1,000 firm-years)",
-      "cohorts_for_look_3_n60": "6 to 7 filing cycles (~1,500 firm-years)",
-      "cohorts_for_strict_n248": "20+ filing cycles (~6,200 firm-years) unless expanded multi-bank portfolio is pooled."
-    }
+    "finding_3_current_cohort_n8_inadequacy": "At the current matured sample N=8, statistical power is only 11.55% for delta = 0.05 and 22.65% for delta = 0.10. Testing for non-inferiority with N=8 is completely indefensible from a biostatistical standpoint."
   }
 }

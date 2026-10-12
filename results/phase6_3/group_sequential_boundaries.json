@@ -3,13 +3,14 @@
   "interim_looks": [
     {
       "look_index": 1,
-      "interim_name": "Interim Look 1 (Safety & Extreme Superiority Check)",
+      "interim_name": "Interim Look 1 (Safety & Overwhelming Superiority)",
       "distress_events_observed": 20,
       "information_fraction": 0.3333,
       "critical_z_score": 2.96,
-      "nominal_alpha_spent": 0.0015,
-      "required_p_value": "< 0.0015",
-      "stopping_action": "Early stopping permitted ONLY for overwhelming early superiority (Z >= 2.96). If candidate recall drops by > 2*delta (Delta R < -0.10), suspend shadow testing for model defect analysis."
+      "nominal_boundary_p_value": 0.001538,
+      "cumulative_alpha_spent": 0.000687,
+      "incremental_alpha_spent": 0.000687,
+      "stopping_action": "Early stopping permitted ONLY for overwhelming early superiority (Z >= 2.96, nominal p < 0.0015). If candidate recall drops by > 2*delta (Delta R < -0.10), suspend shadow testing for model defect analysis."
     },
     {
       "look_index": 2,
@@ -17,8 +18,9 @@
       "distress_events_observed": 40,
       "information_fraction": 0.6667,
       "critical_z_score": 2.14,
-      "nominal_alpha_spent": 0.0163,
-      "required_p_value": "< 0.0163",
+      "nominal_boundary_p_value": 0.016177,
+      "cumulative_alpha_spent": 0.016375,
+      "incremental_alpha_spent": 0.015688,
       "stopping_action": "Evaluate futility. If candidate recall is significantly inferior or if Delta R < -0.10, terminate candidate testing. Early promotion permitted if Z >= 2.14."
     },
     {
@@ -27,15 +29,15 @@
       "distress_events_observed": 60,
       "information_fraction": 1.0,
       "critical_z_score": 1.71,
-      "nominal_alpha_spent": 0.044,
-      "required_p_value": "< 0.0440",
-      "stopping_action": "Confirmatory non-inferiority evaluation submitted to Model Risk Committee. Promotion requires Z >= 1.71 (p < 0.0440) alongside operational criteria."
+      "nominal_boundary_p_value": 0.043633,
+      "cumulative_alpha_spent": 0.05,
+      "incremental_alpha_spent": 0.033625,
+      "stopping_action": "Confirmatory non-inferiority evaluation submitted to Model Risk Committee. Promotion requires Z >= 1.71 (nominal p < 0.0440) alongside operational criteria."
     }
   ],
-  "governance_and_stopping_rules": {
-    "type_I_error_control": "Overall one-sided alpha = 0.05 strictly preserved across all 3 looks by Lan-DeMets O'Brien-Fleming spending.",
-    "peeking_ban": "Unplanned significance testing between scheduled interim looks is strictly prohibited. Continuous monitoring is restricted to exploratory operational telemetry.",
-    "futility_safety_rule": "If at Look 1 or Look 2, candidate recall is observed to be strictly inferior to baseline by more than 2*delta (Delta R < -0.10 for delta=0.05), surveillance is immediately suspended.",
-    "information_fraction_definition": "Information fraction t_k = N_distress,k / N_max = N_k / 60. Information accumulates strictly with confirmed, audited failure events, not with healthy non-events."
+  "statistical_design_verification": {
+    "critical_distinction": "Nominal boundary p-values (p_k = 1 - Phi(Z_k)) are the single-look unadjusted tail areas required to cross the boundary at stage k (0.0015, 0.0162, 0.0436). In contrast, cumulative alpha spent (alpha*(t_k)) represents the total probability of false rejection accumulated up to stage k under the continuous Lan-DeMets spending function (0.0007, 0.0164, 0.0500). Conflating nominal boundary p-values with alpha spent is a common reporting error that this implementation resolves.",
+    "total_type_I_error_guarantee": "Overall family-wise false positive rate is strictly bounded at alpha <= 0.0500.",
+    "peeking_ban": "Unplanned significance testing between scheduled interim looks is strictly prohibited."
   }
 }

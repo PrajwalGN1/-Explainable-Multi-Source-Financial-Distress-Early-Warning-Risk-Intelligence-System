@@ -6,20 +6,31 @@
     "production_isolation": "PASS (Zero interference, read-only baseline, candidate errors isolated)"
   },
   "prospective_cohort_n270": {
+    "cohort_description": "Full prospective surveillance cohort at T=12 (Matured N=264 + Right-Censored N=6)",
     "total_firms": 270,
     "production_alerts": 33,
     "production_alert_rate_pct": 12.22,
     "candidate_alerts": 23,
     "candidate_alert_rate_pct": 8.52,
+    "alert_capacity_limit_pct": 8.0,
+    "alert_budget_compliance": "EXCEEDS_CAPACITY_LIMIT (8.52% exceeds 8.00% capacity limit by +0.52 pp / +1.4 alerts)",
+    "budget_compliance_boolean": false,
     "inter_model_agreement_pct": 94.81,
     "workload_reduction_alerts": 10,
-    "workload_reduction_pct": 30.3,
-    "budget_compliance": "COMPLIANT (8.52% vs 8.0% target band)"
+    "workload_reduction_pct": 30.3
   },
   "matured_cohort_n264": {
+    "cohort_description": "Audited matured observations with observable T+1=13 outcome",
     "matured_total": 264,
     "distress_events": 8,
     "healthy_firms": 256,
+    "production_alerts": 29,
+    "production_alert_rate_pct": 10.98,
+    "candidate_alerts": 19,
+    "candidate_alert_rate_pct": 7.2,
+    "alert_capacity_limit_pct": 8.0,
+    "alert_budget_compliance": "COMPLIANT_WITHIN_LIMIT (7.20% is within 8.00% capacity limit)",
+    "budget_compliance_boolean": true,
     "production_performance": {
       "tp": 5,
       "fp": 24,
@@ -28,8 +39,7 @@
       "recall": 0.625,
       "precision": 0.1724,
       "specificity": 0.9062,
-      "brier_score": 0.0274,
-      "alert_rate_pct": 10.98
+      "brier_score": 0.0274
     },
     "candidate_performance": {
       "tp": 5,
@@ -39,8 +49,7 @@
       "recall": 0.625,
       "precision": 0.2632,
       "specificity": 0.9453,
-      "brier_score": 0.026,
-      "alert_rate_pct": 7.2
+      "brier_score": 0.026
     },
     "operational_impact": {
       "recall_parity": true,
@@ -49,46 +58,233 @@
       "precision_relative_gain_pct": 52.63
     }
   },
-  "feature_drift_persistence_summary": {
+  "right_censored_subset_n6": {
+    "total_firms": 6,
+    "production_alerts": 4,
+    "candidate_alerts": 4,
+    "candidate_alert_rate_pct": 66.67
+  },
+  "feature_drift_reconciliation_all_periods": {
     "x48": {
-      "psi_t12": 0.4277,
+      "trajectory": {
+        "T_10": {
+          "period": 10,
+          "n_obs": 249,
+          "psi": 0.0785,
+          "status": "STABLE",
+          "median": 2030.1
+        },
+        "T_11": {
+          "period": 11,
+          "n_obs": 259,
+          "psi": 0.2148,
+          "status": "MODERATE_DRIFT",
+          "median": 2168.1
+        },
+        "T_12": {
+          "period": 12,
+          "n_obs": 270,
+          "psi": 0.4277,
+          "status": "SIGNIFICANT_DRIFT",
+          "median": 2521.35
+        },
+        "T_13": {
+          "period": 13,
+          "n_obs": 274,
+          "psi": 0.29,
+          "status": "SIGNIFICANT_DRIFT",
+          "median": 2233.4
+        },
+        "T_14": {
+          "period": 14,
+          "n_obs": 280,
+          "psi": 0.067,
+          "status": "STABLE",
+          "median": 1858.55
+        }
+      },
       "status_t12": "SIGNIFICANT_DRIFT",
-      "psi_t14": 0.067,
       "status_t14": "STABLE",
-      "trajectory_pattern": "TRANSIENT_CYCLICAL"
+      "psi_t12": 0.4277,
+      "psi_t14": 0.067
     },
     "x12": {
-      "psi_t12": 0.0701,
+      "trajectory": {
+        "T_10": {
+          "period": 10,
+          "n_obs": 249,
+          "psi": 0.0216,
+          "status": "STABLE",
+          "median": 4.0964
+        },
+        "T_11": {
+          "period": 11,
+          "n_obs": 259,
+          "psi": 0.0625,
+          "status": "STABLE",
+          "median": 4.9021
+        },
+        "T_12": {
+          "period": 12,
+          "n_obs": 270,
+          "psi": 0.0701,
+          "status": "STABLE",
+          "median": 6.4422
+        },
+        "T_13": {
+          "period": 13,
+          "n_obs": 274,
+          "psi": 0.082,
+          "status": "STABLE",
+          "median": 4.9516
+        },
+        "T_14": {
+          "period": 14,
+          "n_obs": 280,
+          "psi": 0.1785,
+          "status": "MODERATE_DRIFT",
+          "median": 3.0626
+        }
+      },
       "status_t12": "STABLE",
-      "psi_t14": 0.1785,
       "status_t14": "MODERATE_DRIFT",
-      "trajectory_pattern": "STABLE"
+      "psi_t12": 0.0701,
+      "psi_t14": 0.1785
     },
     "x16": {
-      "psi_t12": 0.1048,
+      "trajectory": {
+        "T_10": {
+          "period": 10,
+          "n_obs": 249,
+          "psi": 0.043,
+          "status": "STABLE",
+          "median": 0.1741
+        },
+        "T_11": {
+          "period": 11,
+          "n_obs": 259,
+          "psi": 0.0687,
+          "status": "STABLE",
+          "median": 0.2063
+        },
+        "T_12": {
+          "period": 12,
+          "n_obs": 270,
+          "psi": 0.1048,
+          "status": "MODERATE_DRIFT",
+          "median": 0.223
+        },
+        "T_13": {
+          "period": 13,
+          "n_obs": 274,
+          "psi": 0.119,
+          "status": "MODERATE_DRIFT",
+          "median": 0.1848
+        },
+        "T_14": {
+          "period": 14,
+          "n_obs": 280,
+          "psi": 0.1103,
+          "status": "MODERATE_DRIFT",
+          "median": 0.1283
+        }
+      },
       "status_t12": "MODERATE_DRIFT",
-      "psi_t14": 0.1103,
       "status_t14": "MODERATE_DRIFT",
-      "trajectory_pattern": "STABLE"
+      "psi_t12": 0.1048,
+      "psi_t14": 0.1103
     },
     "x25": {
-      "psi_t12": 0.2321,
+      "trajectory": {
+        "T_10": {
+          "period": 10,
+          "n_obs": 249,
+          "psi": 0.0117,
+          "status": "STABLE",
+          "median": 562.6
+        },
+        "T_11": {
+          "period": 11,
+          "n_obs": 259,
+          "psi": 0.098,
+          "status": "STABLE",
+          "median": 653.03
+        },
+        "T_12": {
+          "period": 12,
+          "n_obs": 270,
+          "psi": 0.2321,
+          "status": "MODERATE_DRIFT",
+          "median": 992.335
+        },
+        "T_13": {
+          "period": 13,
+          "n_obs": 274,
+          "psi": 0.0655,
+          "status": "STABLE",
+          "median": 564.575
+        },
+        "T_14": {
+          "period": 14,
+          "n_obs": 280,
+          "psi": 0.2102,
+          "status": "MODERATE_DRIFT",
+          "median": 348.95
+        }
+      },
       "status_t12": "MODERATE_DRIFT",
-      "psi_t14": 0.2102,
       "status_t14": "MODERATE_DRIFT",
-      "trajectory_pattern": "STABLE"
+      "psi_t12": 0.2321,
+      "psi_t14": 0.2102
     },
     "x2": {
-      "psi_t12": 0.2229,
+      "trajectory": {
+        "T_10": {
+          "period": 10,
+          "n_obs": 249,
+          "psi": 0.0301,
+          "status": "STABLE",
+          "median": 0.107
+        },
+        "T_11": {
+          "period": 11,
+          "n_obs": 259,
+          "psi": 0.0598,
+          "status": "STABLE",
+          "median": 0.118
+        },
+        "T_12": {
+          "period": 12,
+          "n_obs": 270,
+          "psi": 0.2229,
+          "status": "MODERATE_DRIFT",
+          "median": 0.1527
+        },
+        "T_13": {
+          "period": 13,
+          "n_obs": 274,
+          "psi": 0.0331,
+          "status": "STABLE",
+          "median": 0.1149
+        },
+        "T_14": {
+          "period": 14,
+          "n_obs": 280,
+          "psi": 0.1075,
+          "status": "MODERATE_DRIFT",
+          "median": 0.0753
+        }
+      },
       "status_t12": "MODERATE_DRIFT",
-      "psi_t14": 0.1075,
       "status_t14": "MODERATE_DRIFT",
-      "trajectory_pattern": "STABLE"
+      "psi_t12": 0.2229,
+      "psi_t14": 0.1075
     }
   },
-  "exploratory_vs_formal_boundary": {
-    "exploratory_monitoring": "Continuous pipeline telemetry, alert counts, and PSI tracking. Consumes 0 alpha.",
-    "formal_hypothesis_testing": "Conducted strictly at Look 1 (N=20), Look 2 (N=40), and Final Look (N=60). Governed by Lan-DeMets alpha spending.",
-    "current_governance_action": "CONTINUE SHADOW SURVEILLANCE. Promotion is barred until Look 1 is reached."
+  "x12_investigation_verdict": {
+    "t10_to_t13_status": "STABLE (PSI < 0.10 across T=10, 11, 12, 13)",
+    "t14_status": "MODERATE_DRIFT (PSI = 0.1785 exceeds 0.10 threshold)",
+    "root_cause_analysis": "Median x12 (Operating Cash Flow / Total Debt) compressed from 4.47 (baseline) to 3.06 at T=14, reflecting macro liquidity contraction. Does not trigger retraining as persistence is < 2 cycles.",
+    "overall_classification": "MODERATE_DRIFT_AT_T14 (Not stable overall)"
   }
 }
