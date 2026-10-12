@@ -1,0 +1,641 @@
+[
+  {
+    "model_name": "Baseline_RF_Balanced",
+    "calibration_method": "Uncalibrated_Raw",
+    "val_roc_auc": 0.9019,
+    "val_pr_auc": 0.2136,
+    "brier_score": 0.0531,
+    "reference_brier": 0.0263,
+    "brier_skill_score": -1.0159,
+    "log_loss": 0.1854,
+    "ece_10bins": 0.1108,
+    "mce": 0.8089,
+    "cox_intercept": -2.0668,
+    "cox_slope": 1.1382,
+    "mean_pred_prob": 0.1378,
+    "val_prevalence": 0.0271,
+    "bin_details": [
+      {
+        "bin_idx": 0,
+        "bin_lower": 0.0,
+        "bin_upper": 0.1,
+        "count": 329,
+        "confidence": 0.032,
+        "accuracy": 0.0,
+        "abs_error": 0.032
+      },
+      {
+        "bin_idx": 1,
+        "bin_lower": 0.1,
+        "bin_upper": 0.2,
+        "count": 64,
+        "confidence": 0.1403,
+        "accuracy": 0.0312,
+        "abs_error": 0.109
+      },
+      {
+        "bin_idx": 2,
+        "bin_lower": 0.2,
+        "bin_upper": 0.3,
+        "count": 38,
+        "confidence": 0.2511,
+        "accuracy": 0.0789,
+        "abs_error": 0.1721
+      },
+      {
+        "bin_idx": 3,
+        "bin_lower": 0.3,
+        "bin_upper": 0.4,
+        "count": 26,
+        "confidence": 0.3521,
+        "accuracy": 0.0,
+        "abs_error": 0.3521
+      },
+      {
+        "bin_idx": 4,
+        "bin_lower": 0.4,
+        "bin_upper": 0.5,
+        "count": 28,
+        "confidence": 0.4616,
+        "accuracy": 0.0357,
+        "abs_error": 0.4259
+      },
+      {
+        "bin_idx": 5,
+        "bin_lower": 0.5,
+        "bin_upper": 0.6,
+        "count": 14,
+        "confidence": 0.5468,
+        "accuracy": 0.2857,
+        "abs_error": 0.2611
+      },
+      {
+        "bin_idx": 6,
+        "bin_lower": 0.6,
+        "bin_upper": 0.7,
+        "count": 12,
+        "confidence": 0.6612,
+        "accuracy": 0.25,
+        "abs_error": 0.4112
+      },
+      {
+        "bin_idx": 7,
+        "bin_lower": 0.7,
+        "bin_upper": 0.8,
+        "count": 5,
+        "confidence": 0.7453,
+        "accuracy": 0.2,
+        "abs_error": 0.5453
+      },
+      {
+        "bin_idx": 8,
+        "bin_lower": 0.8,
+        "bin_upper": 0.9,
+        "count": 1,
+        "confidence": 0.8089,
+        "accuracy": 0.0,
+        "abs_error": 0.8089
+      }
+    ]
+  },
+  {
+    "model_name": "Baseline_RF_Balanced",
+    "calibration_method": "Platt_Scaling_Sigmoid",
+    "val_roc_auc": 0.9019,
+    "val_pr_auc": 0.2136,
+    "brier_score": 0.0239,
+    "reference_brier": 0.0263,
+    "brier_skill_score": 0.0937,
+    "log_loss": 0.0984,
+    "ece_10bins": 0.0165,
+    "mce": 0.1203,
+    "cox_intercept": 1.0683,
+    "cox_slope": 1.4727,
+    "mean_pred_prob": 0.0329,
+    "val_prevalence": 0.0271,
+    "bin_details": [
+      {
+        "bin_idx": 0,
+        "bin_lower": 0.0,
+        "bin_upper": 0.1,
+        "count": 485,
+        "confidence": 0.0241,
+        "accuracy": 0.0124,
+        "abs_error": 0.0117
+      },
+      {
+        "bin_idx": 1,
+        "bin_lower": 0.1,
+        "bin_upper": 0.2,
+        "count": 23,
+        "confidence": 0.1406,
+        "accuracy": 0.2609,
+        "abs_error": 0.1203
+      },
+      {
+        "bin_idx": 2,
+        "bin_lower": 0.2,
+        "bin_upper": 0.3,
+        "count": 9,
+        "confidence": 0.2339,
+        "accuracy": 0.2222,
+        "abs_error": 0.0117
+      }
+    ]
+  },
+  {
+    "model_name": "Baseline_RF_Balanced",
+    "calibration_method": "Isotonic_Regression",
+    "val_roc_auc": 0.8958,
+    "val_pr_auc": 0.1559,
+    "brier_score": 0.0244,
+    "reference_brier": 0.0263,
+    "brier_skill_score": 0.0746,
+    "log_loss": 0.0944,
+    "ece_10bins": 0.0072,
+    "mce": 0.2667,
+    "cox_intercept": -0.1322,
+    "cox_slope": 1.0244,
+    "mean_pred_prob": 0.0318,
+    "val_prevalence": 0.0271,
+    "bin_details": [
+      {
+        "bin_idx": 0,
+        "bin_lower": 0.0,
+        "bin_upper": 0.1,
+        "count": 459,
+        "confidence": 0.0155,
+        "accuracy": 0.0109,
+        "abs_error": 0.0046
+      },
+      {
+        "bin_idx": 1,
+        "bin_lower": 0.1,
+        "bin_upper": 0.2,
+        "count": 40,
+        "confidence": 0.109,
+        "accuracy": 0.125,
+        "abs_error": 0.016
+      },
+      {
+        "bin_idx": 2,
+        "bin_lower": 0.2,
+        "bin_upper": 0.3,
+        "count": 15,
+        "confidence": 0.212,
+        "accuracy": 0.2,
+        "abs_error": 0.012
+      },
+      {
+        "bin_idx": 5,
+        "bin_lower": 0.5,
+        "bin_upper": 0.6,
+        "count": 3,
+        "confidence": 0.6,
+        "accuracy": 0.3333,
+        "abs_error": 0.2667
+      }
+    ]
+  },
+  {
+    "model_name": "RF_CostSensitive_w10",
+    "calibration_method": "Uncalibrated_Raw",
+    "val_roc_auc": 0.8959,
+    "val_pr_auc": 0.2081,
+    "brier_score": 0.0369,
+    "reference_brier": 0.0263,
+    "brier_skill_score": -0.4002,
+    "log_loss": 0.1473,
+    "ece_10bins": 0.0795,
+    "mce": 0.6538,
+    "cox_intercept": -1.3756,
+    "cox_slope": 1.2863,
+    "mean_pred_prob": 0.1066,
+    "val_prevalence": 0.0271,
+    "bin_details": [
+      {
+        "bin_idx": 0,
+        "bin_lower": 0.0,
+        "bin_upper": 0.1,
+        "count": 354,
+        "confidence": 0.0357,
+        "accuracy": 0.0056,
+        "abs_error": 0.03
+      },
+      {
+        "bin_idx": 1,
+        "bin_lower": 0.1,
+        "bin_upper": 0.2,
+        "count": 74,
+        "confidence": 0.1421,
+        "accuracy": 0.0405,
+        "abs_error": 0.1015
+      },
+      {
+        "bin_idx": 2,
+        "bin_lower": 0.2,
+        "bin_upper": 0.3,
+        "count": 31,
+        "confidence": 0.2459,
+        "accuracy": 0.0,
+        "abs_error": 0.2459
+      },
+      {
+        "bin_idx": 3,
+        "bin_lower": 0.3,
+        "bin_upper": 0.4,
+        "count": 29,
+        "confidence": 0.342,
+        "accuracy": 0.0,
+        "abs_error": 0.342
+      },
+      {
+        "bin_idx": 4,
+        "bin_lower": 0.4,
+        "bin_upper": 0.5,
+        "count": 17,
+        "confidence": 0.4433,
+        "accuracy": 0.2941,
+        "abs_error": 0.1492
+      },
+      {
+        "bin_idx": 5,
+        "bin_lower": 0.5,
+        "bin_upper": 0.6,
+        "count": 8,
+        "confidence": 0.5354,
+        "accuracy": 0.5,
+        "abs_error": 0.0354
+      },
+      {
+        "bin_idx": 6,
+        "bin_lower": 0.6,
+        "bin_upper": 0.7,
+        "count": 4,
+        "confidence": 0.6538,
+        "accuracy": 0.0,
+        "abs_error": 0.6538
+      }
+    ]
+  },
+  {
+    "model_name": "RF_CostSensitive_w10",
+    "calibration_method": "Platt_Scaling_Sigmoid",
+    "val_roc_auc": 0.8959,
+    "val_pr_auc": 0.2081,
+    "brier_score": 0.0241,
+    "reference_brier": 0.0263,
+    "brier_skill_score": 0.0848,
+    "log_loss": 0.101,
+    "ece_10bins": 0.0301,
+    "mce": 0.3444,
+    "cox_intercept": 1.2582,
+    "cox_slope": 1.5709,
+    "mean_pred_prob": 0.0357,
+    "val_prevalence": 0.0271,
+    "bin_details": [
+      {
+        "bin_idx": 0,
+        "bin_lower": 0.0,
+        "bin_upper": 0.1,
+        "count": 487,
+        "confidence": 0.0275,
+        "accuracy": 0.0103,
+        "abs_error": 0.0173
+      },
+      {
+        "bin_idx": 1,
+        "bin_lower": 0.1,
+        "bin_upper": 0.2,
+        "count": 24,
+        "confidence": 0.1434,
+        "accuracy": 0.375,
+        "abs_error": 0.2316
+      },
+      {
+        "bin_idx": 2,
+        "bin_lower": 0.2,
+        "bin_upper": 0.3,
+        "count": 4,
+        "confidence": 0.2347,
+        "accuracy": 0.0,
+        "abs_error": 0.2347
+      },
+      {
+        "bin_idx": 3,
+        "bin_lower": 0.3,
+        "bin_upper": 0.4,
+        "count": 2,
+        "confidence": 0.3444,
+        "accuracy": 0.0,
+        "abs_error": 0.3444
+      }
+    ]
+  },
+  {
+    "model_name": "RF_CostSensitive_w10",
+    "calibration_method": "Isotonic_Regression",
+    "val_roc_auc": 0.8971,
+    "val_pr_auc": 0.229,
+    "brier_score": 0.0245,
+    "reference_brier": 0.0263,
+    "brier_skill_score": 0.0701,
+    "log_loss": 0.0955,
+    "ece_10bins": 0.0224,
+    "mce": 0.4348,
+    "cox_intercept": 0.0533,
+    "cox_slope": 1.122,
+    "mean_pred_prob": 0.0335,
+    "val_prevalence": 0.0271,
+    "bin_details": [
+      {
+        "bin_idx": 0,
+        "bin_lower": 0.0,
+        "bin_upper": 0.1,
+        "count": 483,
+        "confidence": 0.0215,
+        "accuracy": 0.0104,
+        "abs_error": 0.0112
+      },
+      {
+        "bin_idx": 1,
+        "bin_lower": 0.1,
+        "bin_upper": 0.2,
+        "count": 29,
+        "confidence": 0.168,
+        "accuracy": 0.3103,
+        "abs_error": 0.1423
+      },
+      {
+        "bin_idx": 3,
+        "bin_lower": 0.3,
+        "bin_upper": 0.4,
+        "count": 2,
+        "confidence": 0.3636,
+        "accuracy": 0.0,
+        "abs_error": 0.3636
+      },
+      {
+        "bin_idx": 4,
+        "bin_lower": 0.4,
+        "bin_upper": 0.5,
+        "count": 3,
+        "confidence": 0.4348,
+        "accuracy": 0.0,
+        "abs_error": 0.4348
+      }
+    ]
+  },
+  {
+    "model_name": "RF_TrainingROS_15pct",
+    "calibration_method": "Uncalibrated_Raw",
+    "val_roc_auc": 0.9007,
+    "val_pr_auc": 0.2809,
+    "brier_score": 0.029,
+    "reference_brier": 0.0263,
+    "brier_skill_score": -0.1011,
+    "log_loss": 0.1225,
+    "ece_10bins": 0.0597,
+    "mce": 0.3631,
+    "cox_intercept": -0.8189,
+    "cox_slope": 1.3937,
+    "mean_pred_prob": 0.0833,
+    "val_prevalence": 0.0271,
+    "bin_details": [
+      {
+        "bin_idx": 0,
+        "bin_lower": 0.0,
+        "bin_upper": 0.1,
+        "count": 378,
+        "confidence": 0.0297,
+        "accuracy": 0.0053,
+        "abs_error": 0.0244
+      },
+      {
+        "bin_idx": 1,
+        "bin_lower": 0.1,
+        "bin_upper": 0.2,
+        "count": 72,
+        "confidence": 0.1432,
+        "accuracy": 0.0417,
+        "abs_error": 0.1015
+      },
+      {
+        "bin_idx": 2,
+        "bin_lower": 0.2,
+        "bin_upper": 0.3,
+        "count": 37,
+        "confidence": 0.25,
+        "accuracy": 0.0811,
+        "abs_error": 0.1689
+      },
+      {
+        "bin_idx": 3,
+        "bin_lower": 0.3,
+        "bin_upper": 0.4,
+        "count": 17,
+        "confidence": 0.3373,
+        "accuracy": 0.0,
+        "abs_error": 0.3373
+      },
+      {
+        "bin_idx": 4,
+        "bin_lower": 0.4,
+        "bin_upper": 0.5,
+        "count": 6,
+        "confidence": 0.4301,
+        "accuracy": 0.5,
+        "abs_error": 0.0699
+      },
+      {
+        "bin_idx": 5,
+        "bin_lower": 0.5,
+        "bin_upper": 0.6,
+        "count": 3,
+        "confidence": 0.5084,
+        "accuracy": 0.6667,
+        "abs_error": 0.1582
+      },
+      {
+        "bin_idx": 6,
+        "bin_lower": 0.6,
+        "bin_upper": 0.7,
+        "count": 4,
+        "confidence": 0.6131,
+        "accuracy": 0.25,
+        "abs_error": 0.3631
+      }
+    ]
+  },
+  {
+    "model_name": "RF_TrainingROS_15pct",
+    "calibration_method": "Platt_Scaling_Sigmoid",
+    "val_roc_auc": 0.9007,
+    "val_pr_auc": 0.2809,
+    "brier_score": 0.0271,
+    "reference_brier": 0.0263,
+    "brier_skill_score": -0.0297,
+    "log_loss": 0.1138,
+    "ece_10bins": 0.041,
+    "mce": 0.6083,
+    "cox_intercept": -1.2547,
+    "cox_slope": 0.9775,
+    "mean_pred_prob": 0.0681,
+    "val_prevalence": 0.0271,
+    "bin_details": [
+      {
+        "bin_idx": 0,
+        "bin_lower": 0.0,
+        "bin_upper": 0.1,
+        "count": 443,
+        "confidence": 0.0317,
+        "accuracy": 0.0113,
+        "abs_error": 0.0204
+      },
+      {
+        "bin_idx": 1,
+        "bin_lower": 0.1,
+        "bin_upper": 0.2,
+        "count": 35,
+        "confidence": 0.1461,
+        "accuracy": 0.0286,
+        "abs_error": 0.1176
+      },
+      {
+        "bin_idx": 2,
+        "bin_lower": 0.2,
+        "bin_upper": 0.3,
+        "count": 17,
+        "confidence": 0.2413,
+        "accuracy": 0.1176,
+        "abs_error": 0.1237
+      },
+      {
+        "bin_idx": 3,
+        "bin_lower": 0.3,
+        "bin_upper": 0.4,
+        "count": 7,
+        "confidence": 0.3437,
+        "accuracy": 0.0,
+        "abs_error": 0.3437
+      },
+      {
+        "bin_idx": 4,
+        "bin_lower": 0.4,
+        "bin_upper": 0.5,
+        "count": 4,
+        "confidence": 0.4527,
+        "accuracy": 0.25,
+        "abs_error": 0.2027
+      },
+      {
+        "bin_idx": 5,
+        "bin_lower": 0.5,
+        "bin_upper": 0.6,
+        "count": 4,
+        "confidence": 0.5463,
+        "accuracy": 0.5,
+        "abs_error": 0.0463
+      },
+      {
+        "bin_idx": 6,
+        "bin_lower": 0.6,
+        "bin_upper": 0.7,
+        "count": 3,
+        "confidence": 0.6956,
+        "accuracy": 0.6667,
+        "abs_error": 0.0289
+      },
+      {
+        "bin_idx": 8,
+        "bin_lower": 0.8,
+        "bin_upper": 0.9,
+        "count": 4,
+        "confidence": 0.8583,
+        "accuracy": 0.25,
+        "abs_error": 0.6083
+      }
+    ]
+  },
+  {
+    "model_name": "RF_TrainingROS_15pct",
+    "calibration_method": "Isotonic_Regression",
+    "val_roc_auc": 0.8863,
+    "val_pr_auc": 0.2467,
+    "brier_score": 0.0288,
+    "reference_brier": 0.0263,
+    "brier_skill_score": -0.0917,
+    "log_loss": 0.1089,
+    "ece_10bins": 0.0313,
+    "mce": 0.9091,
+    "cox_intercept": -1.4565,
+    "cox_slope": 0.7048,
+    "mean_pred_prob": 0.0584,
+    "val_prevalence": 0.0271,
+    "bin_details": [
+      {
+        "bin_idx": 0,
+        "bin_lower": 0.0,
+        "bin_upper": 0.1,
+        "count": 431,
+        "confidence": 0.0108,
+        "accuracy": 0.0093,
+        "abs_error": 0.0015
+      },
+      {
+        "bin_idx": 1,
+        "bin_lower": 0.1,
+        "bin_upper": 0.2,
+        "count": 53,
+        "confidence": 0.1638,
+        "accuracy": 0.0377,
+        "abs_error": 0.126
+      },
+      {
+        "bin_idx": 3,
+        "bin_lower": 0.3,
+        "bin_upper": 0.4,
+        "count": 13,
+        "confidence": 0.3429,
+        "accuracy": 0.1538,
+        "abs_error": 0.189
+      },
+      {
+        "bin_idx": 4,
+        "bin_lower": 0.4,
+        "bin_upper": 0.5,
+        "count": 4,
+        "confidence": 0.4237,
+        "accuracy": 0.0,
+        "abs_error": 0.4237
+      },
+      {
+        "bin_idx": 5,
+        "bin_lower": 0.5,
+        "bin_upper": 0.6,
+        "count": 9,
+        "confidence": 0.5479,
+        "accuracy": 0.3333,
+        "abs_error": 0.2146
+      },
+      {
+        "bin_idx": 8,
+        "bin_lower": 0.8,
+        "bin_upper": 0.9,
+        "count": 6,
+        "confidence": 0.8083,
+        "accuracy": 0.5,
+        "abs_error": 0.3083
+      },
+      {
+        "bin_idx": 9,
+        "bin_lower": 0.9,
+        "bin_upper": 1.0,
+        "count": 1,
+        "confidence": 0.9091,
+        "accuracy": 0.0,
+        "abs_error": 0.9091
+      }
+    ]
+  }
+]

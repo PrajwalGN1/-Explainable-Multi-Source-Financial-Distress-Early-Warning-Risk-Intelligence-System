@@ -1,0 +1,43 @@
+{
+  "true_positives": {
+    "count": 3,
+    "mean_cal_prob": 0.1695,
+    "min_cal_prob": 0.0923,
+    "max_cal_prob": 0.2342,
+    "company_ids": [
+      112,
+      101,
+      100
+    ]
+  },
+  "false_negatives": {
+    "count": 8,
+    "mean_cal_prob": 0.0222,
+    "median_cal_prob": 0.0226,
+    "min_cal_prob": 0.0087,
+    "max_cal_prob": 0.05,
+    "company_ids": [
+      23,
+      60,
+      376,
+      28,
+      84,
+      225,
+      53,
+      29
+    ],
+    "near_misses_005_to_008": 1,
+    "moderate_misses_002_to_005": 4,
+    "severe_misses_under_002": 3
+  },
+  "false_positives": {
+    "count": 17,
+    "mean_cal_prob": 0.1243,
+    "median_cal_prob": 0.1168
+  },
+  "true_negatives": {
+    "count": 234,
+    "mean_cal_prob": 0.0161,
+    "median_cal_prob": 0.0091
+  }
+}

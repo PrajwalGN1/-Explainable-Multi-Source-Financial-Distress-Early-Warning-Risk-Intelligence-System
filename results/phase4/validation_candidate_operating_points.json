@@ -1,0 +1,58 @@
+{
+  "validation_dataset": {
+    "periods": "T=11, 12",
+    "sample_size": 517,
+    "positive_events": 14,
+    "prevalence_pct": 2.71
+  },
+  "operating_points": {
+    "baseline_governed": {
+      "threshold": 0.08,
+      "rationale": "Current approved operational policy (tau* = 0.080)",
+      "val_recall": 0.6429,
+      "val_precision": 0.1915,
+      "val_f2": 0.4369,
+      "val_alert_rate_pct": 9.09,
+      "val_alerts_count": 47.0,
+      "val_tp": 9.0,
+      "val_fp": 38.0,
+      "val_fn": 5.0
+    },
+    "validation_optimal_f2": {
+      "threshold": 0.085,
+      "rationale": "Empirical maximum F2-score on validation cohort",
+      "val_recall": 0.6429,
+      "val_precision": 0.2093,
+      "val_f2": 0.4545,
+      "val_alert_rate_pct": 8.32,
+      "val_alerts_count": 43.0,
+      "val_tp": 9.0,
+      "val_fp": 34.0,
+      "val_fn": 5.0
+    },
+    "high_recall_policy_70pct": {
+      "threshold": 0.025,
+      "rationale": "Highest threshold achieving >= 70% recall on validation cohort",
+      "val_recall": 0.7143,
+      "val_precision": 0.0926,
+      "val_f2": 0.3049,
+      "val_alert_rate_pct": 20.89,
+      "val_alerts_count": 108.0,
+      "val_tp": 10.0,
+      "val_fp": 98.0,
+      "val_fn": 4.0
+    },
+    "constrained_alert_budget_10pct": {
+      "threshold": 0.075,
+      "rationale": "Highest recall achievable with alert rate strictly <= 10.0%",
+      "val_recall": 0.6429,
+      "val_precision": 0.1765,
+      "val_f2": 0.4206,
+      "val_alert_rate_pct": 9.86,
+      "val_alerts_count": 51.0,
+      "val_tp": 9.0,
+      "val_fp": 42.0,
+      "val_fn": 5.0
+    }
+  }
+}
