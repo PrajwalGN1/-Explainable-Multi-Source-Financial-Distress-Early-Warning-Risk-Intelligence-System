@@ -1,0 +1,62 @@
+{
+  "matured_cohort_total": 264,
+  "distress_cases": {
+    "n_total": 8,
+    "both_detected_n11": 5,
+    "both_missed_n00": 3,
+    "candidate_only_detected_n10": 0,
+    "baseline_only_detected_n01": 0,
+    "both_detected_company_ids": [
+      81,
+      182,
+      201,
+      379,
+      384
+    ],
+    "both_missed_company_ids": [
+      32,
+      46,
+      118
+    ],
+    "concordant_pairs": 8,
+    "discordant_pairs": 0,
+    "concordance_rate_pct": 100.0,
+    "paired_recall_statistics": {
+      "point_difference": 0.0,
+      "candidate_marginal_recall": 0.625,
+      "candidate_wilson_ci": [
+        0.3057,
+        0.8632
+      ],
+      "baseline_marginal_recall": 0.625,
+      "baseline_wilson_ci": [
+        0.3057,
+        0.8632
+      ],
+      "pearson_phi_correlation": 1.0,
+      "conservative_uncoupled_ci": [
+        -0.3193,
+        0.2382
+      ],
+      "newcombe_matched_ci": [
+        -0.0811,
+        0.0811
+      ]
+    }
+  },
+  "healthy_cases": {
+    "n_total": 256,
+    "both_false_alarm_m11": 12,
+    "candidate_only_false_alarm_m10": 2,
+    "baseline_only_false_alarm_m01": 12,
+    "both_true_negative_m00": 230,
+    "baseline_false_positives": 24,
+    "candidate_false_positives": 14,
+    "net_false_alarm_reduction": 10,
+    "net_false_alarm_reduction_pct": 41.67,
+    "mcnemar_discordant_total": 14,
+    "mcnemar_exact_p_twosided": 0.01111,
+    "mcnemar_exact_p_onesided": 0.00647,
+    "false_alarm_reduction_statistically_significant": true
+  }
+}

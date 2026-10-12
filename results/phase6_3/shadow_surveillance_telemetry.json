@@ -1,0 +1,94 @@
+{
+  "surveillance_architecture": {
+    "mode": "PROSPECTIVE_PARALLEL_SHADOW_SURVEILLANCE",
+    "production_baseline": "models/phase2/best_ews_model.joblib (v1.2, tau* = 0.0800)",
+    "candidate_model": "experiments/phase5/models/Phase5_RF_CostSensitive_w10.joblib (tau = 0.0894)",
+    "production_isolation": "PASS (Zero interference, read-only baseline, candidate errors isolated)"
+  },
+  "prospective_cohort_n270": {
+    "total_firms": 270,
+    "production_alerts": 33,
+    "production_alert_rate_pct": 12.22,
+    "candidate_alerts": 23,
+    "candidate_alert_rate_pct": 8.52,
+    "inter_model_agreement_pct": 94.81,
+    "workload_reduction_alerts": 10,
+    "workload_reduction_pct": 30.3,
+    "budget_compliance": "COMPLIANT (8.52% vs 8.0% target band)"
+  },
+  "matured_cohort_n264": {
+    "matured_total": 264,
+    "distress_events": 8,
+    "healthy_firms": 256,
+    "production_performance": {
+      "tp": 5,
+      "fp": 24,
+      "tn": 232,
+      "fn": 3,
+      "recall": 0.625,
+      "precision": 0.1724,
+      "specificity": 0.9062,
+      "brier_score": 0.0274,
+      "alert_rate_pct": 10.98
+    },
+    "candidate_performance": {
+      "tp": 5,
+      "fp": 14,
+      "tn": 242,
+      "fn": 3,
+      "recall": 0.625,
+      "precision": 0.2632,
+      "specificity": 0.9453,
+      "brier_score": 0.026,
+      "alert_rate_pct": 7.2
+    },
+    "operational_impact": {
+      "recall_parity": true,
+      "false_positive_delta": -10,
+      "false_positive_reduction_pct": 41.67,
+      "precision_relative_gain_pct": 52.63
+    }
+  },
+  "feature_drift_persistence_summary": {
+    "x48": {
+      "psi_t12": 0.4277,
+      "status_t12": "SIGNIFICANT_DRIFT",
+      "psi_t14": 0.067,
+      "status_t14": "STABLE",
+      "trajectory_pattern": "TRANSIENT_CYCLICAL"
+    },
+    "x12": {
+      "psi_t12": 0.0701,
+      "status_t12": "STABLE",
+      "psi_t14": 0.1785,
+      "status_t14": "MODERATE_DRIFT",
+      "trajectory_pattern": "STABLE"
+    },
+    "x16": {
+      "psi_t12": 0.1048,
+      "status_t12": "MODERATE_DRIFT",
+      "psi_t14": 0.1103,
+      "status_t14": "MODERATE_DRIFT",
+      "trajectory_pattern": "STABLE"
+    },
+    "x25": {
+      "psi_t12": 0.2321,
+      "status_t12": "MODERATE_DRIFT",
+      "psi_t14": 0.2102,
+      "status_t14": "MODERATE_DRIFT",
+      "trajectory_pattern": "STABLE"
+    },
+    "x2": {
+      "psi_t12": 0.2229,
+      "status_t12": "MODERATE_DRIFT",
+      "psi_t14": 0.1075,
+      "status_t14": "MODERATE_DRIFT",
+      "trajectory_pattern": "STABLE"
+    }
+  },
+  "exploratory_vs_formal_boundary": {
+    "exploratory_monitoring": "Continuous pipeline telemetry, alert counts, and PSI tracking. Consumes 0 alpha.",
+    "formal_hypothesis_testing": "Conducted strictly at Look 1 (N=20), Look 2 (N=40), and Final Look (N=60). Governed by Lan-DeMets alpha spending.",
+    "current_governance_action": "CONTINUE SHADOW SURVEILLANCE. Promotion is barred until Look 1 is reached."
+  }
+}

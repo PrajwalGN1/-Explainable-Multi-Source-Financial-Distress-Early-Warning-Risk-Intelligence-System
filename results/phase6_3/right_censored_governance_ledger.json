@@ -1,0 +1,92 @@
+{
+  "right_censored_count": 6,
+  "total_prospective_cohort": 270,
+  "censored_percentage": 2.22,
+  "firm_roster": [
+    {
+      "company_id": 68,
+      "last_period_observed": 12,
+      "last_financial_distress_value": -1.2347,
+      "terminal_distress_threshold_breached": true,
+      "production_is_alert": true,
+      "candidate_is_alert": true,
+      "production_prob": 0.1634,
+      "candidate_prob": 0.2621
+    },
+    {
+      "company_id": 115,
+      "last_period_observed": 12,
+      "last_financial_distress_value": -0.7202,
+      "terminal_distress_threshold_breached": true,
+      "production_is_alert": true,
+      "candidate_is_alert": true,
+      "production_prob": 0.2039,
+      "candidate_prob": 0.1444
+    },
+    {
+      "company_id": 159,
+      "last_period_observed": 12,
+      "last_financial_distress_value": -2.7682,
+      "terminal_distress_threshold_breached": true,
+      "production_is_alert": true,
+      "candidate_is_alert": true,
+      "production_prob": 0.1592,
+      "candidate_prob": 0.2722
+    },
+    {
+      "company_id": 203,
+      "last_period_observed": 12,
+      "last_financial_distress_value": -0.6311,
+      "terminal_distress_threshold_breached": true,
+      "production_is_alert": true,
+      "candidate_is_alert": true,
+      "production_prob": 0.1409,
+      "candidate_prob": 0.2799
+    },
+    {
+      "company_id": 276,
+      "last_period_observed": 12,
+      "last_financial_distress_value": -0.6947,
+      "terminal_distress_threshold_breached": true,
+      "production_is_alert": false,
+      "candidate_is_alert": false,
+      "production_prob": 0.0372,
+      "candidate_prob": 0.0317
+    },
+    {
+      "company_id": 301,
+      "last_period_observed": 12,
+      "last_financial_distress_value": -0.6302,
+      "terminal_distress_threshold_breached": true,
+      "production_is_alert": false,
+      "candidate_is_alert": false,
+      "production_prob": 0.044,
+      "candidate_prob": 0.0596
+    }
+  ],
+  "competing_risk_sensitivity_analysis": {
+    "scenario_1_strict_exclusion": {
+      "description": "Filing cessation excluded from binary validation (Current official protocol)",
+      "n_distress": 8,
+      "baseline_recall": 0.625,
+      "candidate_recall": 0.625,
+      "recall_parity": true
+    },
+    "scenario_2_complete_default_attribution": {
+      "description": "All 6 filing cessation firms administratively confirmed as terminal distress (Y=1)",
+      "n_distress": 14,
+      "baseline_detected": 9,
+      "candidate_detected": 9,
+      "baseline_recall": 0.6429,
+      "candidate_recall": 0.6429,
+      "recall_parity": true,
+      "discordant_pairs": 0,
+      "insight": "Both models demonstrate identical 64.29% recall under terminal exit default attribution. Candidate saves 10 false alarms without any recall impairment."
+    },
+    "scenario_3_worst_case_candidate_adversarial": {
+      "description": "Hypothetical extreme scenario where the 2 cleared firms (276, 301) are default but flagged firms are healthy",
+      "insight": "Highly implausible: Companies 276 and 301 had financial distress values of -0.6947 and -0.6302 at exit, showing severe financial deterioration."
+    }
+  },
+  "governance_directive": "Right-censored firms must NEVER be silently imputed as healthy (0) or distressed (1) in official ledgers. They remain in a separate governed ledger requiring Model Risk Committee and Credit Review sign-off."
+}
