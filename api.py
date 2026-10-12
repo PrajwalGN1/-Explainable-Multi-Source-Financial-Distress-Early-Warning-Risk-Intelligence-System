@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 from contextlib import asynccontextmanager
 from typing import Dict, List, Any, Optional
-from fastapi import FastAPI, HTTPException, Query, Header
+from fastapi import FastAPI, HTTPException, Query, Header, Response
 from pydantic import BaseModel, Field
 
 from src.fusion.risk_fusion import RiskFusionEngine
@@ -403,5 +403,123 @@ def get_global_explanation(
     except Exception as e:
         logger.error(f"Global explanation retrieval failed: {e}")
         raise HTTPException(status_code=500, detail=f"Failed to retrieve global explanation: {str(e)}")
+
+
+# =====================================================================
+# Prospective Shadow Evaluation & Operational Validation (Phase 6)
+# =====================================================================
+
+class ShadowPredictRequest(BaseModel):
+    company_id: Optional[str] = Field(None, description="Pseudonymous Company ID")
+    features: Optional[Dict[str, float]] = Field(None, description="Optional raw financial ratio features (x1..x83)")
+    current_period: Optional[int] = Field(12, description="Surveillance observation period t (default: 12)")
+
+
+@app.get("/shadow/status", tags=["Prospective Shadow Evaluation"])
+def get_shadow_status():
+    """
+    Returns deployment status of the Phase 6 prospective shadow-inference architecture,
+    verifying isolation guarantees, production baseline immutability, and candidate configuration.
+    """
+    from src.shadow.shadow_engine import get_shadow_engine
+    engine = get_shadow_engine()
+    return {
+        "status": "OPERATIONAL",
+        "shadow_mode": "PARALLEL_NON_INTERFERING",
+        "production_baseline": {
+            "model_path": engine.PROD_MODEL_PATH,
+            "architecture": "RandomForest_Balanced_Platt",
+            "official_threshold": engine.prod_threshold,
+            "decision_authority": "PRIMARY_AUTHORITY_OFFICIAL"
+        },
+        "shadow_candidate": {
+            "model_path": engine.CAND_MODEL_PATH,
+            "architecture": "Phase5_RF_CostSensitive_w10",
+            "research_threshold": engine.cand_threshold,
+            "sandbox_status": "LOADED" if engine.cand_model is not None else "UNAVAILABLE",
+            "decision_authority": "EXPERIMENTAL_RESEARCH_CANDIDATE_ONLY_NO_PRODUCTION_EFFECT"
+        },
+        "outcome_maturity_protocol": {
+            "min_required_mature": 100,
+            "min_required_distress": 10,
+            "maturity_horizon": "T_PLUS_1_STATUTORY_FILING"
+        }
+    }
+
+
+@app.get("/shadow/telemetry", tags=["Prospective Shadow Evaluation"])
+def get_shadow_telemetry():
+    """
+    Returns real-time operational telemetry across all prospective surveillance predictions,
+    including alert rates, inter-model agreement, missing data rate, budget compliance, and PSI drift.
+    """
+    telemetry_path = "results/phase6/prospective_telemetry.json"
+    if not os.path.exists(telemetry_path):
+        raise HTTPException(status_code=404, detail="Prospective telemetry not yet generated. Run shadow simulation first.")
+    with open(telemetry_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    return data
+
+
+@app.get("/shadow/maturity-evaluation", tags=["Prospective Shadow Evaluation"])
+def get_shadow_maturity_evaluation():
+    """
+    Returns performance metrics strictly on matured observations according to the Pre-Registered Outcome Maturity Policy.
+    Explicitly reports uncertainty and highlights that statistical claims are blocked until pre-registered sample size is achieved.
+    """
+    summary_path = "results/phase6/matured_evaluation_summary.json"
+    if not os.path.exists(summary_path):
+        raise HTTPException(status_code=404, detail="Matured evaluation summary not yet generated.")
+    with open(summary_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    return data
+
+
+@app.post("/shadow/predict", tags=["Prospective Shadow Evaluation"])
+def post_shadow_predict(req: ShadowPredictRequest, response: Response):
+    """
+    Executes parallel shadow inference for prospective evaluation.
+    Guarantees candidate failure isolation: candidate errors never disrupt production responses.
+    Candidate results are strictly marked EXPERIMENTAL_RESEARCH_CANDIDATE_ONLY.
+    """
+    response.headers["X-Shadow-Evaluation-Mode"] = "NON_AUTHORITATIVE_EXPERIMENTAL"
+    from src.shadow.shadow_engine import get_shadow_engine
+    engine = get_shadow_engine()
+
+    try:
+        if req.company_id is not None:
+            from src.data.loaders import DataLoader
+            raw_data = DataLoader("data/raw").load_dataset_a()
+            df_co = raw_data[raw_data["Company"] == int(req.company_id)].copy()
+            if len(df_co) == 0:
+                raise HTTPException(status_code=404, detail=f"Company {req.company_id} not found in surveillance dataset.")
+            result = engine.evaluate_shadow_sample(
+                company_id=req.company_id,
+                df_company_history=df_co,
+                current_period=req.current_period or 12,
+                record_audit_log=True
+            )
+            return result
+        elif req.features is not None:
+            df_synth = pd.DataFrame([req.features])
+            if "Company" not in df_synth:
+                df_synth["Company"] = 9999
+            if "Time" not in df_synth:
+                df_synth["Time"] = req.current_period or 12
+            result = engine.evaluate_shadow_sample(
+                company_id="SYNTHETIC_9999",
+                df_company_history=df_synth,
+                current_period=req.current_period or 12,
+                record_audit_log=True
+            )
+            return result
+        else:
+            raise HTTPException(status_code=400, detail="Must provide either company_id or features payload.")
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Shadow prediction endpoint failed: {e}")
+        raise HTTPException(status_code=500, detail=f"Shadow evaluation failed: {str(e)}")
+
 
 

@@ -1,0 +1,43 @@
+{
+  "total_prospective_observations": 270,
+  "production_alert_count": 33,
+  "production_alert_rate_pct": 12.22,
+  "shadow_candidate_alert_count": 23,
+  "shadow_candidate_alert_rate_pct": 8.52,
+  "inter_model_agreement_pct": 94.81,
+  "disagreement_matrix": {
+    "both_alerted": 21,
+    "neither_alerted": 235,
+    "shadow_only_alerted": 2,
+    "production_only_alerted": 12
+  },
+  "feature_missingness_rate_pct": 0.0,
+  "alert_budget_compliance": {
+    "target_budget_pct": 8.0,
+    "realized_rate_pct": 8.52,
+    "is_within_budget_limits": true,
+    "status": "COMPLIANT"
+  },
+  "feature_drift_psi": {
+    "x12": {
+      "psi_value": 0.0701,
+      "drift_status": "STABLE"
+    },
+    "x25": {
+      "psi_value": 0.2321,
+      "drift_status": "MODERATE_DRIFT"
+    },
+    "x16": {
+      "psi_value": 0.1048,
+      "drift_status": "MODERATE_DRIFT"
+    },
+    "x2": {
+      "psi_value": 0.2229,
+      "drift_status": "MODERATE_DRIFT"
+    },
+    "x48": {
+      "psi_value": 0.4277,
+      "drift_status": "SIGNIFICANT_DRIFT"
+    }
+  }
+}
