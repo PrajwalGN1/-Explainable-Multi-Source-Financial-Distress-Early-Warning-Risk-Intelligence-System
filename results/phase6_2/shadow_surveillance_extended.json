@@ -1,0 +1,60 @@
+{
+  "surveillance_status": "OPERATIONAL_PARALLEL_SHADOW_SURVEILLANCE",
+  "provenance": {
+    "baseline_model": "models/phase2/best_ews_model.joblib (v1.2)",
+    "baseline_threshold": 0.08,
+    "candidate_model": "experiments/phase5/models/Phase5_RF_CostSensitive_w10.joblib",
+    "candidate_threshold": 0.0894,
+    "candidate_status": "EXPERIMENTAL_SANDBOX_ISOLATED"
+  },
+  "cohort_accounting": {
+    "prospective_surveillance_firms": 270,
+    "matured_observable_firms": 264,
+    "right_censored_unresolved_firms": 6,
+    "matured_distress_cases": 8,
+    "matured_healthy_cases": 256
+  },
+  "prospective_operational_telemetry": {
+    "production_alerts": 33,
+    "production_alert_rate_pct": 12.22,
+    "candidate_alerts": 23,
+    "candidate_alert_rate_pct": 8.52,
+    "inter_model_agreement_pct": 94.81,
+    "workload_reduction_alerts": 10,
+    "workload_reduction_pct": 30.3,
+    "alert_budget_compliance": "COMPLIANT (8.52% vs 8.0% target)"
+  },
+  "matured_confirmatory_performance": {
+    "decision_source": "NATIVE_DECISION_RECORDS (Company 409 accurately recorded as False)",
+    "production_baseline": {
+      "tp": 5,
+      "fp": 24,
+      "tn": 232,
+      "fn": 3,
+      "recall": 0.625,
+      "precision": 0.1724,
+      "specificity": 0.9062,
+      "fpr": 0.0938,
+      "alert_rate_pct": 10.98,
+      "brier_score": 0.0274
+    },
+    "candidate_model": {
+      "tp": 5,
+      "fp": 14,
+      "tn": 242,
+      "fn": 3,
+      "recall": 0.625,
+      "precision": 0.2632,
+      "specificity": 0.9453,
+      "fpr": 0.0547,
+      "alert_rate_pct": 7.2,
+      "brier_score": 0.026
+    },
+    "paired_deltas": {
+      "delta_recall": 0.0,
+      "delta_precision": 0.0907,
+      "delta_alerts_matured": -10,
+      "statistically_verified": false
+    }
+  }
+}

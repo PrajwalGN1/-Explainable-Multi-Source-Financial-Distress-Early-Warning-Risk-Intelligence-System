@@ -1,0 +1,252 @@
+{
+  "baseline_reference_periods": "T <= 10 (N = 2,471 observations)",
+  "surveillance_evaluation_periods": "T = 10, 11, 12, 13, 14",
+  "features_evaluated": [
+    "x48",
+    "x12",
+    "x16",
+    "x25",
+    "x2"
+  ],
+  "feature_persistence_summary": {
+    "x48": {
+      "trajectory": {
+        "T_10": {
+          "period": 10,
+          "n_obs": 249,
+          "psi": 0.0785,
+          "status": "STABLE",
+          "median": 2030.1,
+          "mean": 2508.8555
+        },
+        "T_11": {
+          "period": 11,
+          "n_obs": 259,
+          "psi": 0.2148,
+          "status": "MODERATE_DRIFT",
+          "median": 2168.1,
+          "mean": 3098.7956
+        },
+        "T_12": {
+          "period": 12,
+          "n_obs": 270,
+          "psi": 0.4277,
+          "status": "SIGNIFICANT_DRIFT",
+          "median": 2521.35,
+          "mean": 3731.616
+        },
+        "T_13": {
+          "period": 13,
+          "n_obs": 274,
+          "psi": 0.29,
+          "status": "SIGNIFICANT_DRIFT",
+          "median": 2233.4,
+          "mean": 2994.0188
+        },
+        "T_14": {
+          "period": 14,
+          "n_obs": 280,
+          "psi": 0.067,
+          "status": "STABLE",
+          "median": 1858.55,
+          "mean": 2607.8467
+        }
+      },
+      "consecutive_significant_drift_periods": 2,
+      "drift_pattern": "TRANSIENT_CYCLICAL",
+      "escalation_recommended": false
+    },
+    "x12": {
+      "trajectory": {
+        "T_10": {
+          "period": 10,
+          "n_obs": 249,
+          "psi": 0.0216,
+          "status": "STABLE",
+          "median": 4.0964,
+          "mean": 195386.1563
+        },
+        "T_11": {
+          "period": 11,
+          "n_obs": 259,
+          "psi": 0.0625,
+          "status": "STABLE",
+          "median": 4.9021,
+          "mean": 261709.9856
+        },
+        "T_12": {
+          "period": 12,
+          "n_obs": 270,
+          "psi": 0.0701,
+          "status": "STABLE",
+          "median": 6.4422,
+          "mean": 557346.2542
+        },
+        "T_13": {
+          "period": 13,
+          "n_obs": 274,
+          "psi": 0.082,
+          "status": "STABLE",
+          "median": 4.9516,
+          "mean": 257265.0834
+        },
+        "T_14": {
+          "period": 14,
+          "n_obs": 280,
+          "psi": 0.1785,
+          "status": "MODERATE_DRIFT",
+          "median": 3.0626,
+          "mean": 198439.186
+        }
+      },
+      "consecutive_significant_drift_periods": 0,
+      "drift_pattern": "PERSISTENT_STRUCTURAL",
+      "escalation_recommended": false
+    },
+    "x16": {
+      "trajectory": {
+        "T_10": {
+          "period": 10,
+          "n_obs": 249,
+          "psi": 0.043,
+          "status": "STABLE",
+          "median": 0.1741,
+          "mean": -15.8766
+        },
+        "T_11": {
+          "period": 11,
+          "n_obs": 259,
+          "psi": 0.0687,
+          "status": "STABLE",
+          "median": 0.2063,
+          "mean": -112.9267
+        },
+        "T_12": {
+          "period": 12,
+          "n_obs": 270,
+          "psi": 0.1048,
+          "status": "MODERATE_DRIFT",
+          "median": 0.223,
+          "mean": -173.6415
+        },
+        "T_13": {
+          "period": 13,
+          "n_obs": 274,
+          "psi": 0.119,
+          "status": "MODERATE_DRIFT",
+          "median": 0.1848,
+          "mean": -199.0631
+        },
+        "T_14": {
+          "period": 14,
+          "n_obs": 280,
+          "psi": 0.1103,
+          "status": "MODERATE_DRIFT",
+          "median": 0.1283,
+          "mean": 0.0859
+        }
+      },
+      "consecutive_significant_drift_periods": 0,
+      "drift_pattern": "PERSISTENT_STRUCTURAL",
+      "escalation_recommended": false
+    },
+    "x25": {
+      "trajectory": {
+        "T_10": {
+          "period": 10,
+          "n_obs": 249,
+          "psi": 0.0117,
+          "status": "STABLE",
+          "median": 562.6,
+          "mean": 872.9824
+        },
+        "T_11": {
+          "period": 11,
+          "n_obs": 259,
+          "psi": 0.098,
+          "status": "STABLE",
+          "median": 653.03,
+          "mean": 1298.3407
+        },
+        "T_12": {
+          "period": 12,
+          "n_obs": 270,
+          "psi": 0.2321,
+          "status": "MODERATE_DRIFT",
+          "median": 992.335,
+          "mean": 1894.4595
+        },
+        "T_13": {
+          "period": 13,
+          "n_obs": 274,
+          "psi": 0.0655,
+          "status": "STABLE",
+          "median": 564.575,
+          "mean": 1150.3901
+        },
+        "T_14": {
+          "period": 14,
+          "n_obs": 280,
+          "psi": 0.2102,
+          "status": "MODERATE_DRIFT",
+          "median": 348.95,
+          "mean": 781.062
+        }
+      },
+      "consecutive_significant_drift_periods": 0,
+      "drift_pattern": "PERSISTENT_STRUCTURAL",
+      "escalation_recommended": false
+    },
+    "x2": {
+      "trajectory": {
+        "T_10": {
+          "period": 10,
+          "n_obs": 249,
+          "psi": 0.0301,
+          "status": "STABLE",
+          "median": 0.107,
+          "mean": 0.1229
+        },
+        "T_11": {
+          "period": 11,
+          "n_obs": 259,
+          "psi": 0.0598,
+          "status": "STABLE",
+          "median": 0.118,
+          "mean": 0.1478
+        },
+        "T_12": {
+          "period": 12,
+          "n_obs": 270,
+          "psi": 0.2229,
+          "status": "MODERATE_DRIFT",
+          "median": 0.1527,
+          "mean": 0.1839
+        },
+        "T_13": {
+          "period": 13,
+          "n_obs": 274,
+          "psi": 0.0331,
+          "status": "STABLE",
+          "median": 0.1149,
+          "mean": 0.1376
+        },
+        "T_14": {
+          "period": 14,
+          "n_obs": 280,
+          "psi": 0.1075,
+          "status": "MODERATE_DRIFT",
+          "median": 0.0753,
+          "mean": 0.0945
+        }
+      },
+      "consecutive_significant_drift_periods": 0,
+      "drift_pattern": "PERSISTENT_STRUCTURAL",
+      "escalation_recommended": false
+    }
+  },
+  "governance_rule": {
+    "retraining_trigger_policy": "PSI ALONE IS NEVER A RETRAINING TRIGGER. Retraining is justified only when: 1) Structural drift persists for >= 2 consecutive annual cycles, AND 2) Corroborating performance degradation (loss of precision/recall) is statistically verified, AND 3) Macro/accounting root cause is substantiated.",
+    "x48_verdict": "x48 peaked at T=12 (PSI=0.4277) and reverted to STABLE at T=14 (PSI=0.0670). Retraining would have permanently degraded calibration."
+  }
+}

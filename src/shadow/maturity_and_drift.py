@@ -118,29 +118,45 @@ class OutcomeMaturityPolicy:
 
         y_true = df_mature["actual_target"].to_numpy().astype(int)
         
-        # Production metrics
+        # Production metrics: Prioritize native boolean decision records over re-thresholding rounded floats
+        if "prod_is_alert" in df_mature.columns:
+            prod_preds = df_mature["prod_is_alert"].astype(int).to_numpy()
+        else:
+            prod_probs = df_mature["prod_calibrated_probability"].to_numpy()
+            prod_preds = (prod_probs >= 0.080).astype(int)
+            
         prod_probs = df_mature["prod_calibrated_probability"].to_numpy()
-        prod_preds = (prod_probs >= 0.080).astype(int)
         tn_p, fp_p, fn_p, tp_p = confusion_matrix(y_true, prod_preds, labels=[0, 1]).ravel()
         rec_p = recall_score(y_true, prod_preds, zero_division=0)
         prec_p = precision_score(y_true, prod_preds, zero_division=0)
         bs_p = brier_score_loss(y_true, prod_probs)
 
-        # Candidate metrics
+        # Candidate metrics: Prioritize native boolean decision records
+        if "cand_is_alert" in df_mature.columns:
+            cand_preds = df_mature["cand_is_alert"].astype(int).to_numpy()
+        else:
+            cand_probs = df_mature["cand_calibrated_probability"].to_numpy()
+            cand_preds = (cand_probs >= 0.0894).astype(int)
+            
         cand_probs = df_mature["cand_calibrated_probability"].to_numpy()
-        cand_preds = (cand_probs >= 0.0894).astype(int)
         tn_c, fp_c, fn_c, tp_c = confusion_matrix(y_true, cand_preds, labels=[0, 1]).ravel()
         rec_c = recall_score(y_true, cand_preds, zero_division=0)
         prec_c = precision_score(y_true, cand_preds, zero_division=0)
         bs_c = brier_score_loss(y_true, cand_probs)
 
+        # Right-censored / unresolved outcomes reported separately
+        df_censored = df_predictions[df_predictions["outcome_maturity_status"] != "MATURED"].copy()
+        n_censored = len(df_censored)
+
         return {
             "evaluation_cohort": "MATURED_ONLY",
+            "decision_source": "NATIVE_DECISION_RECORDS" if "prod_is_alert" in df_mature.columns else "RETHRESHOLDED_PROBABILITIES",
             "meets_preregistered_sample_protocol": meets_protocol,
             "min_required_mature": cls.MIN_MATURE_OBSERVATIONS,
             "min_required_distress": cls.MIN_MATURE_DISTRESS_EVENTS,
             "matured_count": n_mature,
             "matured_distress_cases": n_pos,
+            "right_censored_unresolved_count": n_censored,
             "production_baseline": {
                 "operating_threshold": 0.080,
                 "tp": int(tp_p), "fp": int(fp_p), "tn": int(tn_p), "fn": int(fn_p),

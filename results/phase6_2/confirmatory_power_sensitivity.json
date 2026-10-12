@@ -1,0 +1,139 @@
+{
+  "business_non_inferiority_margins": {
+    "strict_tier": {
+      "delta": 0.05,
+      "business_rationale": "At most 5 percentage point recall loss tolerated in exchange for >= 40% reduction in false-alarm investigative workload."
+    },
+    "practical_tier": {
+      "delta": 0.1,
+      "business_rationale": "At most 10 percentage point recall loss tolerated in resource-constrained supervisory units."
+    }
+  },
+  "power_sensitivity_matrix": [
+    {
+      "n_distress": 8,
+      "power_margin_3pct": 0.0843,
+      "power_margin_5pct": 0.1155,
+      "power_margin_8pct": 0.1764,
+      "power_margin_10pct": 0.2265
+    },
+    {
+      "n_distress": 10,
+      "power_margin_3pct": 0.0893,
+      "power_margin_5pct": 0.1261,
+      "power_margin_8pct": 0.1991,
+      "power_margin_10pct": 0.2595
+    },
+    {
+      "n_distress": 15,
+      "power_margin_3pct": 0.1007,
+      "power_margin_5pct": 0.1509,
+      "power_margin_8pct": 0.253,
+      "power_margin_10pct": 0.3372
+    },
+    {
+      "n_distress": 20,
+      "power_margin_3pct": 0.1111,
+      "power_margin_5pct": 0.1742,
+      "power_margin_8pct": 0.3038,
+      "power_margin_10pct": 0.4088
+    },
+    {
+      "n_distress": 25,
+      "power_margin_3pct": 0.1209,
+      "power_margin_5pct": 0.1965,
+      "power_margin_8pct": 0.352,
+      "power_margin_10pct": 0.4746
+    },
+    {
+      "n_distress": 30,
+      "power_margin_3pct": 0.1302,
+      "power_margin_5pct": 0.218,
+      "power_margin_8pct": 0.3977,
+      "power_margin_10pct": 0.5347
+    },
+    {
+      "n_distress": 40,
+      "power_margin_3pct": 0.148,
+      "power_margin_5pct": 0.2595,
+      "power_margin_8pct": 0.4821,
+      "power_margin_10pct": 0.6388
+    },
+    {
+      "n_distress": 50,
+      "power_margin_3pct": 0.165,
+      "power_margin_5pct": 0.2992,
+      "power_margin_8pct": 0.5573,
+      "power_margin_10pct": 0.7228
+    },
+    {
+      "n_distress": 60,
+      "power_margin_3pct": 0.1814,
+      "power_margin_5pct": 0.3372,
+      "power_margin_8pct": 0.6235,
+      "power_margin_10pct": 0.7895
+    },
+    {
+      "n_distress": 75,
+      "power_margin_3pct": 0.2052,
+      "power_margin_5pct": 0.3914,
+      "power_margin_8pct": 0.7075,
+      "power_margin_10pct": 0.863
+    },
+    {
+      "n_distress": 100,
+      "power_margin_3pct": 0.2432,
+      "power_margin_5pct": 0.4746,
+      "power_margin_8pct": 0.8119,
+      "power_margin_10pct": 0.9354
+    }
+  ],
+  "sample_size_requirements": {
+    "margin_delta_0_05": {
+      "power_70pct": 42,
+      "power_80pct": 60,
+      "power_90pct": 86,
+      "annual_surveillance_cohorts_needed": "5 to 6 filing cycles (~1,500 firm-years at 4% annual distress rate)"
+    },
+    "margin_delta_0_10": {
+      "power_70pct": 14,
+      "power_80pct": 20,
+      "power_90pct": 28,
+      "annual_surveillance_cohorts_needed": "2 to 3 filing cycles (~550 firm-years)"
+    }
+  },
+  "group_sequential_alpha_spending_schedule": [
+    {
+      "look_number": 1,
+      "distress_cases_observed": 20,
+      "information_fraction": 0.33,
+      "nominal_alpha": 0.0015,
+      "critical_z_score": 2.96,
+      "required_observed_p_value": "< 0.0015",
+      "purpose": "Early stopping permitted ONLY for overwhelming early superiority; preserves alpha."
+    },
+    {
+      "look_number": 2,
+      "distress_cases_observed": 40,
+      "information_fraction": 0.67,
+      "nominal_alpha": 0.0163,
+      "critical_z_score": 2.14,
+      "required_observed_p_value": "< 0.0163",
+      "purpose": "Second planned interim check; assesses futility and candidate safety."
+    },
+    {
+      "look_number": 3,
+      "distress_cases_observed": 60,
+      "information_fraction": 1.0,
+      "nominal_alpha": 0.044,
+      "critical_z_score": 1.71,
+      "required_observed_p_value": "< 0.0440",
+      "purpose": "Primary formal confirmatory non-inferiority evaluation for Model Risk Committee sign-off."
+    }
+  ],
+  "stopping_and_review_rules": {
+    "early_stopping_for_futility_safety": "If at Look 1 or Look 2, candidate recall drops strictly below baseline by more than 2 * delta (delta_recall < -0.10 for delta=0.05), candidate surveillance is suspended immediately for model defect audit.",
+    "peeking_ban": "Unplanned interim testing after every single observed failure is strictly prohibited to prevent Type I error rate inflation (peeking fallacy)."
+  },
+  "governance_verdict": "Current sample of N=8 failure cases is severely underpowered (power = 11.55% for delta=0.05). Mandatory continuation of shadow surveillance without premature promotion testing."
+}

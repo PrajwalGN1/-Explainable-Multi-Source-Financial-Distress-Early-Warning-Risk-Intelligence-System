@@ -1,0 +1,132 @@
+{
+  "right_censored_count": 6,
+  "total_prospective_cohort": 270,
+  "censored_proportion_pct": 2.22,
+  "firm_roster": [
+    {
+      "company_id": 68,
+      "observation_period": 12,
+      "max_period_in_surveillance": 12,
+      "last_financial_distress_value": -1.2347,
+      "distress_threshold_breached_at_exit": true,
+      "last_reported_ratios": {
+        "x12_operating_cash_flow": 0.6748,
+        "x25_leverage": -150.27,
+        "x16_roa": 0.0328,
+        "x2_working_capital": -0.0184,
+        "x48_profitability": 625.59
+      },
+      "production_score_at_t12": 0.1634,
+      "production_is_alert": true,
+      "candidate_score_at_t12": 0.2621,
+      "candidate_is_alert": true,
+      "governance_classification": "RIGHT_CENSORED_FILING_CESSATION",
+      "regulatory_handling_directive": "Exclude from binary evaluation. Require Risk Committee administrative default confirmation before assigning bankruptcy label."
+    },
+    {
+      "company_id": 115,
+      "observation_period": 12,
+      "max_period_in_surveillance": 12,
+      "last_financial_distress_value": -0.7202,
+      "distress_threshold_breached_at_exit": true,
+      "last_reported_ratios": {
+        "x12_operating_cash_flow": 1.0063,
+        "x25_leverage": 18.707,
+        "x16_roa": 0.0225,
+        "x2_working_capital": 0.0025,
+        "x48_profitability": 843.61
+      },
+      "production_score_at_t12": 0.2039,
+      "production_is_alert": true,
+      "candidate_score_at_t12": 0.1444,
+      "candidate_is_alert": true,
+      "governance_classification": "RIGHT_CENSORED_FILING_CESSATION",
+      "regulatory_handling_directive": "Exclude from binary evaluation. Require Risk Committee administrative default confirmation before assigning bankruptcy label."
+    },
+    {
+      "company_id": 159,
+      "observation_period": 12,
+      "max_period_in_surveillance": 12,
+      "last_financial_distress_value": -2.7682,
+      "distress_threshold_breached_at_exit": true,
+      "last_reported_ratios": {
+        "x12_operating_cash_flow": -1.4073,
+        "x25_leverage": 58.5,
+        "x16_roa": -0.0208,
+        "x2_working_capital": 0.0052,
+        "x48_profitability": 1160.5
+      },
+      "production_score_at_t12": 0.1592,
+      "production_is_alert": true,
+      "candidate_score_at_t12": 0.2722,
+      "candidate_is_alert": true,
+      "governance_classification": "RIGHT_CENSORED_FILING_CESSATION",
+      "regulatory_handling_directive": "Exclude from binary evaluation. Require Risk Committee administrative default confirmation before assigning bankruptcy label."
+    },
+    {
+      "company_id": 203,
+      "observation_period": 12,
+      "max_period_in_surveillance": 12,
+      "last_financial_distress_value": -0.6311,
+      "distress_threshold_breached_at_exit": true,
+      "last_reported_ratios": {
+        "x12_operating_cash_flow": -0.1506,
+        "x25_leverage": -135.06,
+        "x16_roa": -0.0083,
+        "x2_working_capital": -0.0333,
+        "x48_profitability": 877.2
+      },
+      "production_score_at_t12": 0.1409,
+      "production_is_alert": true,
+      "candidate_score_at_t12": 0.2799,
+      "candidate_is_alert": true,
+      "governance_classification": "RIGHT_CENSORED_FILING_CESSATION",
+      "regulatory_handling_directive": "Exclude from binary evaluation. Require Risk Committee administrative default confirmation before assigning bankruptcy label."
+    },
+    {
+      "company_id": 276,
+      "observation_period": 12,
+      "max_period_in_surveillance": 12,
+      "last_financial_distress_value": -0.6947,
+      "distress_threshold_breached_at_exit": true,
+      "last_reported_ratios": {
+        "x12_operating_cash_flow": 2679.0,
+        "x25_leverage": 149.8,
+        "x16_roa": 0.0484,
+        "x2_working_capital": 0.0722,
+        "x48_profitability": 1125.1
+      },
+      "production_score_at_t12": 0.0372,
+      "production_is_alert": false,
+      "candidate_score_at_t12": 0.0317,
+      "candidate_is_alert": false,
+      "governance_classification": "RIGHT_CENSORED_FILING_CESSATION",
+      "regulatory_handling_directive": "Exclude from binary evaluation. Require Risk Committee administrative default confirmation before assigning bankruptcy label."
+    },
+    {
+      "company_id": 301,
+      "observation_period": 12,
+      "max_period_in_surveillance": 12,
+      "last_financial_distress_value": -0.6302,
+      "distress_threshold_breached_at_exit": true,
+      "last_reported_ratios": {
+        "x12_operating_cash_flow": 1.7371,
+        "x25_leverage": 82.477,
+        "x16_roa": 0.275,
+        "x2_working_capital": 0.017,
+        "x48_profitability": 565.99
+      },
+      "production_score_at_t12": 0.044,
+      "production_is_alert": false,
+      "candidate_score_at_t12": 0.0596,
+      "candidate_is_alert": false,
+      "governance_classification": "RIGHT_CENSORED_FILING_CESSATION",
+      "regulatory_handling_directive": "Exclude from binary evaluation. Require Risk Committee administrative default confirmation before assigning bankruptcy label."
+    }
+  ],
+  "governance_policy": {
+    "unresolved_outcome_rule": "Firms with unobservable forward filings must NEVER be assumed healthy (0) or distressed (1) in official metrics.",
+    "operational_impact": "4 out of 6 firms were flagged with high alert probabilities prior to exit by both models.",
+    "future_production_rule": "Implement automated filing tracker: an SME failing to submit annual accounts within 6 months of deadline is assigned Administrative Surveillance Review rather than silent dropout."
+  }
+}

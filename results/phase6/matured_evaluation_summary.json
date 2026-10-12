@@ -1,20 +1,22 @@
 {
   "evaluation_cohort": "MATURED_ONLY",
+  "decision_source": "NATIVE_DECISION_RECORDS",
   "meets_preregistered_sample_protocol": false,
   "min_required_mature": 100,
   "min_required_distress": 10,
   "matured_count": 264,
   "matured_distress_cases": 8,
+  "right_censored_unresolved_count": 6,
   "production_baseline": {
     "operating_threshold": 0.08,
     "tp": 5,
-    "fp": 25,
-    "tn": 231,
+    "fp": 24,
+    "tn": 232,
     "fn": 3,
     "recall": 0.625,
-    "precision": 0.1667,
+    "precision": 0.1724,
     "brier_score": 0.0274,
-    "alert_rate_pct": 11.36
+    "alert_rate_pct": 10.98
   },
   "shadow_candidate": {
     "research_threshold": 0.0894,
@@ -29,8 +31,8 @@
   },
   "comparison": {
     "delta_recall": 0.0,
-    "delta_precision": 0.0965,
-    "delta_alerts": -11,
+    "delta_precision": 0.0907,
+    "delta_alerts": -10,
     "statistically_verified": false
   }
 }
