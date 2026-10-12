@@ -1,0 +1,4 @@
+dataset,duplicate_rows,duplicate_id_count,id_column
+Dataset A (Financial Distress - Longitudinal EWS),0,3250,Company
+Dataset B (Taiwan Economic Journal - Bankruptcy),0,0,None
+Dataset C (Polish Companies Bankruptcy - Unlabelled External),0,0,ID

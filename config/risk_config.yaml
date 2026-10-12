@@ -1,0 +1,66 @@
+risk_scoring:
+  score_range:
+    min: 0.0
+    max: 100.0
+
+risk_categories:
+  healthy:
+    min: 0.0
+    max: 4.0
+    label: "Healthy"
+    color: "#10b981"
+    description: "Distress probability below portfolio baseline (<4.0%). Strong financial position."
+  low:
+    min: 4.01
+    max: 8.0
+    label: "Low Risk"
+    color: "#3b82f6"
+    description: "Distress probability near portfolio baseline (4.0% - 8.0%). Low deterioration risk."
+  watch:
+    min: 8.01
+    max: 13.0
+    label: "Watch"
+    color: "#f59e0b"
+    description: "Distress probability elevated 2x-3.5x baseline (8.0% - 13.0%). Early warning indicators detected."
+  high:
+    min: 13.01
+    max: 17.0
+    label: "High Risk"
+    color: "#f97316"
+    description: "Distress probability 3.5x-4.5x baseline (13.0% - 17.0%). Substantial deterioration across indicators."
+  critical:
+    min: 17.01
+    max: 100.0
+    label: "Critical"
+    color: "#ef4444"
+    description: "Distress probability >4.5x baseline (>17.0%). Imminent distress requiring senior risk escalation."
+
+early_warning_signals:
+  consecutive_decline_periods: 2
+  sharp_risk_increase_delta: 15.0 # percentage points
+  critical_probability_threshold: 0.65
+  liquidity_deterioration_threshold: -0.15 # 15% drop
+  leverage_expansion_threshold: 0.20 # 20% surge
+  solvency_weakening_threshold: -0.15
+
+recommendations_rules:
+  critical:
+    - "Immediately freeze credit line expansions and initiate formal credit review."
+    - "Escalate company to Senior Risk Committee for workout or restructuring analysis."
+    - "Request updated audited quarterly statements and detailed cash-flow projections."
+    - "Assess collateral coverage and lien enforceability."
+  high:
+    - "Increase monitoring cadence to monthly/bi-weekly surveillance."
+    - "Conduct deep-dive review on short-term liquidity, covenant compliance, and debt maturity schedule."
+    - "Engage relationship manager to evaluate management's turnaround strategy."
+    - "Verify accounts receivable aging and customer concentration."
+  watch:
+    - "Flag account on watchlist with quarterly management reviews."
+    - "Track working-capital trends and gross margin trajectory."
+    - "Perform sensitivity analysis on interest rate shock impact."
+  low:
+    - "Maintain standard semi-annual monitoring schedule."
+    - "Review annual financial filings as standard protocol."
+  healthy:
+    - "Continue standard annual review protocol."
+    - "Eligible for standard operational banking facilities."

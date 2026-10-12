@@ -1,0 +1,4 @@
+Model,Dataset,ROC_AUC,Recall,F1,Brier
+Temporal EWS (Random Forest),Dataset A,0.7783,0.0,0.0,0.0387
+Bankruptcy Model (Random Forest),Dataset B,0.9455,0.2955,0.4194,0.0234
+Multi-Source Stacking Fusion,A + B + C + Health,0.6588,0.0,0.0,0.0397

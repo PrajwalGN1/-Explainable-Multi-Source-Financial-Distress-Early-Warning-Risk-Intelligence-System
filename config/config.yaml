@@ -1,0 +1,75 @@
+project:
+  name: "Explainable Multi-Source Financial Distress Early-Warning & Risk Intelligence System"
+  version: "1.0.0"
+  random_seed: 42
+
+paths:
+  raw_data_dir: "data/raw"
+  processed_data_dir: "data/processed"
+  models_dir: "models"
+  reports_dir: "reports"
+  data_audit_dir: "reports/data_audit"
+  eda_dir: "reports/eda"
+  model_eval_dir: "reports/model_evaluation"
+  explainability_dir: "reports/explainability"
+
+datasets:
+  dataset_a:
+    filename: "Financial Distress.csv"
+    id_col: "Company"
+    time_col: "Time"
+    target_col: "Financial Distress"
+    distress_threshold: -0.5
+    categorical_cols: ["x80"]
+  dataset_b:
+    filename: "data.csv"
+    target_col: "Bankrupt?"
+    test_size: 0.2
+  dataset_c:
+    filename: "bankruptcy_Test_X.csv"
+    id_col: "ID"
+
+temporal_ews:
+  prediction_horizon: 1  # Predict distress at t+1 from features at t
+  max_lag: 2
+  rolling_windows: [2, 3]
+  min_history_periods: 2
+  train_periods: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  val_periods: [11, 12]
+  test_periods: [13, 14]
+
+models:
+  ews:
+    algorithm: "xgboost"  # Options: logistic_regression, random_forest, xgboost
+    hyperparameters:
+      n_estimators: 100
+      max_depth: 4
+      learning_rate: 0.05
+      subsample: 0.8
+      colsample_bytree: 0.8
+      scale_pos_weight: 5.0
+      random_state: 42
+  bankruptcy:
+    algorithm: "xgboost"
+    hyperparameters:
+      n_estimators: 100
+      max_depth: 5
+      learning_rate: 0.05
+      subsample: 0.8
+      colsample_bytree: 0.8
+      scale_pos_weight: 10.0
+      random_state: 42
+  anomaly:
+    algorithm: "isolation_forest"
+    hyperparameters:
+      n_estimators: 150
+      contamination: 0.05
+      random_state: 42
+  fusion:
+    method: "stacking_meta_model"  # Options: weighted_average, stacking_meta_model
+    meta_model: "logistic_regression"
+    baseline_weights:
+      ews: 0.50
+      bankruptcy: 0.25
+      anomaly: 0.15
+      financial_health_risk: 0.10

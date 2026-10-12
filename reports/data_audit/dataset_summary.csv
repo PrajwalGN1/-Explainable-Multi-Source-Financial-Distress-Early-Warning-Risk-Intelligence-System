@@ -1,0 +1,4 @@
+dataset_name,num_rows,num_columns,num_numeric_features,num_categorical_features,total_missing_values,missing_percentage,duplicate_rows,id_column,time_column,target_column,constant_columns_count,near_constant_columns_count
+Dataset A (Financial Distress - Longitudinal EWS),3672,86,86,0,0,0.0,0,Company,Time,Financial Distress,0,0
+Dataset B (Taiwan Economic Journal - Bankruptcy),6819,96,96,0,0,0.0,0,,,Bankrupt?,1,0
+Dataset C (Polish Companies Bankruptcy - Unlabelled External),5000,65,65,0,0,0.0,0,ID,,,0,0

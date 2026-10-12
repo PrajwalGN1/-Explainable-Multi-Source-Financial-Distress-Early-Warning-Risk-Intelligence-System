@@ -1,0 +1,26 @@
+feature,importance,category,interpretation
+x12,0.05140034547754951,Statistical/Unmapped Feature,Statistical predictor x12
+x2_roll_mean_3,0.04221924655496921,Statistical/Unmapped Feature,Statistical predictor x2_roll_mean_3
+x5,0.03971824852744977,Statistical/Unmapped Feature,Statistical predictor x5
+x2_roll_mean_2,0.037017242429958366,Statistical/Unmapped Feature,Statistical predictor x2_roll_mean_2
+x16,0.03361707731362223,Statistical/Unmapped Feature,Statistical predictor x16
+x46,0.032089633520710675,Statistical/Unmapped Feature,Statistical predictor x46
+x2,0.031153278311701834,Statistical/Unmapped Feature,Statistical predictor x2
+x52,0.02919573704513012,Statistical/Unmapped Feature,Statistical predictor x52
+x8,0.028260209610689133,Statistical/Unmapped Feature,Statistical predictor x8
+x25,0.026949672920386122,Liquidity/Working Capital,Cash/operating stability indicator
+x36,0.026388037348972056,Statistical/Unmapped Feature,Statistical predictor x36
+x5_roll_mean_2,0.02485939126242674,Statistical/Unmapped Feature,Statistical predictor x5_roll_mean_2
+x23,0.022827419907692204,Statistical/Unmapped Feature,Statistical predictor x23
+x9,0.022246258173830528,Statistical/Unmapped Feature,Statistical predictor x9
+x5_roll_mean_3,0.020472067822553983,Statistical/Unmapped Feature,Statistical predictor x5_roll_mean_3
+x10_roll_mean_2,0.019477537570218455,Statistical/Unmapped Feature,Statistical predictor x10_roll_mean_2
+x47,0.01348202824398768,Statistical/Unmapped Feature,Statistical predictor x47
+x3,0.012059309483343994,Statistical/Unmapped Feature,Statistical predictor x3
+x13,0.011705571262662242,Statistical/Unmapped Feature,Statistical predictor x13
+x81,0.01152620648056596,Financial/Economic Health,High positive correlation with distress index (protective factor)
+x24,0.011522466439994208,Statistical/Unmapped Feature,Statistical predictor x24
+x5_lag_1,0.011486276363104864,Statistical/Unmapped Feature,Statistical predictor x5_lag_1
+x5_lag_2,0.011339803457993982,Statistical/Unmapped Feature,Statistical predictor x5_lag_2
+x25_roll_mean_2,0.01065871006053226,Statistical/Unmapped Feature,Statistical predictor x25_roll_mean_2
+x10,0.009693923091792392,Statistical/Unmapped Feature,Statistical predictor x10

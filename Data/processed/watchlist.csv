@@ -1,0 +1,423 @@
+company_id,latest_period,final_risk_probability,final_risk_probability_pct,risk_score,risk_category,risk_trend,financial_health_score,active_signals_count,top_risk_driver,priority
+364,8,0.1913,19.1%,19.1,Critical,Increasing,40.8,3,N/A,P1 - Urgent Escalation
+119,7,0.1874,18.7%,18.7,Critical,Increasing,36.8,3,N/A,P1 - Urgent Escalation
+250,7,0.1849,18.5%,18.5,Critical,Increasing,39.1,3,N/A,P1 - Urgent Escalation
+323,7,0.1841,18.4%,18.4,Critical,Increasing,37.7,3,N/A,P1 - Urgent Escalation
+229,2,0.1845,18.4%,18.4,Critical,Increasing,37.1,2,N/A,P1 - Urgent Escalation
+18,6,0.1811,18.1%,18.1,Critical,Increasing,37.8,3,N/A,P1 - Urgent Escalation
+255,3,0.1811,18.1%,18.1,Critical,Increasing,40.5,3,N/A,P1 - Urgent Escalation
+164,3,0.1803,18.0%,18.0,Critical,Increasing,40.1,2,N/A,P1 - Urgent Escalation
+290,2,0.1798,18.0%,18.0,Critical,Increasing,39.3,2,N/A,P1 - Urgent Escalation
+351,7,0.1762,17.6%,17.6,Critical,Increasing,38.1,2,N/A,P1 - Urgent Escalation
+27,2,0.175,17.5%,17.5,Critical,Increasing,41.0,2,N/A,P1 - Urgent Escalation
+350,3,0.1731,17.3%,17.3,Critical,Increasing,36.6,3,N/A,P1 - Urgent Escalation
+130,2,0.1733,17.3%,17.3,Critical,Increasing,39.0,2,N/A,P1 - Urgent Escalation
+91,6,0.1717,17.2%,17.2,Critical,Increasing,39.5,3,N/A,P1 - Urgent Escalation
+19,3,0.1701,17.0%,17.0,High Risk,Increasing,40.1,3,N/A,P2 - High Priority Surveillance
+353,1,0.1696,17.0%,17.0,High Risk,Baseline Initial Observation,37.7,2,N/A,P2 - High Priority Surveillance
+111,6,0.1685,16.9%,16.9,High Risk,Stable,36.3,2,N/A,P2 - High Priority Surveillance
+253,7,0.1686,16.9%,16.9,High Risk,Stable,36.7,2,N/A,P2 - High Priority Surveillance
+123,6,0.1664,16.6%,16.6,High Risk,Stable,37.0,3,N/A,P2 - High Priority Surveillance
+3,1,0.1658,16.6%,16.6,High Risk,Baseline Initial Observation,38.6,2,N/A,P2 - High Priority Surveillance
+103,1,0.165,16.5%,16.5,High Risk,Baseline Initial Observation,36.5,2,N/A,P2 - High Priority Surveillance
+134,2,0.1628,16.3%,16.3,High Risk,Increasing,42.1,2,N/A,P2 - High Priority Surveillance
+71,1,0.1617,16.2%,16.2,High Risk,Baseline Initial Observation,42.4,2,N/A,P2 - High Priority Surveillance
+11,9,0.161,16.1%,16.1,High Risk,Increasing,39.1,3,N/A,P2 - High Priority Surveillance
+292,4,0.1596,16.0%,16.0,High Risk,Increasing,44.1,3,N/A,P2 - High Priority Surveillance
+158,2,0.1599,16.0%,16.0,High Risk,Baseline Initial Observation,42.5,2,N/A,P2 - High Priority Surveillance
+188,7,0.1599,16.0%,16.0,High Risk,Increasing,36.6,2,N/A,P2 - High Priority Surveillance
+239,9,0.1604,16.0%,16.0,High Risk,Increasing,40.6,2,N/A,P2 - High Priority Surveillance
+352,2,0.1595,16.0%,16.0,High Risk,Increasing,40.3,2,N/A,P2 - High Priority Surveillance
+340,5,0.1586,15.9%,15.9,High Risk,Increasing,40.2,4,N/A,P2 - High Priority Surveillance
+324,2,0.1574,15.7%,15.7,High Risk,Increasing,42.4,2,N/A,P2 - High Priority Surveillance
+357,1,0.1568,15.7%,15.7,High Risk,Baseline Initial Observation,41.1,2,N/A,P2 - High Priority Surveillance
+17,9,0.1556,15.6%,15.6,High Risk,Stable,36.8,3,N/A,P2 - High Priority Surveillance
+180,7,0.1549,15.5%,15.5,High Risk,Increasing,40.1,3,N/A,P2 - High Priority Surveillance
+359,1,0.1553,15.5%,15.5,High Risk,Baseline Initial Observation,41.9,2,N/A,P2 - High Priority Surveillance
+82,3,0.1541,15.4%,15.4,High Risk,Increasing,40.5,3,N/A,P2 - High Priority Surveillance
+88,2,0.1532,15.3%,15.3,High Risk,Increasing,42.9,3,N/A,P2 - High Priority Surveillance
+235,2,0.1532,15.3%,15.3,High Risk,Increasing,42.9,3,N/A,P2 - High Priority Surveillance
+36,9,0.1535,15.3%,15.3,High Risk,Increasing,38.1,2,N/A,P2 - High Priority Surveillance
+321,6,0.152,15.2%,15.2,High Risk,Increasing,42.5,3,N/A,P2 - High Priority Surveillance
+329,4,0.1522,15.2%,15.2,High Risk,Increasing,42.1,2,N/A,P2 - High Priority Surveillance
+330,4,0.1457,14.6%,14.6,High Risk,Increasing,39.4,3,N/A,P2 - High Priority Surveillance
+356,3,0.1455,14.6%,14.6,High Risk,Increasing,39.5,3,N/A,P2 - High Priority Surveillance
+207,7,0.1447,14.5%,14.5,High Risk,Increasing,41.0,3,N/A,P2 - High Priority Surveillance
+415,9,0.1453,14.5%,14.5,High Risk,Increasing,40.9,3,N/A,P2 - High Priority Surveillance
+355,4,0.1402,14.0%,14.0,High Risk,Stable,39.7,2,N/A,P2 - High Priority Surveillance
+389,9,0.1401,14.0%,14.0,High Risk,Stable,44.2,1,N/A,P2 - High Priority Surveillance
+277,9,0.1379,13.8%,13.8,High Risk,Increasing,46.8,4,N/A,P2 - High Priority Surveillance
+390,9,0.1263,12.6%,12.6,Watch,Stable,46.1,2,N/A,P3 - Active Watchlist
+132,4,0.1096,11.0%,11.0,Watch,Stable,54.6,2,N/A,P3 - Active Watchlist
+167,11,0.1069,10.7%,10.7,Watch,Increasing,56.3,1,N/A,P3 - Active Watchlist
+337,8,0.1063,10.6%,10.6,Watch,Stable,55.2,3,N/A,P3 - Active Watchlist
+106,3,0.1049,10.5%,10.5,Watch,Stable,56.4,2,N/A,P3 - Active Watchlist
+108,11,0.1045,10.5%,10.5,Watch,Increasing,56.3,1,N/A,P3 - Active Watchlist
+358,10,0.1043,10.4%,10.4,Watch,Decreasing,57.9,1,N/A,P3 - Active Watchlist
+272,9,0.1024,10.2%,10.2,Watch,Stable,59.4,2,N/A,P3 - Active Watchlist
+67,11,0.1019,10.2%,10.2,Watch,Increasing,58.0,1,N/A,P3 - Active Watchlist
+7,11,0.1007,10.1%,10.1,Watch,Increasing,56.9,1,N/A,P3 - Active Watchlist
+160,8,0.101,10.1%,10.1,Watch,Decreasing,56.3,1,N/A,P3 - Active Watchlist
+68,12,0.0999,10.0%,10.0,Watch,Stable,56.5,2,N/A,P3 - Active Watchlist
+316,14,0.0989,9.9%,9.9,Watch,Stable,57.5,2,N/A,P3 - Active Watchlist
+46,13,0.0978,9.8%,9.8,Watch,Increasing,62.0,2,N/A,P3 - Active Watchlist
+118,13,0.0976,9.8%,9.8,Watch,Increasing,60.5,2,N/A,P3 - Active Watchlist
+99,10,0.0967,9.7%,9.7,Watch,Stable,63.5,2,N/A,P3 - Active Watchlist
+1,4,0.0971,9.7%,9.7,Watch,Decreasing,56.4,1,N/A,P3 - Active Watchlist
+140,8,0.0968,9.7%,9.7,Watch,Decreasing,54.9,1,N/A,P3 - Active Watchlist
+198,10,0.0946,9.5%,9.5,Watch,Baseline Initial Observation,56.6,1,N/A,P3 - Active Watchlist
+81,13,0.0934,9.3%,9.3,Watch,Stable,57.7,2,N/A,P3 - Active Watchlist
+217,14,0.0933,9.3%,9.3,Watch,Increasing,59.1,2,N/A,P3 - Active Watchlist
+278,14,0.0934,9.3%,9.3,Watch,Increasing,57.5,1,N/A,P3 - Active Watchlist
+100,14,0.0924,9.2%,9.2,Watch,Stable,56.4,3,N/A,P3 - Active Watchlist
+23,14,0.0907,9.1%,9.1,Watch,Increasing,56.4,3,N/A,P3 - Active Watchlist
+138,14,0.0911,9.1%,9.1,Watch,Increasing,62.3,2,N/A,P3 - Active Watchlist
+145,14,0.0912,9.1%,9.1,Watch,Increasing,63.6,2,N/A,P3 - Active Watchlist
+296,4,0.0907,9.1%,9.1,Watch,Stable,58.8,2,N/A,P3 - Active Watchlist
+203,12,0.0904,9.0%,9.0,Watch,Stable,59.6,2,N/A,P3 - Active Watchlist
+37,10,0.0897,9.0%,9.0,Watch,Decreasing,58.2,1,N/A,P3 - Active Watchlist
+93,1,0.09,9.0%,9.0,Watch,Baseline Initial Observation,62.2,1,N/A,P3 - Active Watchlist
+238,14,0.0897,9.0%,9.0,Watch,Increasing,61.9,1,N/A,P3 - Active Watchlist
+393,14,0.0897,9.0%,9.0,Watch,Stable,58.7,1,N/A,P3 - Active Watchlist
+384,13,0.0891,8.9%,8.9,Watch,Stable,57.9,2,N/A,P3 - Active Watchlist
+331,7,0.0894,8.9%,8.9,Watch,Stable,62.7,1,N/A,P3 - Active Watchlist
+29,14,0.0875,8.8%,8.8,Watch,Increasing,56.3,3,N/A,P3 - Active Watchlist
+16,5,0.0881,8.8%,8.8,Watch,Stable,63.0,1,N/A,P3 - Active Watchlist
+165,6,0.0879,8.8%,8.8,Watch,Decreasing,56.9,1,N/A,P3 - Active Watchlist
+133,10,0.0874,8.7%,8.7,Watch,Stable,61.1,2,N/A,P3 - Active Watchlist
+161,11,0.0873,8.7%,8.7,Watch,Stable,57.1,2,N/A,P3 - Active Watchlist
+220,14,0.0868,8.7%,8.7,Watch,Increasing,64.0,2,N/A,P3 - Active Watchlist
+319,14,0.0868,8.7%,8.7,Watch,Baseline Initial Observation,61.4,1,N/A,P3 - Active Watchlist
+339,5,0.0869,8.7%,8.7,Watch,Stable,57.1,1,N/A,P3 - Active Watchlist
+269,3,0.0859,8.6%,8.6,Watch,Decreasing,60.9,1,N/A,P3 - Active Watchlist
+305,14,0.0846,8.5%,8.5,Watch,Stable,61.5,3,N/A,P3 - Active Watchlist
+251,14,0.0847,8.5%,8.5,Watch,Stable,60.2,2,N/A,P3 - Active Watchlist
+65,14,0.0844,8.4%,8.4,Watch,Stable,62.3,2,N/A,P3 - Active Watchlist
+168,14,0.0836,8.4%,8.4,Watch,Increasing,62.6,2,N/A,P3 - Active Watchlist
+42,1,0.0836,8.4%,8.4,Watch,Baseline Initial Observation,63.4,1,N/A,P3 - Active Watchlist
+343,5,0.084,8.4%,8.4,Watch,Stable,65.7,1,N/A,P3 - Active Watchlist
+354,1,0.0837,8.4%,8.4,Watch,Baseline Initial Observation,62.5,1,N/A,P3 - Active Watchlist
+303,14,0.083,8.3%,8.3,Watch,Stable,61.7,3,N/A,P3 - Active Watchlist
+410,14,0.0833,8.3%,8.3,Watch,Stable,59.3,3,N/A,P3 - Active Watchlist
+105,3,0.0825,8.3%,8.3,Watch,Stable,64.8,2,N/A,P3 - Active Watchlist
+208,5,0.083,8.3%,8.3,Watch,Stable,58.6,2,N/A,P3 - Active Watchlist
+170,9,0.0832,8.3%,8.3,Watch,Stable,60.3,1,N/A,P3 - Active Watchlist
+333,3,0.0829,8.3%,8.3,Watch,Decreasing,60.0,1,N/A,P3 - Active Watchlist
+53,14,0.0822,8.2%,8.2,Watch,Increasing,60.5,5,N/A,P3 - Active Watchlist
+247,7,0.081,8.1%,8.1,Watch,Stable,65.6,2,N/A,P3 - Active Watchlist
+44,9,0.0811,8.1%,8.1,Watch,Stable,63.4,1,N/A,P3 - Active Watchlist
+306,5,0.0805,8.1%,8.1,Watch,Stable,65.8,1,N/A,P3 - Active Watchlist
+144,5,0.0792,7.9%,7.9,Low Risk,Stable,62.2,1,N/A,P4 - Normal Surveillance
+327,14,0.0779,7.8%,7.8,Low Risk,Stable,62.5,2,N/A,P4 - Normal Surveillance
+420,3,0.078,7.8%,7.8,Low Risk,Stable,62.6,2,N/A,P4 - Normal Surveillance
+13,2,0.0769,7.7%,7.7,Low Risk,Decreasing,61.4,1,N/A,P4 - Normal Surveillance
+214,14,0.0762,7.6%,7.6,Low Risk,Increasing,64.5,2,N/A,P4 - Normal Surveillance
+279,6,0.0761,7.6%,7.6,Low Risk,Stable,66.7,2,N/A,P4 - Normal Surveillance
+113,2,0.074,7.4%,7.4,Low Risk,Stable,62.8,1,N/A,P4 - Normal Surveillance
+315,5,0.0741,7.4%,7.4,Low Risk,Stable,64.3,1,N/A,P4 - Normal Surveillance
+295,5,0.072,7.2%,7.2,Low Risk,Stable,64.3,1,N/A,P4 - Normal Surveillance
+35,9,0.0709,7.1%,7.1,Low Risk,Stable,63.6,4,N/A,P4 - Normal Surveillance
+241,7,0.0712,7.1%,7.1,Low Risk,Stable,65.6,2,N/A,P4 - Normal Surveillance
+96,14,0.0703,7.0%,7.0,Low Risk,Stable,66.2,2,N/A,P4 - Normal Surveillance
+136,3,0.0696,7.0%,7.0,Low Risk,Stable,67.2,1,N/A,P4 - Normal Surveillance
+308,3,0.0692,6.9%,6.9,Low Risk,Baseline Initial Observation,65.4,1,N/A,P4 - Normal Surveillance
+200,2,0.0657,6.6%,6.6,Low Risk,Baseline Initial Observation,67.3,1,N/A,P4 - Normal Surveillance
+184,6,0.0655,6.5%,6.5,Low Risk,Stable,65.9,3,N/A,P4 - Normal Surveillance
+120,7,0.0635,6.4%,6.4,Low Risk,Stable,68.5,1,N/A,P4 - Normal Surveillance
+183,4,0.0643,6.4%,6.4,Low Risk,Stable,66.3,1,N/A,P4 - Normal Surveillance
+314,2,0.0627,6.3%,6.3,Low Risk,Stable,66.1,3,N/A,P4 - Normal Surveillance
+129,14,0.0632,6.3%,6.3,Low Risk,Stable,67.6,1,N/A,P4 - Normal Surveillance
+300,1,0.0626,6.3%,6.3,Low Risk,Baseline Initial Observation,66.1,1,N/A,P4 - Normal Surveillance
+63,2,0.0604,6.0%,6.0,Low Risk,Stable,69.0,1,N/A,P4 - Normal Surveillance
+326,7,0.0582,5.8%,5.8,Low Risk,Stable,70.3,2,N/A,P4 - Normal Surveillance
+122,7,0.0578,5.8%,5.8,Low Risk,Stable,69.0,1,N/A,P4 - Normal Surveillance
+275,4,0.0579,5.8%,5.8,Low Risk,Baseline Initial Observation,69.3,1,N/A,P4 - Normal Surveillance
+41,9,0.0571,5.7%,5.7,Low Risk,Stable,70.0,1,N/A,P4 - Normal Surveillance
+252,2,0.0557,5.6%,5.6,Low Risk,Stable,69.2,1,N/A,P4 - Normal Surveillance
+234,4,0.0546,5.5%,5.5,Low Risk,Stable,76.1,0,N/A,P4 - Normal Surveillance
+112,14,0.0535,5.4%,5.4,Low Risk,Stable,81.3,1,N/A,P4 - Normal Surveillance
+69,8,0.0531,5.3%,5.3,Low Risk,Stable,80.3,0,N/A,P4 - Normal Surveillance
+267,14,0.0516,5.2%,5.2,Low Risk,Stable,77.3,1,N/A,P4 - Normal Surveillance
+273,2,0.0515,5.2%,5.2,Low Risk,Stable,70.9,1,N/A,P4 - Normal Surveillance
+373,14,0.0522,5.2%,5.2,Low Risk,Stable,78.0,1,N/A,P4 - Normal Surveillance
+115,12,0.0524,5.2%,5.2,Low Risk,Stable,79.6,0,N/A,P4 - Normal Surveillance
+182,13,0.0498,5.0%,5.0,Low Risk,Stable,77.0,1,N/A,P4 - Normal Surveillance
+194,2,0.0494,4.9%,4.9,Low Risk,Stable,71.4,1,N/A,P4 - Normal Surveillance
+87,8,0.0494,4.9%,4.9,Low Risk,Stable,83.3,0,N/A,P4 - Normal Surveillance
+101,14,0.0492,4.9%,4.9,Low Risk,Stable,78.5,0,N/A,P4 - Normal Surveillance
+264,14,0.0489,4.9%,4.9,Low Risk,Stable,82.4,0,N/A,P4 - Normal Surveillance
+361,14,0.0494,4.9%,4.9,Low Risk,Stable,83.2,0,N/A,P4 - Normal Surveillance
+283,14,0.0483,4.8%,4.8,Low Risk,Stable,77.8,2,N/A,P4 - Normal Surveillance
+301,12,0.0478,4.8%,4.8,Low Risk,Stable,76.9,1,N/A,P4 - Normal Surveillance
+33,14,0.0475,4.8%,4.8,Low Risk,Stable,82.9,0,N/A,P4 - Normal Surveillance
+159,12,0.0482,4.8%,4.8,Low Risk,Stable,83.3,0,N/A,P4 - Normal Surveillance
+104,7,0.0469,4.7%,4.7,Low Risk,Stable,73.2,1,N/A,P4 - Normal Surveillance
+128,14,0.0466,4.7%,4.7,Low Risk,Stable,83.6,0,N/A,P4 - Normal Surveillance
+154,14,0.0474,4.7%,4.7,Low Risk,Stable,84.5,0,N/A,P4 - Normal Surveillance
+89,1,0.0461,4.6%,4.6,Low Risk,Baseline Initial Observation,75.2,1,N/A,P4 - Normal Surveillance
+193,14,0.0452,4.5%,4.5,Low Risk,Stable,82.8,3,N/A,P4 - Normal Surveillance
+83,8,0.045,4.5%,4.5,Low Risk,Stable,75.6,2,N/A,P4 - Normal Surveillance
+20,14,0.0448,4.5%,4.5,Low Risk,Stable,83.4,1,N/A,P4 - Normal Surveillance
+162,2,0.0448,4.5%,4.5,Low Risk,Baseline Initial Observation,74.7,1,N/A,P4 - Normal Surveillance
+205,3,0.0445,4.5%,4.5,Low Risk,Stable,74.2,1,N/A,P4 - Normal Surveillance
+254,14,0.0447,4.5%,4.5,Low Risk,Stable,83.6,1,N/A,P4 - Normal Surveillance
+6,14,0.0451,4.5%,4.5,Low Risk,Stable,84.0,0,N/A,P4 - Normal Surveillance
+59,14,0.0453,4.5%,4.5,Low Risk,Stable,82.0,0,N/A,P4 - Normal Surveillance
+341,14,0.045,4.5%,4.5,Low Risk,Baseline Initial Observation,84.4,0,N/A,P4 - Normal Surveillance
+411,14,0.0439,4.4%,4.4,Low Risk,Stable,82.7,2,N/A,P4 - Normal Surveillance
+28,14,0.0443,4.4%,4.4,Low Risk,Stable,76.4,1,N/A,P4 - Normal Surveillance
+32,13,0.0437,4.4%,4.4,Low Risk,Stable,74.9,1,N/A,P4 - Normal Surveillance
+84,14,0.0442,4.4%,4.4,Low Risk,Stable,82.5,1,N/A,P4 - Normal Surveillance
+231,14,0.0439,4.4%,4.4,Low Risk,Stable,82.9,1,N/A,P4 - Normal Surveillance
+45,14,0.0434,4.3%,4.3,Low Risk,Stable,83.6,1,N/A,P4 - Normal Surveillance
+131,14,0.0433,4.3%,4.3,Low Risk,Stable,83.0,1,N/A,P4 - Normal Surveillance
+157,14,0.0427,4.3%,4.3,Low Risk,Stable,82.9,1,N/A,P4 - Normal Surveillance
+197,14,0.0425,4.3%,4.3,Low Risk,Stable,83.8,1,N/A,P4 - Normal Surveillance
+228,14,0.043,4.3%,4.3,Low Risk,Decreasing,83.0,1,N/A,P4 - Normal Surveillance
+243,14,0.0434,4.3%,4.3,Low Risk,Stable,83.6,1,N/A,P4 - Normal Surveillance
+135,14,0.0428,4.3%,4.3,Low Risk,Stable,82.7,0,N/A,P4 - Normal Surveillance
+388,14,0.0433,4.3%,4.3,Low Risk,Baseline Initial Observation,82.8,0,N/A,P4 - Normal Surveillance
+379,13,0.0425,4.2%,4.2,Low Risk,Stable,83.0,3,N/A,P4 - Normal Surveillance
+240,14,0.0417,4.2%,4.2,Low Risk,Stable,84.5,1,N/A,P4 - Normal Surveillance
+38,14,0.0418,4.2%,4.2,Low Risk,Stable,83.1,0,N/A,P4 - Normal Surveillance
+185,14,0.0419,4.2%,4.2,Low Risk,Stable,83.0,0,N/A,P4 - Normal Surveillance
+196,14,0.0425,4.2%,4.2,Low Risk,Stable,83.6,0,N/A,P4 - Normal Surveillance
+60,14,0.0414,4.1%,4.1,Low Risk,Stable,84.3,4,N/A,P4 - Normal Surveillance
+417,14,0.0411,4.1%,4.1,Low Risk,Stable,83.7,4,N/A,P4 - Normal Surveillance
+375,14,0.0411,4.1%,4.1,Low Risk,Stable,84.2,1,N/A,P4 - Normal Surveillance
+201,13,0.0406,4.1%,4.1,Low Risk,Stable,84.9,0,N/A,P4 - Normal Surveillance
+276,12,0.0413,4.1%,4.1,Low Risk,Stable,83.6,0,N/A,P4 - Normal Surveillance
+281,14,0.0403,4.0%,4.0,Healthy,Stable,77.0,2,N/A,P4 - Normal Surveillance
+76,14,0.0397,4.0%,4.0,Healthy,Stable,84.6,1,N/A,P4 - Normal Surveillance
+176,14,0.0401,4.0%,4.0,Healthy,Stable,84.4,1,N/A,P4 - Normal Surveillance
+344,14,0.0399,4.0%,4.0,Healthy,Baseline Initial Observation,84.4,0,N/A,P4 - Normal Surveillance
+392,14,0.0386,3.9%,3.9,Healthy,Stable,84.8,3,N/A,P4 - Normal Surveillance
+405,13,0.0391,3.9%,3.9,Healthy,Stable,84.8,3,N/A,P4 - Normal Surveillance
+116,14,0.0389,3.9%,3.9,Healthy,Stable,85.2,2,N/A,P4 - Normal Surveillance
+391,14,0.0388,3.9%,3.9,Healthy,Stable,84.7,2,N/A,P4 - Normal Surveillance
+409,14,0.0387,3.9%,3.9,Healthy,Stable,85.4,2,N/A,P4 - Normal Surveillance
+109,14,0.0385,3.9%,3.9,Healthy,Stable,85.4,1,N/A,P4 - Normal Surveillance
+248,14,0.0389,3.9%,3.9,Healthy,Stable,84.9,1,N/A,P4 - Normal Surveillance
+137,14,0.0393,3.9%,3.9,Healthy,Stable,86.5,0,N/A,P4 - Normal Surveillance
+378,14,0.0386,3.9%,3.9,Healthy,Stable,84.8,0,N/A,P4 - Normal Surveillance
+397,14,0.0389,3.9%,3.9,Healthy,Stable,85.3,0,N/A,P4 - Normal Surveillance
+172,14,0.0376,3.8%,3.8,Healthy,Stable,85.4,3,N/A,P4 - Normal Surveillance
+148,11,0.0379,3.8%,3.8,Healthy,Decreasing,86.1,2,N/A,P4 - Normal Surveillance
+86,14,0.0377,3.8%,3.8,Healthy,Stable,86.6,1,N/A,P4 - Normal Surveillance
+225,14,0.0385,3.8%,3.8,Healthy,Stable,85.7,1,N/A,P4 - Normal Surveillance
+362,14,0.0377,3.8%,3.8,Healthy,Stable,85.6,1,N/A,P4 - Normal Surveillance
+10,14,0.0379,3.8%,3.8,Healthy,Stable,86.5,0,N/A,P4 - Normal Surveillance
+22,14,0.0375,3.8%,3.8,Healthy,Stable,85.6,0,N/A,P4 - Normal Surveillance
+64,14,0.0385,3.8%,3.8,Healthy,Stable,87.9,0,N/A,P4 - Normal Surveillance
+97,14,0.0378,3.8%,3.8,Healthy,Stable,85.3,0,N/A,P4 - Normal Surveillance
+102,14,0.0385,3.8%,3.8,Healthy,Stable,84.9,0,N/A,P4 - Normal Surveillance
+151,14,0.0378,3.8%,3.8,Healthy,Stable,85.7,0,N/A,P4 - Normal Surveillance
+302,14,0.0381,3.8%,3.8,Healthy,Stable,86.3,0,N/A,P4 - Normal Surveillance
+92,14,0.0374,3.7%,3.7,Healthy,Stable,86.2,1,N/A,P4 - Normal Surveillance
+349,14,0.0372,3.7%,3.7,Healthy,Stable,87.4,1,N/A,P4 - Normal Surveillance
+155,8,0.0369,3.7%,3.7,Healthy,Decreasing,86.5,0,N/A,P4 - Normal Surveillance
+218,14,0.0368,3.7%,3.7,Healthy,Stable,86.0,0,N/A,P4 - Normal Surveillance
+249,14,0.0367,3.7%,3.7,Healthy,Stable,86.7,0,N/A,P4 - Normal Surveillance
+377,14,0.0373,3.7%,3.7,Healthy,Stable,85.6,0,N/A,P4 - Normal Surveillance
+407,14,0.0365,3.7%,3.7,Healthy,Stable,87.4,0,N/A,P4 - Normal Surveillance
+418,14,0.0367,3.7%,3.7,Healthy,Stable,86.4,0,N/A,P4 - Normal Surveillance
+282,14,0.0361,3.6%,3.6,Healthy,Stable,86.5,4,N/A,P4 - Normal Surveillance
+21,14,0.0359,3.6%,3.6,Healthy,Stable,88.7,1,N/A,P4 - Normal Surveillance
+186,14,0.0358,3.6%,3.6,Healthy,Stable,86.9,1,N/A,P4 - Normal Surveillance
+216,14,0.0356,3.6%,3.6,Healthy,Stable,86.6,1,N/A,P4 - Normal Surveillance
+366,14,0.0358,3.6%,3.6,Healthy,Stable,86.5,1,N/A,P4 - Normal Surveillance
+382,14,0.0363,3.6%,3.6,Healthy,Stable,86.4,1,N/A,P4 - Normal Surveillance
+402,14,0.0357,3.6%,3.6,Healthy,Stable,86.7,1,N/A,P4 - Normal Surveillance
+406,14,0.036,3.6%,3.6,Healthy,Stable,86.4,1,N/A,P4 - Normal Surveillance
+192,14,0.0358,3.6%,3.6,Healthy,Stable,86.6,0,N/A,P4 - Normal Surveillance
+271,14,0.0361,3.6%,3.6,Healthy,Stable,86.3,0,N/A,P4 - Normal Surveillance
+293,14,0.0358,3.6%,3.6,Healthy,Baseline Initial Observation,86.5,0,N/A,P4 - Normal Surveillance
+368,14,0.0361,3.6%,3.6,Healthy,Stable,86.3,0,N/A,P4 - Normal Surveillance
+174,14,0.0348,3.5%,3.5,Healthy,Stable,87.6,1,N/A,P4 - Normal Surveillance
+215,14,0.0347,3.5%,3.5,Healthy,Stable,87.2,1,N/A,P4 - Normal Surveillance
+259,14,0.0348,3.5%,3.5,Healthy,Stable,87.1,1,N/A,P4 - Normal Surveillance
+266,14,0.0353,3.5%,3.5,Healthy,Stable,86.9,1,N/A,P4 - Normal Surveillance
+383,14,0.035,3.5%,3.5,Healthy,Stable,87.0,1,N/A,P4 - Normal Surveillance
+403,14,0.0351,3.5%,3.5,Healthy,Stable,86.9,1,N/A,P4 - Normal Surveillance
+66,14,0.0352,3.5%,3.5,Healthy,Stable,87.2,0,N/A,P4 - Normal Surveillance
+313,14,0.0353,3.5%,3.5,Healthy,Stable,86.9,0,N/A,P4 - Normal Surveillance
+365,14,0.0348,3.5%,3.5,Healthy,Baseline Initial Observation,87.6,0,N/A,P4 - Normal Surveillance
+376,14,0.0353,3.5%,3.5,Healthy,Stable,89.1,0,N/A,P4 - Normal Surveillance
+386,14,0.035,3.5%,3.5,Healthy,Stable,87.4,0,N/A,P4 - Normal Surveillance
+400,14,0.0353,3.5%,3.5,Healthy,Stable,86.8,0,N/A,P4 - Normal Surveillance
+166,14,0.0339,3.4%,3.4,Healthy,Stable,87.8,3,N/A,P4 - Normal Surveillance
+412,14,0.0342,3.4%,3.4,Healthy,Stable,87.5,3,N/A,P4 - Normal Surveillance
+190,14,0.0338,3.4%,3.4,Healthy,Stable,87.8,2,N/A,P4 - Normal Surveillance
+173,14,0.034,3.4%,3.4,Healthy,Stable,88.1,1,N/A,P4 - Normal Surveillance
+289,14,0.0342,3.4%,3.4,Healthy,Stable,89.3,1,N/A,P4 - Normal Surveillance
+395,14,0.0337,3.4%,3.4,Healthy,Stable,87.9,1,N/A,P4 - Normal Surveillance
+245,14,0.0339,3.4%,3.4,Healthy,Stable,88.6,0,N/A,P4 - Normal Surveillance
+310,14,0.0336,3.4%,3.4,Healthy,Baseline Initial Observation,88.3,0,N/A,P4 - Normal Surveillance
+211,14,0.0334,3.3%,3.3,Healthy,Stable,88.8,2,N/A,P4 - Normal Surveillance
+12,1,0.0333,3.3%,3.3,Healthy,Baseline Initial Observation,78.3,1,N/A,P4 - Normal Surveillance
+39,14,0.033,3.3%,3.3,Healthy,Stable,88.4,1,N/A,P4 - Normal Surveillance
+328,14,0.0334,3.3%,3.3,Healthy,Stable,88.0,1,N/A,P4 - Normal Surveillance
+187,6,0.0325,3.2%,3.2,Healthy,Stable,79.0,2,N/A,P4 - Normal Surveillance
+9,14,0.0315,3.2%,3.2,Healthy,Stable,89.4,1,N/A,P4 - Normal Surveillance
+114,14,0.0324,3.2%,3.2,Healthy,Stable,88.7,1,N/A,P4 - Normal Surveillance
+246,14,0.0317,3.2%,3.2,Healthy,Stable,89.5,1,N/A,P4 - Normal Surveillance
+299,14,0.0318,3.2%,3.2,Healthy,Stable,89.1,1,N/A,P4 - Normal Surveillance
+399,14,0.0323,3.2%,3.2,Healthy,Stable,88.8,1,N/A,P4 - Normal Surveillance
+261,14,0.0319,3.2%,3.2,Healthy,Stable,89.2,0,N/A,P4 - Normal Surveillance
+291,14,0.0318,3.2%,3.2,Healthy,Baseline Initial Observation,89.3,0,N/A,P4 - Normal Surveillance
+372,14,0.0325,3.2%,3.2,Healthy,Stable,88.7,0,N/A,P4 - Normal Surveillance
+374,14,0.0317,3.2%,3.2,Healthy,Stable,91.2,0,N/A,P4 - Normal Surveillance
+385,14,0.0317,3.2%,3.2,Healthy,Stable,89.2,0,N/A,P4 - Normal Surveillance
+342,14,0.0305,3.1%,3.1,Healthy,Stable,90.2,2,N/A,P4 - Normal Surveillance
+369,14,0.0314,3.1%,3.1,Healthy,Stable,89.4,2,N/A,P4 - Normal Surveillance
+371,14,0.0305,3.1%,3.1,Healthy,Stable,90.0,2,N/A,P4 - Normal Surveillance
+404,14,0.0308,3.1%,3.1,Healthy,Stable,90.0,2,N/A,P4 - Normal Surveillance
+74,14,0.0307,3.1%,3.1,Healthy,Stable,90.2,1,N/A,P4 - Normal Surveillance
+163,14,0.0311,3.1%,3.1,Healthy,Stable,89.6,1,N/A,P4 - Normal Surveillance
+268,14,0.0306,3.1%,3.1,Healthy,Stable,90.1,1,N/A,P4 - Normal Surveillance
+51,14,0.0306,3.1%,3.1,Healthy,Stable,89.9,0,N/A,P4 - Normal Surveillance
+70,14,0.0311,3.1%,3.1,Healthy,Stable,89.6,0,N/A,P4 - Normal Surveillance
+127,14,0.031,3.1%,3.1,Healthy,Stable,90.2,0,N/A,P4 - Normal Surveillance
+149,14,0.031,3.1%,3.1,Healthy,Stable,90.4,0,N/A,P4 - Normal Surveillance
+401,14,0.0314,3.1%,3.1,Healthy,Stable,89.4,0,N/A,P4 - Normal Surveillance
+414,14,0.0313,3.1%,3.1,Healthy,Stable,90.4,0,N/A,P4 - Normal Surveillance
+422,14,0.0305,3.1%,3.1,Healthy,Stable,90.0,0,N/A,P4 - Normal Surveillance
+57,14,0.0295,3.0%,3.0,Healthy,Stable,91.4,0,N/A,P4 - Normal Surveillance
+191,14,0.0296,3.0%,3.0,Healthy,Stable,90.9,0,N/A,P4 - Normal Surveillance
+237,14,0.0296,3.0%,3.0,Healthy,Stable,90.8,0,N/A,P4 - Normal Surveillance
+307,14,0.03,3.0%,3.0,Healthy,Stable,90.5,0,N/A,P4 - Normal Surveillance
+150,14,0.0295,2.9%,2.9,Healthy,Stable,90.8,2,N/A,P4 - Normal Surveillance
+227,14,0.0288,2.9%,2.9,Healthy,Stable,91.3,1,N/A,P4 - Normal Surveillance
+58,14,0.0288,2.9%,2.9,Healthy,Stable,91.2,0,N/A,P4 - Normal Surveillance
+153,14,0.0287,2.9%,2.9,Healthy,Stable,91.6,0,N/A,P4 - Normal Surveillance
+244,14,0.0289,2.9%,2.9,Healthy,Stable,91.3,0,N/A,P4 - Normal Surveillance
+274,14,0.0292,2.9%,2.9,Healthy,Stable,91.0,0,N/A,P4 - Normal Surveillance
+78,14,0.0276,2.8%,2.8,Healthy,Stable,92.1,4,N/A,P4 - Normal Surveillance
+98,14,0.0279,2.8%,2.8,Healthy,Stable,92.3,2,N/A,P4 - Normal Surveillance
+175,14,0.0278,2.8%,2.8,Healthy,Stable,91.9,2,N/A,P4 - Normal Surveillance
+394,14,0.028,2.8%,2.8,Healthy,Stable,91.8,2,N/A,P4 - Normal Surveillance
+15,6,0.0284,2.8%,2.8,Healthy,Stable,79.3,1,N/A,P4 - Normal Surveillance
+73,14,0.0276,2.8%,2.8,Healthy,Stable,92.4,1,N/A,P4 - Normal Surveillance
+110,14,0.028,2.8%,2.8,Healthy,Stable,91.8,1,N/A,P4 - Normal Surveillance
+222,14,0.0284,2.8%,2.8,Healthy,Stable,91.5,1,N/A,P4 - Normal Surveillance
+317,14,0.0277,2.8%,2.8,Healthy,Stable,92.0,1,N/A,P4 - Normal Surveillance
+181,14,0.0278,2.8%,2.8,Healthy,Stable,92.0,0,N/A,P4 - Normal Surveillance
+288,14,0.0276,2.8%,2.8,Healthy,Baseline Initial Observation,92.1,0,N/A,P4 - Normal Surveillance
+312,14,0.0283,2.8%,2.8,Healthy,Baseline Initial Observation,91.6,0,N/A,P4 - Normal Surveillance
+335,14,0.0284,2.8%,2.8,Healthy,Baseline Initial Observation,91.5,0,N/A,P4 - Normal Surveillance
+322,14,0.0265,2.7%,2.7,Healthy,Stable,92.9,3,N/A,P4 - Normal Surveillance
+8,14,0.0273,2.7%,2.7,Healthy,Stable,92.3,1,N/A,P4 - Normal Surveillance
+107,14,0.0275,2.7%,2.7,Healthy,Stable,92.3,1,N/A,P4 - Normal Surveillance
+221,14,0.0272,2.7%,2.7,Healthy,Stable,92.4,1,N/A,P4 - Normal Surveillance
+199,14,0.0274,2.7%,2.7,Healthy,Stable,92.3,0,N/A,P4 - Normal Surveillance
+304,14,0.0275,2.7%,2.7,Healthy,Stable,92.2,0,N/A,P4 - Normal Surveillance
+370,14,0.0266,2.7%,2.7,Healthy,Stable,92.8,0,N/A,P4 - Normal Surveillance
+413,14,0.0268,2.7%,2.7,Healthy,Baseline Initial Observation,93.0,0,N/A,P4 - Normal Surveillance
+318,14,0.0257,2.6%,2.6,Healthy,Stable,93.5,2,N/A,P4 - Normal Surveillance
+270,14,0.0257,2.6%,2.6,Healthy,Stable,93.5,1,N/A,P4 - Normal Surveillance
+345,14,0.0258,2.6%,2.6,Healthy,Stable,93.4,1,N/A,P4 - Normal Surveillance
+14,8,0.026,2.6%,2.6,Healthy,Stable,93.1,0,N/A,P4 - Normal Surveillance
+75,14,0.0262,2.6%,2.6,Healthy,Stable,93.2,0,N/A,P4 - Normal Surveillance
+209,14,0.0261,2.6%,2.6,Healthy,Stable,93.3,0,N/A,P4 - Normal Surveillance
+398,14,0.0264,2.6%,2.6,Healthy,Stable,93.0,0,N/A,P4 - Normal Surveillance
+4,14,0.0246,2.5%,2.5,Healthy,Stable,94.3,1,N/A,P4 - Normal Surveillance
+90,14,0.0253,2.5%,2.5,Healthy,Stable,93.8,1,N/A,P4 - Normal Surveillance
+210,14,0.0251,2.5%,2.5,Healthy,Stable,94.0,1,N/A,P4 - Normal Surveillance
+262,14,0.0249,2.5%,2.5,Healthy,Stable,94.8,1,N/A,P4 - Normal Surveillance
+147,14,0.0249,2.5%,2.5,Healthy,Stable,94.1,0,N/A,P4 - Normal Surveillance
+298,14,0.0251,2.5%,2.5,Healthy,Stable,93.9,0,N/A,P4 - Normal Surveillance
+72,14,0.0242,2.4%,2.4,Healthy,Stable,94.6,2,N/A,P4 - Normal Surveillance
+265,10,0.0238,2.4%,2.4,Healthy,Stable,94.9,2,N/A,P4 - Normal Surveillance
+380,14,0.0242,2.4%,2.4,Healthy,Stable,94.6,2,N/A,P4 - Normal Surveillance
+85,14,0.0237,2.4%,2.4,Healthy,Stable,95.1,1,N/A,P4 - Normal Surveillance
+117,14,0.0243,2.4%,2.4,Healthy,Stable,94.9,1,N/A,P4 - Normal Surveillance
+263,7,0.0236,2.4%,2.4,Healthy,Stable,79.8,1,N/A,P4 - Normal Surveillance
+242,14,0.0239,2.4%,2.4,Healthy,Stable,94.9,0,N/A,P4 - Normal Surveillance
+311,14,0.0243,2.4%,2.4,Healthy,Stable,94.5,0,N/A,P4 - Normal Surveillance
+34,14,0.0226,2.3%,2.3,Healthy,Stable,95.7,3,N/A,P4 - Normal Surveillance
+232,14,0.0225,2.3%,2.3,Healthy,Stable,95.8,1,N/A,P4 - Normal Surveillance
+256,14,0.0226,2.3%,2.3,Healthy,Stable,96.1,1,N/A,P4 - Normal Surveillance
+171,14,0.0226,2.3%,2.3,Healthy,Stable,95.8,0,N/A,P4 - Normal Surveillance
+223,14,0.0233,2.3%,2.3,Healthy,Stable,95.2,0,N/A,P4 - Normal Surveillance
+280,14,0.0228,2.3%,2.3,Healthy,Baseline Initial Observation,95.6,0,N/A,P4 - Normal Surveillance
+396,14,0.0231,2.3%,2.3,Healthy,Baseline Initial Observation,95.4,0,N/A,P4 - Normal Surveillance
+124,13,0.0217,2.2%,2.2,Healthy,Stable,96.4,3,N/A,P4 - Normal Surveillance
+334,14,0.022,2.2%,2.2,Healthy,Stable,96.2,0,N/A,P4 - Normal Surveillance
+47,14,0.0206,2.1%,2.1,Healthy,Stable,97.1,3,N/A,P4 - Normal Surveillance
+286,14,0.0206,2.1%,2.1,Healthy,Stable,97.1,2,N/A,P4 - Normal Surveillance
+5,14,0.0211,2.1%,2.1,Healthy,Stable,96.8,0,N/A,P4 - Normal Surveillance
+62,14,0.0208,2.1%,2.1,Healthy,Stable,97.0,0,N/A,P4 - Normal Surveillance
+179,14,0.0214,2.1%,2.1,Healthy,Stable,96.6,0,N/A,P4 - Normal Surveillance
+230,14,0.0214,2.1%,2.1,Healthy,Stable,96.6,0,N/A,P4 - Normal Surveillance
+348,14,0.0211,2.1%,2.1,Healthy,Stable,96.8,0,N/A,P4 - Normal Surveillance
+387,14,0.0204,2.0%,2.0,Healthy,Stable,97.3,3,N/A,P4 - Normal Surveillance
+146,14,0.02,2.0%,2.0,Healthy,Stable,97.5,1,N/A,P4 - Normal Surveillance
+219,14,0.0199,2.0%,2.0,Healthy,Stable,97.6,1,N/A,P4 - Normal Surveillance
+285,14,0.0204,2.0%,2.0,Healthy,Stable,97.2,1,N/A,P4 - Normal Surveillance
+169,14,0.0196,2.0%,2.0,Healthy,Stable,97.7,0,N/A,P4 - Normal Surveillance
+31,14,0.0193,1.9%,1.9,Healthy,Stable,97.9,1,N/A,P4 - Normal Surveillance
+121,13,0.0188,1.9%,1.9,Healthy,Stable,98.2,1,N/A,P4 - Normal Surveillance
+258,14,0.0189,1.9%,1.9,Healthy,Stable,98.1,0,N/A,P4 - Normal Surveillance
+139,14,0.0183,1.8%,1.8,Healthy,Stable,98.4,2,N/A,P4 - Normal Surveillance
+142,14,0.0181,1.8%,1.8,Healthy,Stable,99.2,2,N/A,P4 - Normal Surveillance
+95,14,0.0182,1.8%,1.8,Healthy,Stable,98.5,1,N/A,P4 - Normal Surveillance
+125,14,0.0179,1.8%,1.8,Healthy,Stable,98.6,1,N/A,P4 - Normal Surveillance
+226,14,0.0175,1.8%,1.8,Healthy,Stable,98.8,1,N/A,P4 - Normal Surveillance
+363,14,0.0181,1.8%,1.8,Healthy,Stable,98.5,1,N/A,P4 - Normal Surveillance
+48,14,0.0182,1.8%,1.8,Healthy,Stable,98.5,0,N/A,P4 - Normal Surveillance
+141,14,0.0185,1.8%,1.8,Healthy,Stable,98.5,0,N/A,P4 - Normal Surveillance
+204,14,0.0181,1.8%,1.8,Healthy,Stable,98.5,0,N/A,P4 - Normal Surveillance
+346,14,0.018,1.8%,1.8,Healthy,Stable,98.6,0,N/A,P4 - Normal Surveillance
+347,14,0.0175,1.8%,1.8,Healthy,Stable,98.8,0,N/A,P4 - Normal Surveillance
+77,14,0.0168,1.7%,1.7,Healthy,Stable,99.1,2,N/A,P4 - Normal Surveillance
+233,14,0.0167,1.7%,1.7,Healthy,Stable,99.1,2,N/A,P4 - Normal Surveillance
+94,14,0.0172,1.7%,1.7,Healthy,Stable,98.9,1,N/A,P4 - Normal Surveillance
+408,14,0.0166,1.7%,1.7,Healthy,Stable,99.2,1,N/A,P4 - Normal Surveillance
+26,14,0.0174,1.7%,1.7,Healthy,Stable,98.8,0,N/A,P4 - Normal Surveillance
+309,14,0.0174,1.7%,1.7,Healthy,Stable,98.8,0,N/A,P4 - Normal Surveillance
+336,14,0.0174,1.7%,1.7,Healthy,Stable,98.8,0,N/A,P4 - Normal Surveillance
+416,14,0.0169,1.7%,1.7,Healthy,Stable,99.1,0,N/A,P4 - Normal Surveillance
+2,14,0.0158,1.6%,1.6,Healthy,Stable,99.4,0,N/A,P4 - Normal Surveillance
+30,14,0.0161,1.6%,1.6,Healthy,Stable,99.3,0,N/A,P4 - Normal Surveillance
+50,14,0.0164,1.6%,1.6,Healthy,Stable,99.2,0,N/A,P4 - Normal Surveillance
+287,14,0.0158,1.6%,1.6,Healthy,Baseline Initial Observation,99.4,0,N/A,P4 - Normal Surveillance
+257,14,0.0146,1.5%,1.5,Healthy,Stable,99.6,2,N/A,P4 - Normal Surveillance
+40,14,0.0152,1.5%,1.5,Healthy,Stable,99.6,1,N/A,P4 - Normal Surveillance
+43,14,0.0155,1.5%,1.5,Healthy,Stable,99.5,1,N/A,P4 - Normal Surveillance
+367,14,0.0149,1.5%,1.5,Healthy,Stable,99.6,1,N/A,P4 - Normal Surveillance
+61,14,0.0148,1.5%,1.5,Healthy,Stable,99.6,0,N/A,P4 - Normal Surveillance
+79,14,0.0146,1.5%,1.5,Healthy,Stable,99.7,0,N/A,P4 - Normal Surveillance
+195,14,0.015,1.5%,1.5,Healthy,Stable,99.6,0,N/A,P4 - Normal Surveillance
+213,14,0.0154,1.5%,1.5,Healthy,Stable,99.5,0,N/A,P4 - Normal Surveillance
+260,14,0.0149,1.5%,1.5,Healthy,Stable,99.6,0,N/A,P4 - Normal Surveillance
+320,14,0.0153,1.5%,1.5,Healthy,Baseline Initial Observation,99.6,0,N/A,P4 - Normal Surveillance
+152,14,0.014,1.4%,1.4,Healthy,Stable,99.8,2,N/A,P4 - Normal Surveillance
+224,13,0.0142,1.4%,1.4,Healthy,Stable,99.7,1,N/A,P4 - Normal Surveillance
+24,14,0.0136,1.4%,1.4,Healthy,Stable,99.8,0,N/A,P4 - Normal Surveillance
+177,14,0.0141,1.4%,1.4,Healthy,Stable,99.7,0,N/A,P4 - Normal Surveillance
+297,14,0.0139,1.4%,1.4,Healthy,Stable,99.8,0,N/A,P4 - Normal Surveillance
+332,14,0.0142,1.4%,1.4,Healthy,Baseline Initial Observation,99.7,0,N/A,P4 - Normal Surveillance
+381,14,0.0141,1.4%,1.4,Healthy,Stable,99.7,0,N/A,P4 - Normal Surveillance
+284,14,0.0131,1.3%,1.3,Healthy,Stable,99.9,1,N/A,P4 - Normal Surveillance
+419,14,0.0127,1.3%,1.3,Healthy,Stable,99.9,1,N/A,P4 - Normal Surveillance
+52,14,0.0134,1.3%,1.3,Healthy,Stable,99.8,0,N/A,P4 - Normal Surveillance
+56,14,0.0129,1.3%,1.3,Healthy,Stable,99.9,0,N/A,P4 - Normal Surveillance
+126,14,0.0126,1.3%,1.3,Healthy,Stable,99.9,0,N/A,P4 - Normal Surveillance
+80,14,0.0118,1.2%,1.2,Healthy,Stable,99.9,3,N/A,P4 - Normal Surveillance
+236,14,0.0117,1.2%,1.2,Healthy,Stable,99.9,1,N/A,P4 - Normal Surveillance
+49,14,0.0116,1.2%,1.2,Healthy,Stable,99.9,0,N/A,P4 - Normal Surveillance
+54,14,0.0116,1.2%,1.2,Healthy,Stable,99.9,0,N/A,P4 - Normal Surveillance
+143,14,0.0116,1.2%,1.2,Healthy,Stable,99.9,0,N/A,P4 - Normal Surveillance
+189,14,0.011,1.1%,1.1,Healthy,Stable,100.0,3,N/A,P4 - Normal Surveillance
+206,14,0.0105,1.1%,1.1,Healthy,Stable,100.0,0,N/A,P4 - Normal Surveillance
+55,14,0.0101,1.0%,1.0,Healthy,Stable,100.0,1,N/A,P4 - Normal Surveillance
+338,14,0.0101,1.0%,1.0,Healthy,Stable,100.0,1,N/A,P4 - Normal Surveillance
+25,14,0.0101,1.0%,1.0,Healthy,Stable,100.0,0,N/A,P4 - Normal Surveillance
+156,14,0.0102,1.0%,1.0,Healthy,Stable,100.0,0,N/A,P4 - Normal Surveillance
+178,14,0.0101,1.0%,1.0,Healthy,Stable,100.0,0,N/A,P4 - Normal Surveillance
+202,14,0.0101,1.0%,1.0,Healthy,Stable,100.0,0,N/A,P4 - Normal Surveillance
+212,14,0.0102,1.0%,1.0,Healthy,Stable,100.0,0,N/A,P4 - Normal Surveillance
+294,14,0.0101,1.0%,1.0,Healthy,Baseline Initial Observation,100.0,0,N/A,P4 - Normal Surveillance
+325,14,0.0101,1.0%,1.0,Healthy,Stable,100.0,0,N/A,P4 - Normal Surveillance
+360,14,0.0101,1.0%,1.0,Healthy,Stable,100.0,0,N/A,P4 - Normal Surveillance
+421,14,0.0101,1.0%,1.0,Healthy,Stable,100.0,0,N/A,P4 - Normal Surveillance

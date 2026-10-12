@@ -1,0 +1,113 @@
+{
+  "best_model_name": "random_forest",
+  "candidate_comparisons": {
+    "logistic_regression": {
+      "accuracy": 0.9613,
+      "precision": 0.125,
+      "recall": 0.0714,
+      "f1": 0.0909,
+      "roc_auc": 0.8459,
+      "pr_auc": 0.1919,
+      "specificity": 0.9861,
+      "false_negative_rate": 0.9286,
+      "brier_score": 0.0335,
+      "confusion_matrix": {
+        "tn": 496,
+        "fp": 7,
+        "fn": 13,
+        "tp": 1
+      }
+    },
+    "random_forest": {
+      "accuracy": 0.9439,
+      "precision": 0.2414,
+      "recall": 0.5,
+      "f1": 0.3256,
+      "roc_auc": 0.8828,
+      "pr_auc": 0.2001,
+      "specificity": 0.9563,
+      "false_negative_rate": 0.5,
+      "brier_score": 0.0512,
+      "confusion_matrix": {
+        "tn": 481,
+        "fp": 22,
+        "fn": 7,
+        "tp": 7
+      }
+    },
+    "xgboost": {
+      "accuracy": 0.9516,
+      "precision": 0.2381,
+      "recall": 0.3571,
+      "f1": 0.2857,
+      "roc_auc": 0.8824,
+      "pr_auc": 0.205,
+      "specificity": 0.9682,
+      "false_negative_rate": 0.6429,
+      "brier_score": 0.0359,
+      "confusion_matrix": {
+        "tn": 487,
+        "fp": 16,
+        "fn": 9,
+        "tp": 5
+      }
+    }
+  },
+  "test_metrics": {
+    "accuracy": 0.958,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "roc_auc": 0.7783,
+    "pr_auc": 0.1946,
+    "specificity": 1.0,
+    "false_negative_rate": 1.0,
+    "brier_score": 0.0387,
+    "confusion_matrix": {
+      "tn": 251,
+      "fp": 0,
+      "fn": 11,
+      "tp": 0
+    }
+  },
+  "calibration_evaluation": {
+    "brier_score_raw": 0.0626,
+    "brier_score_calibrated": 0.0387,
+    "brier_improvement_pct": 38.07,
+    "raw_curve": {
+      "prob_true": [
+        0.011976047904191617,
+        0.03333333333333333,
+        0.2,
+        0.06666666666666667,
+        0.0625,
+        0.0,
+        0.6666666666666666,
+        0.0
+      ],
+      "prob_pred": [
+        0.03801778070411709,
+        0.1506436685929848,
+        0.2494329792476,
+        0.347203839864581,
+        0.44509262717292375,
+        0.5324676213632247,
+        0.6321786358242726,
+        0.733337885945901
+      ]
+    },
+    "calibrated_curve": {
+      "prob_true": [
+        0.036290322580645164,
+        0.08333333333333333,
+        0.5
+      ],
+      "prob_pred": [
+        0.01806473407060879,
+        0.13016362986241234,
+        0.2650749597605856
+      ]
+    }
+  },
+  "feature_count": 163
+}

@@ -1,0 +1,7 @@
+Experiment,Feature_Count,ROC_AUC,PR_AUC,Recall,F1_Score,Brier_Score
+Exp 1: Static Financial Features,83,0.7787,0.1353,0.1818,0.1538,0.0632
+Exp 2: Static + Lags,99,0.7428,0.1373,0.1818,0.1538,0.0654
+Exp 3: Static + Lags + Trends,123,0.7983,0.1729,0.1818,0.1538,0.066
+Exp 4: Full Temporal EWS,163,0.7783,0.1946,0.1818,0.16,0.0626
+Exp 5: Temporal EWS + Multi-Source Weighted Fusion,166,0.6403,0.1702,0.0,0.0,0.0419
+Exp 6: Full Stacking Meta-Model Risk Intelligence,167,0.6588,0.1294,0.0,0.0,0.0397

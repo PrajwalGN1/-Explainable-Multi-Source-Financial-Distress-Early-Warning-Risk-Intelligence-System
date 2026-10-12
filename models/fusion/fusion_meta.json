@@ -1,0 +1,9 @@
+{
+  "baseline_weights": {
+    "ews": 0.5,
+    "bankruptcy": 0.25,
+    "anomaly": 0.15,
+    "health_risk": 0.1
+  },
+  "has_meta_model": true
+}
