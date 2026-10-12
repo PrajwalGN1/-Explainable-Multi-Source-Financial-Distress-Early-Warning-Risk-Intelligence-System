@@ -3,6 +3,15 @@
   "explanation_method": "TreeSHAP (shap 0.53.0)",
   "output_space": "raw_random_forest_probability",
   "feature_count": 163,
+  "inter_cohort_ranking_agreement": {
+    "metric": "Spearman rank correlation coefficient",
+    "spearman_rho": 0.913,
+    "p_value": 1.3757961798584894e-64,
+    "features_evaluated": 163,
+    "test_population": "Holdout Test (T=13, N=262)",
+    "validation_population": "Validation Fold (T=11,12, N=517)",
+    "interpretation": "High ranking agreement (rho = 0.9130, p = 1.38e-64) reflects empirical attribution consistency across retrospective temporal cohorts. This measures model attribution alignment, not proof of generalized corporate distress causality or economic validity."
+  },
   "test_population": {
     "name": "Holdout Test (T=13)",
     "sample_size": 262,

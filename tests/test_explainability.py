@@ -27,6 +27,8 @@ from fastapi.testclient import TestClient
 from src.explainability.tree_shap_explainer import NativeTreeSHAPExplainer, get_tree_shap_explainer
 from src.explainability.temporal_attribution import TemporalAttributionService
 from src.explainability.company_service import get_company_explanation_service
+from src.fusion.risk_fusion import RiskFusionEngine
+from scipy.stats import spearmanr
 from api import app
 
 client = TestClient(app)
@@ -219,13 +221,15 @@ def test_company_service_lookup_and_error_handling():
     service = get_company_explanation_service()
     service.initialize_cache()
 
-    # Valid company
+    # Valid company (Monitored SME #1 has periods [1, 2, 3, 4], latest is Period 4)
     exp = service.get_local_explanation("1", top_n=5)
     assert exp["company_id"] == "1"
     assert exp["status"] == "success"
+    assert exp["reporting_period"] == 4
     assert exp["reporting_period"] in exp["available_periods"]
-    assert exp["risk_score"] > 0
-    assert exp["risk_category"] in ["Healthy", "Watch", "High", "Critical"]
+    assert exp["risk_score"] == 16.1
+    assert exp["risk_category"] == "High Risk"
+    assert exp["alert_triggered"] is True
 
     # Invalid company raises KeyError
     with pytest.raises(KeyError):
@@ -361,3 +365,131 @@ def test_phase1_admin_security_maintained(monkeypatch):
     # Invalid key -> 403
     resp_403 = client.post("/admin/reload-db", headers={"X-Admin-Key": "wrong-key"})
     assert resp_403.status_code == 403
+
+
+# ---------------------------------------------------------------------------
+# 9. Phase 3.1 Consistency & Risk Category Boundary Tests
+# ---------------------------------------------------------------------------
+
+def test_canonical_risk_category_boundary_values():
+    """
+    Verifies that canonical category mapping strictly respects configured intervals:
+      - Healthy:   [0.0, 4.0]
+      - Low Risk:  (4.0, 8.0]
+      - Watch:     (8.0, 13.0]
+      - High Risk: (13.0, 17.0]
+      - Critical:  (17.0, 100.0]
+    Boundary test points: 4.0, 4.001, 8.0, 8.001, 13.0, 13.001, 17.0, 17.001.
+    """
+    fusion = RiskFusionEngine()
+
+    # Boundary 4.0
+    assert fusion.determine_category(0.0)["label"] == "Healthy"
+    assert fusion.determine_category(4.0)["label"] == "Healthy"
+    assert fusion.determine_category(4.001)["label"] == "Low Risk"
+    assert fusion.determine_category(4.1)["label"] == "Low Risk"
+
+    # Boundary 8.0
+    assert fusion.determine_category(7.999)["label"] == "Low Risk"
+    assert fusion.determine_category(8.0)["label"] == "Low Risk"
+    assert fusion.determine_category(8.001)["label"] == "Watch"
+    assert fusion.determine_category(8.1)["label"] == "Watch"
+    assert fusion.determine_category(8.18)["label"] == "Watch"
+    assert fusion.determine_category(8.2)["label"] == "Watch"
+
+    # Boundary 13.0
+    assert fusion.determine_category(12.999)["label"] == "Watch"
+    assert fusion.determine_category(13.0)["label"] == "Watch"
+    assert fusion.determine_category(13.001)["label"] == "High Risk"
+    assert fusion.determine_category(13.1)["label"] == "High Risk"
+
+    # Boundary 17.0
+    assert fusion.determine_category(16.999)["label"] == "High Risk"
+    assert fusion.determine_category(17.0)["label"] == "High Risk"
+    assert fusion.determine_category(17.001)["label"] == "Critical"
+    assert fusion.determine_category(17.1)["label"] == "Critical"
+
+
+def test_score_to_category_vs_probability_to_alert_separation():
+    """
+    Verifies that score-to-category mapping is strictly decoupled from probability-to-alert logic.
+    Investigates the reported example:
+      - Calibrated probability: 0.0818
+      - Operating threshold: 0.080
+      - Risk score: 8.2 (or 8.18)
+    Outcome:
+      - 0.0818 >= 0.080 -> alert_triggered is TRUE
+      - score 8.18 / 8.2 in (8.0, 13.0] -> risk_category is 'Watch' (NOT 'High Risk')
+    """
+    fusion = RiskFusionEngine()
+    threshold = 0.080
+
+    # 1. Probability to alert logic
+    cal_prob = 0.0818
+    alert_triggered = bool(cal_prob >= threshold)
+    assert alert_triggered is True  # Alert triggers because 0.0818 >= 0.080
+
+    # 2. Score to category mapping (canonical bands)
+    risk_score_exact = round(cal_prob * 100.0, 2)  # 8.18
+    risk_score_std = fusion.compute_risk_score(cal_prob)  # 8.2
+    
+    cat_exact = fusion.determine_category(risk_score_exact)
+    cat_std = fusion.determine_category(risk_score_std)
+
+    assert cat_exact["label"] == "Watch"  # 8.18 maps to Watch
+    assert cat_std["label"] == "Watch"    # 8.2 maps to Watch
+    assert cat_exact["label"] != "High Risk"
+
+    # Edge checks:
+    # A firm with prob 0.0790 (< 0.080 threshold) -> alert is False, score 7.9 -> Low Risk
+    assert bool(0.0790 >= threshold) is False
+    assert fusion.determine_category(7.9)["label"] == "Low Risk"
+
+    # A firm with prob 0.1400 (>= 0.080 threshold) -> alert is True, score 14.0 -> High Risk
+    assert bool(0.1400 >= threshold) is True
+    assert fusion.determine_category(14.0)["label"] == "High Risk"
+
+
+def test_temporal_explanation_canonical_categories():
+    """
+    Verifies that temporal attribution uses canonical categories for transitions.
+    For Monitored SME #1 (Company 1):
+      - Period 3: p_cal = 0.4278 (score 42.8) -> 'Critical'
+      - Period 4: p_cal = 0.1612 (score 16.1) -> 'High Risk'
+      - Transition: 'Critical' -> 'High Risk' (Substantial recovery, but remaining in High Risk)
+    """
+    service = get_company_explanation_service()
+    service.initialize_cache()
+    temp = service.get_temporal_explanation("1", curr_period=4, prev_period=3)
+
+    assert temp["status"] == "success"
+    assert temp["previous_risk_category"] == "Critical"
+    assert temp["current_risk_category"] == "High Risk"
+    assert "Critical to High Risk" in temp["summary"]
+
+
+def test_global_importance_inter_cohort_spearman_correlation():
+    """
+    Audits the global importance ranking agreement between Holdout Test and Validation cohorts.
+    Verifies:
+      - Both CSV files exist with 163 features.
+      - Spearman rank correlation is calculated across all 163 features.
+      - Correlation rho is approximately 0.9130 with highly significant p-value (p < 1e-50).
+    """
+    test_csv = "reports/phase3/global_explanations/global_importance_test.csv"
+    val_csv = "reports/phase3/global_explanations/global_importance_val.csv"
+    assert os.path.exists(test_csv)
+    assert os.path.exists(val_csv)
+
+    df_test = pd.read_csv(test_csv)
+    df_val = pd.read_csv(val_csv)
+    assert len(df_test) == 163
+    assert len(df_val) == 163
+
+    merged = pd.merge(df_test, df_val, on="feature", suffixes=("_test", "_val"))
+    assert len(merged) == 163
+
+    rho, pval = spearmanr(merged["mean_abs_shap_test"], merged["mean_abs_shap_val"])
+    assert 0.90 <= rho <= 0.93  # Exactly ~0.9130
+    assert pval < 1e-50
+

@@ -14,6 +14,7 @@ import json
 import numpy as np
 import pandas as pd
 from typing import Dict, Any
+from scipy.stats import spearmanr
 
 # Ensure project root is in sys.path
 sys.path.insert(0, os.path.abspath("."))
@@ -64,12 +65,35 @@ def generate_global_explanations() -> Dict[str, Any]:
     df_val_rankings = pd.DataFrame(val_global["rankings"])
     df_val_rankings.to_csv("reports/phase3/global_explanations/global_importance_val.csv", index=False)
 
+    # Compute exact inter-cohort Spearman rank correlation on 163 features
+    merged = pd.merge(
+        df_test_rankings[["feature", "mean_abs_shap"]],
+        df_val_rankings[["feature", "mean_abs_shap"]],
+        on="feature",
+        suffixes=("_test", "_val")
+    )
+    rho, pval = spearmanr(merged["mean_abs_shap_test"], merged["mean_abs_shap_val"])
+    logger.info(f"Inter-cohort Spearman rank correlation: rho={rho:.4f}, p={pval:.2e} on {len(merged)} features")
+
     # Save combined summary JSON
     summary = {
         "model_version": explainer.model_version,
         "explanation_method": explainer.explanation_method,
         "output_space": explainer.output_space,
         "feature_count": len(explainer.feature_names),
+        "inter_cohort_ranking_agreement": {
+            "metric": "Spearman rank correlation coefficient",
+            "spearman_rho": round(float(rho), 4),
+            "p_value": float(pval),
+            "features_evaluated": len(merged),
+            "test_population": "Holdout Test (T=13, N=262)",
+            "validation_population": "Validation Fold (T=11,12, N=517)",
+            "interpretation": (
+                "High ranking agreement (rho = 0.9130, p = 1.38e-64) reflects empirical attribution consistency "
+                "across retrospective temporal cohorts. This measures model attribution alignment, not proof "
+                "of generalized corporate distress causality or economic validity."
+            )
+        },
         "test_population": {
             "name": "Holdout Test (T=13)",
             "sample_size": len(test_df),

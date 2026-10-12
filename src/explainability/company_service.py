@@ -19,6 +19,7 @@ from src.data.loaders import DataLoader
 from src.features.temporal_features import TemporalFeatureEngine
 from src.explainability.tree_shap_explainer import NativeTreeSHAPExplainer, get_tree_shap_explainer
 from src.explainability.temporal_attribution import TemporalAttributionService
+from src.fusion.risk_fusion import RiskFusionEngine
 from src.utils.logger import setup_logger
 
 logger = setup_logger("company_explanation_service")
@@ -38,6 +39,7 @@ class CompanyExplanationService:
         self.raw_data_path = raw_data_path
         self.explainer = explainer or get_tree_shap_explainer()
         self.temporal_service = TemporalAttributionService(explainer=self.explainer)
+        self._fusion_engine = RiskFusionEngine()
 
         self._lock = threading.Lock()
         self._company_features_cache: Dict[str, Dict[int, np.ndarray]] = {}
@@ -128,10 +130,14 @@ class CompanyExplanationService:
         explanation["reporting_period"] = selected_period
         explanation["available_periods"] = available_periods
 
-        # Operational risk score & category
+        # Operational risk score & category (canonical RiskFusionEngine)
         cal_prob = explanation["calibrated_distress_probability"]
-        explanation["risk_score"] = round(cal_prob * 100.0, 1)
-        explanation["risk_category"] = self.temporal_service._derive_risk_category(cal_prob)
+        score = self._fusion_engine.compute_risk_score(cal_prob)
+        cat_info = self._fusion_engine.determine_category(score)
+        explanation["risk_score"] = score
+        explanation["risk_category"] = cat_info["label"]
+        explanation["risk_color"] = cat_info["color"]
+        explanation["risk_description"] = cat_info["description"]
 
         return explanation
 
@@ -207,8 +213,12 @@ class CompanyExplanationService:
         exp = self.explainer.explain_transformed_row(X_trans[0], top_n=top_n)
 
         cal_prob = exp["calibrated_distress_probability"]
-        exp["risk_score"] = round(cal_prob * 100.0, 1)
-        exp["risk_category"] = self.temporal_service._derive_risk_category(cal_prob)
+        score = self._fusion_engine.compute_risk_score(cal_prob)
+        cat_info = self._fusion_engine.determine_category(score)
+        exp["risk_score"] = score
+        exp["risk_category"] = cat_info["label"]
+        exp["risk_color"] = cat_info["color"]
+        exp["risk_description"] = cat_info["description"]
         return exp
 
     def get_global_explanation(self, population: str = "test") -> Dict[str, Any]:

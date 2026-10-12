@@ -16,6 +16,7 @@ import pandas as pd
 
 from src.explainability.tree_shap_explainer import NativeTreeSHAPExplainer, get_tree_shap_explainer
 from src.features.temporal_features import TemporalFeatureEngine
+from src.fusion.risk_fusion import RiskFusionEngine
 from src.utils.logger import setup_logger
 
 logger = setup_logger("temporal_attribution")
@@ -28,6 +29,7 @@ class TemporalAttributionService:
 
     def __init__(self, explainer: Optional[NativeTreeSHAPExplainer] = None):
         self.explainer = explainer or get_tree_shap_explainer()
+        self._fusion_engine = RiskFusionEngine()
 
     def explain_period_transition(
         self,
@@ -172,13 +174,14 @@ class TemporalAttributionService:
         }
 
     def _derive_risk_category(self, cal_prob: float) -> str:
-        """Derives canonical risk category from calibrated probability."""
-        score = cal_prob * 100.0
-        if score < 8.0:
-            return "Healthy"
-        elif score < 13.0:
-            return "Watch"
-        elif score < 17.0:
-            return "High"
-        else:
-            return "Critical"
+        """
+        Derives canonical risk category from calibrated probability using canonical RiskFusionEngine.
+        Canonical score intervals:
+          - Healthy:  [0.0, 4.0]
+          - Low Risk: (4.0, 8.0]
+          - Watch:    (8.0, 13.0]
+          - High Risk:(13.0, 17.0]
+          - Critical: (17.0, 100.0]
+        """
+        score = self._fusion_engine.compute_risk_score(cal_prob)
+        return self._fusion_engine.determine_category(score)["label"]
