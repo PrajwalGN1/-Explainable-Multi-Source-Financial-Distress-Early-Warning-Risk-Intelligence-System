@@ -168,3 +168,17 @@ In `src/risk_engine/recommendations.py`:
 3. **De-bias or Replace the Stacking Meta-Model:**
    - Eliminate synthetic proxy features on Dataset A.
    - Rely directly on the calibrated EWS probability ($Score = P_{\text{cal}} \times 100$) or apply a constrained non-negative weighted average.
+
+---
+
+## 6. Phase 1 Remediation Verification (October 12, 2026)
+
+- **Status:** **REMEDIATED & VERIFIED**
+- **Action Taken (`GAP-03`):**
+  - Updated `src/risk_engine/alerts.py` to source thresholds dynamically from `config/risk_config.yaml` (`critical_probability_threshold: 0.170`, `high_probability_threshold: 0.130`).
+  - Implemented safe parsing and handling for missing (`None`), invalid (`NaN`/non-numeric), and edge case probabilities without throwing exceptions.
+  - Handled missing trajectory information and financial health summaries gracefully.
+  - Separated probability, qualitative category, and alert priority explicitly.
+  - Verified on validation data: threshold $0.170$ identifies severe tail risks (alerting on 3.29% of universe, capturing 28.6% of distresses with 97.4% specificity); threshold $0.130$ triggers on 4.45% of universe with 96.2% specificity.
+  - Verified with automated tests `test_configured_early_warning_alerts_firing` and `test_alert_engine_safe_handling_of_edge_cases`.
+

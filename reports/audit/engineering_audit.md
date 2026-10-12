@@ -158,3 +158,17 @@ The project contains 4 test files with 20 passing tests:
 2. **Integrate `DataValidator` in Pipeline (`P1`):** Hook `DataValidator` into `pipeline.py` to abort early if data corruption or time non-monotonicity is detected.
 3. **Synchronize Dependencies (`P1`):** Add `shap` to `requirements.txt` or adopt XGBoost native TreeSHAP.
 4. **Expand Test Suite (`P1`):** Add tests asserting that test recall exceeds 0% and that alert triggers fire under calibrated probability ranges.
+
+---
+
+## 4. Phase 1 Remediation Verification (October 12, 2026)
+
+- **Status:** **REMEDIATED & VERIFIED**
+- **Actions Taken:**
+  - **Git Version Control (`GAP-04`):** Git initialized with baseline commit `509c866`, active development branch set to `upgrade/v1.1-audit-fixes`.
+  - **FastAPI In-Memory Singleton Caching (`GAP-09`):** Implemented thread-safe `get_db(force_reload=False)` with double-checked locking (`threading.Lock()`), pre-warmed on FastAPI `lifespan` startup. Response time for `/company/364` dropped from ~150–300 ms to **7.75–9.55 ms average** across 50 requests with zero additional disk I/O. Added `/admin/reload-db` explicit invalidation endpoint.
+  - **Access Control & Fail-Closed Hardening:** Secured `/admin/reload-db` by requiring a valid `X-Admin-Key` header matching server `ADMIN_API_KEY` (constant-time verification via `secrets.compare_digest`). If `ADMIN_API_KEY` is unset on the server, the endpoint fails closed with HTTP 503 rather than allowing unauthenticated access. Rejects missing header with HTTP 401 and invalid credentials with HTTP 403 without logging keys.
+  - **Modernized FastAPI Startup:** Replaced deprecated `@app.on_event("startup")` with modern FastAPI `lifespan` context manager, resolving deprecation warnings.
+  - **Automated Test Suite Expansion:** Added targeted unit/integration tests across `tests/test_api.py` and `tests/test_fusion_and_scoring.py` covering boundary conditions, alert thresholds, safe edge cases, in-memory cache reuse, and admin endpoint authentication. Test suite expanded to **31 passing tests** (100% pass rate in 3.59s).
+
+

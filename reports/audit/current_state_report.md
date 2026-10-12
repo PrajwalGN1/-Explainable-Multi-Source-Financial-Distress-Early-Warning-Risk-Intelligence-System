@@ -19,10 +19,11 @@ This audit evaluates the codebase strictly against empirical evidence in source 
 
 ### 2.1 Workspace & Version Control
 - **Project Root:** `D:\Financial Distress`
-- **Version Control Status:** **NOT INITIALIZED**. A `.gitignore` file exists, but there is no `.git` directory in the project root or parent directories.
-  - *Risk Identification:* Without an active Git repository, change tracking, rollback branches, and revision history are absent.
-  - *Mitigation Plan:* Git initialization must occur before any code modification, establishing a clean `baseline` commit and isolated upgrade branch.
-- **Uncommitted Changes:** N/A (unversioned local workspace). All files currently on disk represent the initial pre-audit state.
+- **Version Control Status:** **INITIALIZED (Phase 1 Baseline Established)**.
+  - *Baseline Commit:* `509c866` (`baseline: initial state prior to Phase 1 audit remediation`)
+  - *Active Working Branch:* `upgrade/v1.1-audit-fixes`
+  - *Rollback Protection:* Guaranteed via Git baseline branch isolation.
+- **Uncommitted Changes:** Phase 1 remediations active on branch `upgrade/v1.1-audit-fixes` (dashboard band synchronization, calibrated alert rules, thread-safe API database caching).
 
 ### 2.2 Execution Runtime & Dependencies
 - **Active Python Environment:** Python 3.13.5 (`C:\Python313\python.exe`)
@@ -97,7 +98,9 @@ The project defines four execution entry points:
 | **Full Pipeline Training** | `python src/pipeline.py` | `src/pipeline.py` | **Implemented and Verified** | Executes end-to-end: loads 3 datasets, fits 3 models, trains meta-model, computes ablation, outputs 27MB JSON DB. |
 | **Streamlit Dashboard** | `streamlit run app.py` | `app.py` | **Implemented and Verified** | Launches dark-mode dashboard with 10 diagnostic views on port 8501. Verified via smoke test. |
 | **FastAPI REST Service** | `uvicorn api:app --reload --port 8000` | `api.py` | **Implemented and Verified** | Serves Pydantic-validated endpoints (`/health`, `/predict`, `/company/{id}`, `/watchlist`, `/risk-summary`). |
-| **Automated Test Suite** | `python -m pytest tests/ -v` | `tests/` | **Implemented and Verified** | 20 unit and integration tests passing in 40.2s total runtime. |
+| **Automated Test Suite** | `python -m pytest tests/ -v` | `tests/` | **Implemented and Verified** | 31 unit and integration tests passing in 3.59s total runtime (expanded from 20 in Phase 1). |
+
+
 
 ---
 

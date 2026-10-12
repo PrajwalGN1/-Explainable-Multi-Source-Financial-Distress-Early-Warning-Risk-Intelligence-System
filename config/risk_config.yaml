@@ -9,27 +9,27 @@ risk_categories:
     max: 4.0
     label: "Healthy"
     color: "#10b981"
-    description: "Distress probability below portfolio baseline (<4.0%). Strong financial position."
+    description: "Distress probability below portfolio baseline (<=4.0%). Strong financial position."
   low:
-    min: 4.01
+    min: 4.0
     max: 8.0
     label: "Low Risk"
     color: "#3b82f6"
     description: "Distress probability near portfolio baseline (4.0% - 8.0%). Low deterioration risk."
   watch:
-    min: 8.01
+    min: 8.0
     max: 13.0
     label: "Watch"
     color: "#f59e0b"
     description: "Distress probability elevated 2x-3.5x baseline (8.0% - 13.0%). Early warning indicators detected."
   high:
-    min: 13.01
+    min: 13.0
     max: 17.0
     label: "High Risk"
     color: "#f97316"
     description: "Distress probability 3.5x-4.5x baseline (13.0% - 17.0%). Substantial deterioration across indicators."
   critical:
-    min: 17.01
+    min: 17.0
     max: 100.0
     label: "Critical"
     color: "#ef4444"
@@ -38,7 +38,8 @@ risk_categories:
 early_warning_signals:
   consecutive_decline_periods: 2
   sharp_risk_increase_delta: 15.0 # percentage points
-  critical_probability_threshold: 0.65
+  critical_probability_threshold: 0.170 # Calibrated distress probability >= 17.0% (validated against validation fold)
+  high_probability_threshold: 0.130     # Calibrated distress probability >= 13.0% (validated against validation fold)
   liquidity_deterioration_threshold: -0.15 # 15% drop
   leverage_expansion_threshold: 0.20 # 20% surge
   solvency_weakening_threshold: -0.15

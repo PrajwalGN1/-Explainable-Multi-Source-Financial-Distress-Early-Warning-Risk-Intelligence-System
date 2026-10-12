@@ -54,18 +54,59 @@ class RiskFusionEngine:
         return round(float(np.clip(final_probability * 100.0, 0.0, 100.0)), 1)
 
     def determine_category(self, risk_score: float) -> Dict[str, str]:
-        """Maps numerical risk score to configured qualitative risk category."""
-        for key, conf in self.categories_cfg.items():
-            if conf["min"] <= risk_score <= conf["max"]:
-                return {
-                    "category_id": key,
-                    "label": conf["label"],
-                    "color": conf["color"],
-                    "description": conf["description"]
-                }
-        # Fallback boundary
-        if risk_score > 80.0:
+        """
+        Maps numerical risk score (0-100) to configured qualitative risk category.
+        Enforces canonical, contiguous boundary intervals:
+          - Healthy:  [0.0, 4.0]
+          - Low Risk: (4.0, 8.0]
+          - Watch:    (8.0, 13.0]
+          - High Risk:(13.0, 17.0]
+          - Critical: (17.0, 100.0]
+        Guarantees zero gaps, zero overlaps, and robust invalid/out-of-bounds handling.
+        """
+        if risk_score is None or (isinstance(risk_score, (int, float)) and np.isnan(risk_score)):
+            logger.warning(f"Invalid risk score provided: {risk_score}. Defaulting to Watch category.")
+            return {
+                "category_id": "watch",
+                "label": "Watch",
+                "color": "#f59e0b",
+                "description": "Indeterminate risk score; flagged for manual review."
+            }
+
+        try:
+            score = float(np.clip(float(risk_score), 0.0, 100.0))
+        except (ValueError, TypeError):
+            logger.warning(f"Could not convert risk score {risk_score} to float. Defaulting to Watch.")
+            return {
+                "category_id": "watch",
+                "label": "Watch",
+                "color": "#f59e0b",
+                "description": "Indeterminate risk score; flagged for manual review."
+            }
+
+        # Check configured categories in sequential order
+        order = ["healthy", "low", "watch", "high", "critical"]
+        for idx, key in enumerate(order):
+            if key in self.categories_cfg:
+                conf = self.categories_cfg[key]
+                c_max = float(conf.get("max", 100.0))
+                if score <= c_max or idx == len(order) - 1:
+                    return {
+                        "category_id": key,
+                        "label": conf["label"],
+                        "color": conf["color"],
+                        "description": conf["description"]
+                    }
+
+        # Fallback if categories_cfg is missing keys
+        if score > 17.0:
             return {"category_id": "critical", "label": "Critical", "color": "#ef4444", "description": "Severe distress indicators."}
+        elif score > 13.0:
+            return {"category_id": "high", "label": "High Risk", "color": "#f97316", "description": "Substantial deterioration."}
+        elif score > 8.0:
+            return {"category_id": "watch", "label": "Watch", "color": "#f59e0b", "description": "Early warning indicators."}
+        elif score > 4.0:
+            return {"category_id": "low", "label": "Low Risk", "color": "#3b82f6", "description": "Low deterioration risk."}
         return {"category_id": "healthy", "label": "Healthy", "color": "#10b981", "description": "Strong financial position."}
 
     def assess_company(self, ews_prob: float, bankruptcy_prob: float, anomaly_score: float, 

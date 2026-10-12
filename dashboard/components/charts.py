@@ -2,10 +2,61 @@ import plotly.graph_objects as go
 import plotly.express as px
 import pandas as pd
 import numpy as np
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
+from src.config.settings import get_risk_config
 
-def create_gauge_chart(score: float, category: str, color: str = "#ef4444") -> go.Figure:
-    """Builds an interactive radial gauge chart for the 0-100 Risk Score."""
+def _hex_to_rgba(hex_code: str, alpha: float = 0.25) -> str:
+    """Helper to convert hex color code into rgba string."""
+    hex_code = hex_code.lstrip("#")
+    if len(hex_code) == 6:
+        r = int(hex_code[0:2], 16)
+        g = int(hex_code[2:4], 16)
+        b = int(hex_code[4:6], 16)
+        return f"rgba({r}, {g}, {b}, {alpha})"
+    return f"rgba(239, 68, 68, {alpha})"
+
+def get_canonical_risk_bands(risk_config: Optional[Dict[str, Any]] = None) -> List[Dict[str, Any]]:
+    """
+    Returns canonical risk score bands from risk_config.yaml.
+    Guarantees contiguous thresholds matching the risk scoring engine.
+    """
+    if risk_config is None:
+        try:
+            risk_config = get_risk_config()
+        except Exception:
+            risk_config = {}
+    cats = risk_config.get("risk_categories", {})
+    defaults = [
+        ("healthy", 0.0, 4.0, "Healthy", "#10b981"),
+        ("low", 4.0, 8.0, "Low Risk", "#3b82f6"),
+        ("watch", 8.0, 13.0, "Watch", "#f59e0b"),
+        ("high", 13.0, 17.0, "High Risk", "#f97316"),
+        ("critical", 17.0, 100.0, "Critical", "#ef4444"),
+    ]
+    bands = []
+    for key, d_min, d_max, d_label, d_color in defaults:
+        conf = cats.get(key, {})
+        b_min = float(conf.get("min", d_min))
+        b_max = float(conf.get("max", d_max))
+        b_label = str(conf.get("label", d_label))
+        b_color = str(conf.get("color", d_color))
+        bands.append({
+            "key": key,
+            "min": b_min,
+            "max": b_max,
+            "label": b_label,
+            "color": b_color,
+        })
+    return bands
+
+def create_gauge_chart(score: float, category: str, color: str = "#ef4444", risk_config: Optional[Dict[str, Any]] = None) -> go.Figure:
+    """Builds an interactive radial gauge chart with bands synchronized to canonical risk config."""
+    bands = get_canonical_risk_bands(risk_config)
+    steps = [
+        {'range': [b["min"], b["max"]], 'color': _hex_to_rgba(b["color"], 0.25)}
+        for b in bands
+    ]
+    
     fig = go.Figure(go.Indicator(
         mode="gauge+number+delta",
         value=score,
@@ -17,13 +68,7 @@ def create_gauge_chart(score: float, category: str, color: str = "#ef4444") -> g
             'bgcolor': "rgba(30, 41, 59, 0.5)",
             'borderwidth': 1,
             'bordercolor': "rgba(255, 255, 255, 0.1)",
-            'steps': [
-                {'range': [0, 20], 'color': "rgba(16, 185, 129, 0.25)"},
-                {'range': [20, 40], 'color': "rgba(59, 130, 246, 0.25)"},
-                {'range': [40, 60], 'color': "rgba(245, 158, 11, 0.25)"},
-                {'range': [60, 80], 'color': "rgba(249, 115, 22, 0.25)"},
-                {'range': [80, 100], 'color': "rgba(239, 68, 68, 0.25)"}
-            ],
+            'steps': steps,
             'threshold': {
                 'line': {'color': "#ffffff", 'width': 3},
                 'thickness': 0.8,
@@ -40,17 +85,24 @@ def create_gauge_chart(score: float, category: str, color: str = "#ef4444") -> g
     )
     return fig
 
-def create_timeline_chart(trajectory_history: List[Dict[str, Any]], signals: List[Dict[str, Any]] = None) -> go.Figure:
-    """Builds multi-period interactive timeline chart overlayed with warning signal events."""
+def create_timeline_chart(trajectory_history: List[Dict[str, Any]], signals: List[Dict[str, Any]] = None, risk_config: Optional[Dict[str, Any]] = None) -> go.Figure:
+    """Builds multi-period interactive timeline chart overlayed with warning signals and canonical risk bands."""
     df_traj = pd.DataFrame(trajectory_history)
     fig = go.Figure()
     
-    # Background threshold bands
-    fig.add_hrect(y0=0, y1=20, fillcolor="#10b981", opacity=0.08, line_width=0, annotation_text="Healthy", annotation_position="top left", annotation_font_color="#10b981")
-    fig.add_hrect(y0=20, y1=40, fillcolor="#3b82f6", opacity=0.08, line_width=0, annotation_text="Low Risk", annotation_position="top left", annotation_font_color="#3b82f6")
-    fig.add_hrect(y0=40, y1=60, fillcolor="#f59e0b", opacity=0.08, line_width=0, annotation_text="Watch", annotation_position="top left", annotation_font_color="#f59e0b")
-    fig.add_hrect(y0=60, y1=80, fillcolor="#f97316", opacity=0.08, line_width=0, annotation_text="High Risk", annotation_position="top left", annotation_font_color="#f97316")
-    fig.add_hrect(y0=80, y1=100, fillcolor="#ef4444", opacity=0.08, line_width=0, annotation_text="Critical", annotation_position="top left", annotation_font_color="#ef4444")
+    # Background threshold bands synchronized with canonical risk config
+    bands = get_canonical_risk_bands(risk_config)
+    for b in bands:
+        fig.add_hrect(
+            y0=b["min"],
+            y1=b["max"],
+            fillcolor=b["color"],
+            opacity=0.08,
+            line_width=0,
+            annotation_text=b["label"],
+            annotation_position="top left",
+            annotation_font_color=b["color"]
+        )
     
     # Trajectory line
     fig.add_trace(go.Scatter(

@@ -121,3 +121,15 @@ The user interface is an interactive, dark-mode web application built with Strea
 2. **Synchronize Visual Chart Steps:** Wire `charts.py` directly to `get_risk_config()` so all chart intervals reflect calibrated portfolio baseline multiples.
 3. **Compute Real Sector Benchmarks:** In View 4, calculate empirical medians by grouping Dataset A by industry sector code `x80` rather than using hardcoded values.
 4. **Optimize Database Access:** Replace the 27 MB monolithic JSON load with a lightweight SQLite database or indexed parquet partitions for production scale.
+
+---
+
+## 5. Phase 1 Remediation Verification (October 12, 2026)
+
+- **Status:** **REMEDIATED & VERIFIED**
+- **Action Taken (`GAP-02`):**
+  - Updated `dashboard/components/charts.py` to import `get_canonical_risk_bands(risk_config)` sourcing dynamically from `config/risk_config.yaml`.
+  - Replaced hardcoded `0-20, 20-40, 40-60, 60-80, 80-100` steps in `create_gauge_chart` and `create_timeline_chart` with canonical bands: `[0, 4.0]` (Healthy), `[4.0, 8.0]` (Low Risk), `[8.0, 13.0]` (Watch), `[13.0, 17.0]` (High Risk), and `[17.0, 100.0]` (Critical).
+  - Verified that Firm #364 (score 19.1) is now accurately rendered within the red Critical band in both the radial gauge and timeline chart.
+  - Automated test `test_dashboard_chart_bands_synchronized` passes and guarantees continuous alignment with `risk_config.yaml`.
+

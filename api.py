@@ -1,9 +1,11 @@
 import os
 import json
+import secrets
 import numpy as np
 import pandas as pd
+from contextlib import asynccontextmanager
 from typing import Dict, List, Any, Optional
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Header
 from pydantic import BaseModel, Field
 
 from src.fusion.risk_fusion import RiskFusionEngine
@@ -16,21 +18,96 @@ from src.utils.logger import setup_logger
 
 logger = setup_logger("api")
 
-app = FastAPI(
-    title="Financial Distress Risk Intelligence API",
-    description="Multi-Source Early Warning & Risk Analytics Engine",
-    version="1.0.0"
-)
+import threading
 
 # Load cached intelligence DB if available
 PROCESSED_DB_PATH = "data/processed/companies_risk_intelligence.json"
 WATCHLIST_PATH = "data/processed/watchlist.csv"
 
-def get_db() -> Dict[str, Any]:
-    if os.path.exists(PROCESSED_DB_PATH):
-        with open(PROCESSED_DB_PATH, "r", encoding="utf-8") as f:
-            return json.load(f)
-    return {"companies": {}, "metadata": {}}
+# Thread-safe in-memory singleton cache
+_DB_CACHE: Optional[Dict[str, Any]] = None
+_DB_CACHE_LOCK = threading.Lock()
+_DB_LOAD_COUNT: int = 0
+
+def get_db(force_reload: bool = False, db_path: Optional[str] = None) -> Dict[str, Any]:
+    """
+    Thread-safe in-memory singleton database loader.
+    Loads the 27 MB JSON intelligence database once per process under normal operation.
+    Subsequent requests reuse the loaded representation with sub-millisecond response time.
+    Supports explicit invalidation/reload via force_reload=True or clear_db_cache().
+    """
+    global _DB_CACHE, _DB_LOAD_COUNT
+    path = db_path or PROCESSED_DB_PATH
+
+    # Fast path: cache hit without lock overhead (standard path only)
+    if _DB_CACHE is not None and not force_reload and db_path is None:
+        return _DB_CACHE
+
+    with _DB_CACHE_LOCK:
+        # Double-check inside lock
+        if _DB_CACHE is not None and not force_reload and db_path is None:
+            return _DB_CACHE
+
+        if not os.path.exists(path):
+            logger.warning(f"Intelligence database not found at {path}. Returning empty database representation.")
+            empty_db = {"companies": {}, "metadata": {}}
+            if db_path is None:
+                _DB_CACHE = empty_db
+            return empty_db
+
+        try:
+            logger.info(f"Loading intelligence database into memory from {path}...")
+            with open(path, "r", encoding="utf-8") as f:
+                loaded = json.load(f)
+
+            if not isinstance(loaded, dict) or "companies" not in loaded:
+                logger.error(f"Malformed database file at {path}: expected dict containing 'companies' key.")
+                empty_db = {"companies": {}, "metadata": {}}
+                if db_path is None:
+                    _DB_CACHE = empty_db
+                return empty_db
+
+            _DB_LOAD_COUNT += 1
+            if db_path is None:
+                _DB_CACHE = loaded
+            logger.info(f"Intelligence database loaded successfully ({len(loaded.get('companies', {}))} companies, load_count={_DB_LOAD_COUNT}).")
+            return loaded
+        except json.JSONDecodeError as jde:
+            logger.error(f"JSON decode error reading {path}: {jde}")
+            empty_db = {"companies": {}, "metadata": {}}
+            if db_path is None:
+                _DB_CACHE = empty_db
+            return empty_db
+        except Exception as exc:
+            logger.error(f"Unexpected error reading database from {path}: {exc}")
+            raise
+
+def clear_db_cache() -> None:
+    """Explicitly invalidates the in-memory database cache."""
+    global _DB_CACHE
+    with _DB_CACHE_LOCK:
+        _DB_CACHE = None
+
+def get_db_load_count() -> int:
+    """Returns number of times the database was read from disk into memory."""
+    return _DB_LOAD_COUNT
+
+@asynccontextmanager
+async def lifespan(app_instance: FastAPI):
+    """Pre-warms the in-memory database cache during application startup."""
+    try:
+        get_db()
+    except Exception as e:
+        logger.warning(f"Could not preload intelligence DB on startup: {e}")
+    yield
+
+app = FastAPI(
+    title="Financial Distress Risk Intelligence API",
+    description="Multi-Source Early Warning & Risk Analytics Engine",
+    version="1.0.0",
+    lifespan=lifespan
+)
+
 
 # Pydantic Schemas
 class RiskPredictionRequest(BaseModel):
@@ -161,3 +238,42 @@ def get_risk_summary():
         "critical_count": 0,
         "mean_risk_score": 0.0
     })
+
+@app.post("/admin/reload-db", tags=["System"])
+def reload_database(x_admin_key: Optional[str] = Header(None, alias="X-Admin-Key")):
+    """
+    Explicitly invalidates and reloads the cached in-memory intelligence database.
+    Requires a valid 'X-Admin-Key' request header matching server 'ADMIN_API_KEY'.
+    Fails closed (HTTP 503) if ADMIN_API_KEY is not configured in the server environment.
+    Rejects missing header with HTTP 401 and invalid key with HTTP 403.
+    """
+    expected_key = os.getenv("ADMIN_API_KEY")
+    if not expected_key:
+        logger.error("Admin reload rejected: ADMIN_API_KEY environment variable is not configured on the server.")
+        raise HTTPException(
+            status_code=503,
+            detail="Administrative reload operation is disabled: server ADMIN_API_KEY is not configured."
+        )
+
+    if not x_admin_key:
+        logger.warning("Admin reload rejected: missing X-Admin-Key header.")
+        raise HTTPException(
+            status_code=401,
+            detail="Admin authentication required: missing X-Admin-Key header."
+        )
+
+    if not secrets.compare_digest(x_admin_key, expected_key):
+        logger.warning("Admin reload rejected: invalid admin credentials provided.")
+        raise HTTPException(
+            status_code=403,
+            detail="Forbidden: invalid admin credentials."
+        )
+
+    db = get_db(force_reload=True)
+    count = len(db.get("companies", {}))
+    return {
+        "status": "reloaded",
+        "companies_loaded": count,
+        "load_count": get_db_load_count()
+    }
+

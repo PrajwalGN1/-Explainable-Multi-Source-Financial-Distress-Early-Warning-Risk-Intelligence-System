@@ -1,38 +1,67 @@
 import pandas as pd
 import numpy as np
-from typing import Dict, List, Any
+from typing import Dict, List, Any, Optional
+from src.config.settings import get_risk_config
+from src.utils.logger import setup_logger
+
+logger = setup_logger("alerts")
 
 class EarlyWarningSignalEngine:
     """Generates explainable, deterministic early warning signal alerts with clear severity and evidence."""
     
     @staticmethod
-    def generate_signals(company_id: any, current_period: int, final_prob: float, 
-                         trajectory_info: Dict[str, Any], health_info: Dict[str, Any],
-                         key_feature_shifts: List[Dict[str, Any]] = None) -> List[Dict[str, Any]]:
+    def generate_signals(company_id: any, current_period: int, final_prob: Optional[float], 
+                         trajectory_info: Optional[Dict[str, Any]] = None, 
+                         health_info: Optional[Dict[str, Any]] = None,
+                         key_feature_shifts: Optional[List[Dict[str, Any]]] = None,
+                         risk_config: Optional[Dict[str, Any]] = None) -> List[Dict[str, Any]]:
         signals = []
         key_feature_shifts = key_feature_shifts or []
+        trajectory_info = trajectory_info or {}
+        health_info = health_info or {}
         
-        # Rule 1: Critical Absolute Distress Threshold
-        if final_prob >= 0.70:
-            signals.append({
-                "signal_type": "Critical Distress Risk Level",
-                "severity": "CRITICAL",
-                "evidence": f"Estimated future distress probability reached {final_prob*100:.1f}%.",
-                "period": current_period,
-                "feature": "Final Risk Model",
-                "change": f"{final_prob*100:.1f}%",
-                "interpretation": "Firm is exhibiting severe distress signals approaching default/failure boundaries."
-            })
-        elif final_prob >= 0.50:
-            signals.append({
-                "signal_type": "Elevated Distress Warning",
-                "severity": "HIGH",
-                "evidence": f"Estimated future distress probability reached {final_prob*100:.1f}%.",
-                "period": current_period,
-                "feature": "Final Risk Model",
-                "change": f"{final_prob*100:.1f}%",
-                "interpretation": "Elevated risk profile warrants inclusion on institutional surveillance watchlist."
-            })
+        # Load configurable early warning thresholds
+        if risk_config is None:
+            try:
+                risk_config = get_risk_config()
+            except Exception:
+                risk_config = {}
+        ews_config = risk_config.get("early_warning_signals", {})
+        crit_prob_thresh = float(ews_config.get("critical_probability_threshold", 0.170))
+        high_prob_thresh = float(ews_config.get("high_probability_threshold", 0.130))
+        
+        # Rule 1: Configurable Distress Probability Thresholds
+        if final_prob is not None:
+            try:
+                prob_val = float(final_prob)
+                if not np.isnan(prob_val) and not np.isinf(prob_val):
+                    prob_val = float(np.clip(prob_val, 0.0, 1.0))
+                    if prob_val >= crit_prob_thresh:
+                        signals.append({
+                            "signal_type": "Critical Distress Risk Level",
+                            "severity": "CRITICAL",
+                            "evidence": f"Estimated forward distress probability reached {prob_val*100:.1f}% (exceeds critical threshold of {crit_prob_thresh*100:.1f}%).",
+                            "period": current_period,
+                            "feature": "Final Risk Model",
+                            "change": f"{prob_val*100:.1f}%",
+                            "interpretation": "Firm is exhibiting severe distress signals approaching default/failure boundaries."
+                        })
+                    elif prob_val >= high_prob_thresh:
+                        signals.append({
+                            "signal_type": "Elevated Distress Warning",
+                            "severity": "HIGH",
+                            "evidence": f"Estimated forward distress probability reached {prob_val*100:.1f}% (exceeds high risk threshold of {high_prob_thresh*100:.1f}%).",
+                            "period": current_period,
+                            "feature": "Final Risk Model",
+                            "change": f"{prob_val*100:.1f}%",
+                            "interpretation": "Elevated risk profile warrants inclusion on institutional surveillance watchlist."
+                        })
+                else:
+                    logger.warning(f"Invalid numeric probability value for company {company_id}: {final_prob}")
+            except (ValueError, TypeError) as ex:
+                logger.warning(f"Non-numeric probability value provided for company {company_id}: {final_prob} ({ex})")
+        else:
+            logger.info(f"Missing probability value for company {company_id} in period {current_period}; skipping Rule 1.")
             
         # Rule 2: Accelerating or Persistent Deterioration Trajectory
         pattern = trajectory_info.get("pattern", "")
