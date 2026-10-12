@@ -184,41 +184,163 @@ def create_health_radar_chart(health_breakdown: Dict[str, float]) -> go.Figure:
     )
     return fig
 
-def create_waterfall_chart(drivers: List[Dict[str, Any]], protective: List[Dict[str, Any]]) -> go.Figure:
-    """Builds a waterfall chart of local SHAP feature contributions pushing risk up or down."""
+def create_waterfall_chart(
+    drivers: List[Dict[str, Any]],
+    protective: List[Dict[str, Any]],
+    expected_value: Optional[float] = None
+) -> go.Figure:
+    """Builds a waterfall chart of local TreeSHAP feature contributions pushing RF risk up or down."""
     x_labels = []
     y_values = []
     measures = []
+    hover_texts = []
     
-    for d in drivers[:4]:
-        x_labels.append(d["feature"])
-        y_values.append(d["shap_impact"])
+    if expected_value is not None:
+        x_labels.append("Base Expected Value")
+        y_values.append(expected_value)
+        measures.append("absolute")
+        hover_texts.append(f"Model Baseline Prior: {expected_value:.4f}")
+
+    for d in drivers[:5]:
+        fn = d.get("feature", "Unknown")
+        imp = d.get("shap_impact", 0.0)
+        x_labels.append(fn)
+        y_values.append(imp)
         measures.append("relative")
-        
-    for p in protective[:4]:
-        x_labels.append(p["feature"])
-        y_values.append(p["shap_impact"])
+        val = d.get("feature_value_scaled", d.get("feature_value", 0.0))
+        hover_texts.append(f"Risk Driver: {fn}<br>SHAP: +{imp:.4f}<br>Scaled Value: {val:.3f}")
+
+    for p in protective[:5]:
+        fn = p.get("feature", "Unknown")
+        imp = p.get("shap_impact", 0.0)
+        x_labels.append(fn)
+        y_values.append(imp)
         measures.append("relative")
-        
+        val = p.get("feature_value_scaled", p.get("feature_value", 0.0))
+        hover_texts.append(f"Protective Factor: {fn}<br>SHAP: {imp:.4f}<br>Scaled Value: {val:.3f}")
+
     fig = go.Figure(go.Waterfall(
-        name="SHAP Contributions",
+        name="TreeSHAP Impact",
         orientation="v",
         measure=measures,
         x=x_labels,
         y=y_values,
+        hovertext=hover_texts,
+        hoverinfo="text",
         connector={"line": {"color": "rgba(255,255,255,0.2)"}},
         decreasing={"marker": {"color": "#10b981"}},
-        increasing={"marker": {"color": "#ef4444"}}
+        increasing={"marker": {"color": "#ef4444"}},
+        totals={"marker": {"color": "#38bdf8"}}
     ))
-    
+
     fig.update_layout(
-        title="<b>Local SHAP Feature Contributions to Distress Risk</b>",
+        title="<b>Local TreeSHAP Feature Attributions (Random Forest Probability Output Space)</b>",
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(15, 23, 42, 0.4)",
         font=dict(color="#f8fafc"),
         xaxis=dict(gridcolor="rgba(255,255,255,0.08)", tickangle=-30),
-        yaxis=dict(title="SHAP Impact (Log-Odds)", gridcolor="rgba(255,255,255,0.08)"),
-        height=360,
+        yaxis=dict(title="TreeSHAP Impact on Probability Output (p_RF)", gridcolor="rgba(255,255,255,0.08)"),
+        height=380,
         margin=dict(l=40, r=30, t=50, b=60)
     )
     return fig
+
+
+def create_global_importance_chart(df_global: pd.DataFrame, top_n: int = 15) -> go.Figure:
+    """Builds an interactive horizontal bar chart of global TreeSHAP feature importances."""
+    df_plot = df_global.head(top_n).copy()
+    col_metric = "mean_abs_shap" if "mean_abs_shap" in df_plot.columns else "importance"
+
+    fig = go.Figure(go.Bar(
+        x=df_plot[col_metric],
+        y=df_plot["feature"],
+        orientation="h",
+        marker=dict(
+            color=df_plot[col_metric],
+            colorscale="Tealgrn",
+            line=dict(color="rgba(255,255,255,0.1)", width=1)
+        ),
+        text=[f"{v:.4f}" for v in df_plot[col_metric]],
+        textposition="outside",
+        hovertext=[
+            f"<b>{row['feature']}</b><br>Mean |SHAP|: {row[col_metric]:.5f}" +
+            (f"<br>Signed Mean: {row.get('mean_signed_shap', 0):+.5f}" if 'mean_signed_shap' in row else "") +
+            (f"<br>Category: {row.get('category', 'Unmapped')}" if 'category' in row else "")
+            for _, row in df_plot.iterrows()
+        ],
+        hoverinfo="text"
+    ))
+
+    fig.update_layout(
+        title="<b>Global Feature Importance (Mean Absolute TreeSHAP Impact)</b>",
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(15, 23, 42, 0.4)",
+        font=dict(color="#f8fafc"),
+        xaxis=dict(title="Mean |SHAP| (Impact on RF Output Probability)", gridcolor="rgba(255,255,255,0.08)"),
+        yaxis=dict(autorange="reversed", gridcolor="rgba(255,255,255,0.08)"),
+        height=420,
+        margin=dict(l=40, r=40, t=50, b=40)
+    )
+    return fig
+
+
+def create_temporal_attribution_chart(temporal_data: Dict[str, Any]) -> go.Figure:
+    """Builds a comparative delta chart decomposing period-over-period attribution shifts."""
+    drivers = temporal_data.get("top_drivers_of_increase", [])
+    recovery = temporal_data.get("top_drivers_of_recovery", [])
+
+    feats = []
+    deltas = []
+    colors = []
+    tooltips = []
+
+    for d in drivers[:4]:
+        fn = d.get("feature", "Unknown")
+        s_delta = d.get("shap_delta", 0.0)
+        feats.append(fn)
+        deltas.append(s_delta)
+        colors.append("#ef4444")
+        tooltips.append(
+            f"<b>{fn} (Increased Risk)</b><br>SHAP Delta: +{s_delta:.4f}<br>"
+            f"Scaled Value Shift: {d.get('feature_value_change', 0):+.3f}"
+        )
+
+    for r in recovery[:4]:
+        fn = r.get("feature", "Unknown")
+        s_delta = r.get("shap_delta", 0.0)
+        feats.append(fn)
+        deltas.append(s_delta)
+        colors.append("#10b981")
+        tooltips.append(
+            f"<b>{fn} (Recovery/Reduced Risk)</b><br>SHAP Delta: {s_delta:.4f}<br>"
+            f"Scaled Value Shift: {r.get('feature_value_change', 0):+.3f}"
+        )
+
+    if not feats:
+        feats = ["No Significant Shifts"]
+        deltas = [0.0]
+        colors = ["#94a3b8"]
+        tooltips = ["No shifts exceeding significance threshold."]
+
+    fig = go.Figure(go.Bar(
+        x=feats,
+        y=deltas,
+        marker=dict(color=colors),
+        hovertext=tooltips,
+        hoverinfo="text",
+        text=[f"{v:+.4f}" for v in deltas],
+        textposition="outside"
+    ))
+
+    fig.update_layout(
+        title="<b>Period-over-Period Attribution Shifts (Delta TreeSHAP Impact)</b>",
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(15, 23, 42, 0.4)",
+        font=dict(color="#f8fafc"),
+        xaxis=dict(gridcolor="rgba(255,255,255,0.08)", tickangle=-30),
+        yaxis=dict(title="Attribution Shift Delta phi_j (t - [t-1])", gridcolor="rgba(255,255,255,0.08)"),
+        height=380,
+        margin=dict(l=40, r=30, t=50, b=60)
+    )
+    return fig
+

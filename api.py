@@ -300,3 +300,108 @@ def reload_database(x_admin_key: Optional[str] = Header(None, alias="X-Admin-Key
         "load_count": get_db_load_count()
     }
 
+
+# ---------------------------------------------------------
+# Phase 3: Explainability & Risk Intelligence Endpoints
+# ---------------------------------------------------------
+
+@app.get("/explanations/info", tags=["Explainability"])
+def get_explanation_info():
+    """Returns TreeSHAP capability status, model version, output space, and additivity verification."""
+    from src.explainability.company_service import get_company_explanation_service
+    srv = get_company_explanation_service()
+    return srv.get_explanation_info()
+
+
+@app.get("/explanations/local/{company_id}", tags=["Explainability"])
+def get_local_explanation(
+    company_id: str,
+    period: Optional[int] = Query(None, ge=1, le=14, description="Reporting period (defaults to company's latest)"),
+    top_n: int = Query(10, ge=1, le=50, description="Top positive and negative risk drivers to return")
+):
+    """
+    Returns model-faithful local TreeSHAP attribution for a specific SME firm.
+    Explains the Random Forest probability output space with exact additivity.
+    """
+    from src.explainability.company_service import get_company_explanation_service
+    srv = get_company_explanation_service()
+    try:
+        return srv.get_local_explanation(company_id=company_id, period=period, top_n=top_n)
+    except KeyError as ke:
+        raise HTTPException(status_code=404, detail=str(ke).strip("'"))
+    except ValueError as ve:
+        raise HTTPException(status_code=400, detail=str(ve))
+    except Exception as e:
+        logger.error(f"Local explanation failed for {company_id}: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to generate explanation: {str(e)}")
+
+
+@app.post("/explanations/local", tags=["Explainability"])
+def explain_custom_payload(
+    payload: Dict[str, float],
+    top_n: int = Query(10, ge=1, le=50, description="Top positive and negative drivers to return")
+):
+    """
+    Produces calibrated prediction and TreeSHAP attribution for an arbitrary feature dictionary.
+    """
+    from src.explainability.company_service import get_company_explanation_service
+    srv = get_company_explanation_service()
+    try:
+        return srv.explain_custom_payload(raw_features=payload, top_n=top_n)
+    except Exception as e:
+        logger.error(f"Custom payload explanation failed: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to explain custom payload: {str(e)}")
+
+
+@app.get("/explanations/temporal/{company_id}", tags=["Explainability"])
+def get_temporal_explanation(
+    company_id: str,
+    curr_period: Optional[int] = Query(None, ge=1, le=14, description="Current evaluation period"),
+    prev_period: Optional[int] = Query(None, ge=1, le=14, description="Prior comparison period"),
+    top_n: int = Query(5, ge=1, le=20, description="Top feature shifts to return")
+):
+    """
+    Decomposes risk change between consecutive reporting periods for an SME.
+    Distinguishes prediction change, feature value change, and attribution shift.
+    """
+    from src.explainability.company_service import get_company_explanation_service
+    srv = get_company_explanation_service()
+    try:
+        res = srv.get_temporal_explanation(
+            company_id=company_id,
+            curr_period=curr_period,
+            prev_period=prev_period,
+            top_n=top_n
+        )
+        if res.get("status") == "insufficient_history":
+            raise HTTPException(status_code=400, detail=res["message"])
+        return res
+    except KeyError as ke:
+        raise HTTPException(status_code=404, detail=str(ke).strip("'"))
+    except ValueError as ve:
+        raise HTTPException(status_code=400, detail=str(ve))
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Temporal explanation failed for {company_id}: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to generate temporal explanation: {str(e)}")
+
+
+@app.get("/explanations/global", tags=["Explainability"])
+def get_global_explanation(
+    population: str = Query("test", description="Reference population ('test' or 'val')")
+):
+    """
+    Returns global feature attribution summaries and mean absolute SHAP rankings.
+    """
+    from src.explainability.company_service import get_company_explanation_service
+    srv = get_company_explanation_service()
+    try:
+        return srv.get_global_explanation(population=population)
+    except FileNotFoundError as fe:
+        raise HTTPException(status_code=404, detail=str(fe))
+    except Exception as e:
+        logger.error(f"Global explanation retrieval failed: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to retrieve global explanation: {str(e)}")
+
+
