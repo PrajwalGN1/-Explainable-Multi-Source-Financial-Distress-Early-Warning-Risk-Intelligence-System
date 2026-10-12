@@ -1,0 +1,8 @@
+model_name,description,training_duration_sec,group_cv_roc_auc_mean,group_cv_roc_auc_std,group_cv_pr_auc_mean,group_cv_pr_auc_std
+Phase4_Hypothesis_RF_ROS15,Phase 4 Hypothesis: Random Forest on baseline features with 15% training ROS,3.224,0.8381,0.0385,0.2347,0.1096
+Phase5_RF_Deterioration_ROS10,Random Forest on Phase 5 deterioration features with 10% training ROS,3.054,0.8322,0.0372,0.2385,0.1399
+Phase5_RF_Deterioration_ROS15,Random Forest on Phase 5 deterioration features with 15% training ROS,2.421,0.8381,0.0385,0.2347,0.1096
+Phase5_RF_CostSensitive_w10,Random Forest on Phase 5 deterioration features with 1:10 minority class penalty,2.099,0.8387,0.029,0.2041,0.0833
+Phase5_Logistic_Balanced,L2-penalized Logistic Regression benchmark on Phase 5 deterioration features,4.157,0.7981,0.0367,0.1633,0.0519
+Phase5_Interpretable_Rule_Benchmark,Transparent composite rule benchmark tracking multi-ratio deterioration,0.0,0.5,0.0,0.0,0.0
+Phase5_XGBoost_ScalePosWeight,Gradient Boosted Trees (XGBoost) with scale_pos_weight=25.0 on Phase 5 features,1.143,0.8205,0.0218,0.187,0.0706

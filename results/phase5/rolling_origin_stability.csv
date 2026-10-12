@@ -1,0 +1,4 @@
+cutoff_name,train_periods,eval_periods,n_obs,n_pos,tp,fp,tn,fn,alerts_count,alert_rate_pct,recall,precision,roc_auc,pr_auc,brier_score
+"Cutoff 1: Train T<=8, Val T=9",T<=8,T=9-9,232,4,3,29,199,1,32,13.79,0.75,0.0938,0.909,0.261,0.017
+"Cutoff 2: Train T<=9, Val T=10",T<=9,T=10-10,243,6,4,27,210,2,31,12.76,0.6667,0.129,0.8523,0.1288,0.0241
+"Cutoff 3: Train T<=10, Val T=11-12",T<=10,T=11-12,517,14,9,43,460,5,52,10.06,0.6429,0.1731,0.8826,0.1779,0.0245

@@ -1,0 +1,7 @@
+model,period,n_obs,n_pos,tp,fp,tn,fn,alerts_count,alert_rate_pct,recall,precision,roc_auc,pr_auc,brier_score
+Approved_Baseline,T=11,253,6,3,29,218,3,32,12.65,0.5,0.0938,0.8839,0.2922,0.0215
+Phase5_CostSensitive,T=11,253,6,4,19,228,2,23,9.09,0.6667,0.1739,0.9076,0.1542,0.023
+Approved_Baseline,T=12,264,8,5,25,231,3,30,11.36,0.625,0.1667,0.8706,0.1716,0.0275
+Phase5_CostSensitive,T=12,264,8,5,14,242,3,19,7.2,0.625,0.2632,0.8667,0.3554,0.026
+Approved_Baseline,"Pooled T=11,12",517,14,8,54,449,6,62,11.99,0.5714,0.129,0.875,0.208,0.0246
+Phase5_CostSensitive,"Pooled T=11,12",517,14,9,33,470,5,42,8.12,0.6429,0.2143,0.8826,0.1779,0.0245
