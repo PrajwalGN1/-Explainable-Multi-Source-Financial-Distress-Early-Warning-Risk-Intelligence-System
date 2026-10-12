@@ -1,0 +1,158 @@
+{
+  "denominators": {
+    "prospective_surveillance_cohort": 270,
+    "matured_cohort": 264,
+    "pending_cohort": 6,
+    "matured_distress_cases": 8,
+    "matured_non_distress_cases": 256
+  },
+  "pending_cohort_analysis": {
+    "pending_firms": [
+      {
+        "company_id": 68,
+        "observation_period": 12,
+        "max_period_in_data": 12,
+        "last_financial_distress_value": -1.2347,
+        "was_distressed_at_exit": true,
+        "exit_reason": "Terminal Distress & Filing Cessation at T=12",
+        "prod_is_alert": true,
+        "prod_calibrated_prob": 0.1634,
+        "cand_is_alert": true,
+        "cand_calibrated_prob": 0.2621
+      },
+      {
+        "company_id": 115,
+        "observation_period": 12,
+        "max_period_in_data": 12,
+        "last_financial_distress_value": -0.7202,
+        "was_distressed_at_exit": true,
+        "exit_reason": "Terminal Distress & Filing Cessation at T=12",
+        "prod_is_alert": true,
+        "prod_calibrated_prob": 0.2039,
+        "cand_is_alert": true,
+        "cand_calibrated_prob": 0.1444
+      },
+      {
+        "company_id": 159,
+        "observation_period": 12,
+        "max_period_in_data": 12,
+        "last_financial_distress_value": -2.7682,
+        "was_distressed_at_exit": true,
+        "exit_reason": "Terminal Distress & Filing Cessation at T=12",
+        "prod_is_alert": true,
+        "prod_calibrated_prob": 0.1592,
+        "cand_is_alert": true,
+        "cand_calibrated_prob": 0.2722
+      },
+      {
+        "company_id": 203,
+        "observation_period": 12,
+        "max_period_in_data": 12,
+        "last_financial_distress_value": -0.6311,
+        "was_distressed_at_exit": true,
+        "exit_reason": "Terminal Distress & Filing Cessation at T=12",
+        "prod_is_alert": true,
+        "prod_calibrated_prob": 0.1409,
+        "cand_is_alert": true,
+        "cand_calibrated_prob": 0.2799
+      },
+      {
+        "company_id": 276,
+        "observation_period": 12,
+        "max_period_in_data": 12,
+        "last_financial_distress_value": -0.6947,
+        "was_distressed_at_exit": true,
+        "exit_reason": "Terminal Distress & Filing Cessation at T=12",
+        "prod_is_alert": false,
+        "prod_calibrated_prob": 0.0372,
+        "cand_is_alert": false,
+        "cand_calibrated_prob": 0.0317
+      },
+      {
+        "company_id": 301,
+        "observation_period": 12,
+        "max_period_in_data": 12,
+        "last_financial_distress_value": -0.6302,
+        "was_distressed_at_exit": true,
+        "exit_reason": "Terminal Distress & Filing Cessation at T=12",
+        "prod_is_alert": false,
+        "prod_calibrated_prob": 0.044,
+        "cand_is_alert": false,
+        "cand_calibrated_prob": 0.0596
+      }
+    ],
+    "key_finding": "All 6 pending companies experienced distress at T=12 (last_FD <= -0.5) and ceased filing at T=13 (right-censored terminal distress exit)."
+  },
+  "rounding_boundary_audit_company_409": {
+    "unrounded_calibrated_probability": 0.07996718537349425,
+    "rounded_calibrated_probability": 0.08,
+    "engine_boolean_prod_is_alert": false,
+    "rethreshold_on_rounded_prob": true,
+    "explanation": "Company 409 had unrounded calibrated probability 0.079967 < 0.0800 (alert=False). Rounding to 4 decimals produced 0.0800, which triggered alert=True when evaluated via >= 0.080."
+  },
+  "reconciled_metrics": {
+    "approved_baseline_native_boolean": {
+      "description": "Evaluated using production engine decision (prod_is_alert, 29 alerts)",
+      "tp": 5,
+      "fp": 24,
+      "tn": 232,
+      "fn": 3,
+      "recall": 0.625,
+      "recall_95ci": [
+        0.3057,
+        0.8632
+      ],
+      "precision": 0.1724,
+      "precision_95ci": [
+        0.076,
+        0.3455
+      ],
+      "specificity": 0.9062,
+      "specificity_95ci": [
+        0.8643,
+        0.9362
+      ],
+      "fpr": 0.0938,
+      "alert_rate_pct": 10.98,
+      "brier_score": 0.0274
+    },
+    "approved_baseline_rounded_probability": {
+      "description": "Evaluated using rounded column re-thresholding (30 alerts as reported in Phase 6)",
+      "tp": 5,
+      "fp": 25,
+      "tn": 231,
+      "fn": 3,
+      "recall": 0.625,
+      "precision": 0.1667,
+      "specificity": 0.9023,
+      "fpr": 0.0977,
+      "alert_rate_pct": 11.36,
+      "brier_score": 0.0274
+    },
+    "shadow_candidate": {
+      "description": "Phase5_RF_CostSensitive_w10 at tau=0.0894 (19 alerts)",
+      "tp": 5,
+      "fp": 14,
+      "tn": 242,
+      "fn": 3,
+      "recall": 0.625,
+      "recall_95ci": [
+        0.3057,
+        0.8632
+      ],
+      "precision": 0.2632,
+      "precision_95ci": [
+        0.1181,
+        0.4879
+      ],
+      "specificity": 0.9453,
+      "specificity_95ci": [
+        0.9103,
+        0.9671
+      ],
+      "fpr": 0.0547,
+      "alert_rate_pct": 7.2,
+      "brier_score": 0.026
+    }
+  }
+}

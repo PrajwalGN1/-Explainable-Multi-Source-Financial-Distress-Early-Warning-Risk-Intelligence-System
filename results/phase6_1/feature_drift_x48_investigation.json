@@ -1,0 +1,288 @@
+{
+  "feature_name": "x48",
+  "description": "Profitability / Operating Efficiency Ratio (Protective Factor)",
+  "reported_psi_at_t12": 0.4277,
+  "verification_status": "VERIFIED_ACCURATE",
+  "root_cause_analysis": {
+    "decile_skew": "31.11% of Period 12 firms shifted into the top historical decile (> 3,630.1), driving 56% of total PSI.",
+    "temporal_reversion": "PSI peaked at T=12 (0.4277) and T=13 (0.2900), before normalizing back to 0.0670 (STABLE) at T=14.",
+    "outlier_impact": "Excluding extreme outlier Company 282 (x48 = 136,000) only reduces PSI from 0.4277 to 0.4219, confirming a macro portfolio-wide upward shift rather than a single data entry anomaly.",
+    "nature_of_shift": "Genuine cyclical / macroeconomic accounting shift across Iranian SMEs during period 12 reporting cycle, followed by reversion."
+  },
+  "decile_bin_breakdown": [
+    {
+      "bin_index": 1,
+      "range": "[-inf, 1127.06]",
+      "expected_pct": 10.0,
+      "actual_pct": 7.78,
+      "pct_delta": -0.0223,
+      "psi_contribution": 0.0056
+    },
+    {
+      "bin_index": 2,
+      "range": "[1127.06, 1306.62]",
+      "expected_pct": 10.0,
+      "actual_pct": 5.19,
+      "pct_delta": -0.0482,
+      "psi_contribution": 0.0317
+    },
+    {
+      "bin_index": 3,
+      "range": "[1306.62, 1463.48]",
+      "expected_pct": 10.0,
+      "actual_pct": 3.7,
+      "pct_delta": -0.063,
+      "psi_contribution": 0.0626
+    },
+    {
+      "bin_index": 4,
+      "range": "[1463.48, 1637.94]",
+      "expected_pct": 10.0,
+      "actual_pct": 3.33,
+      "pct_delta": -0.0667,
+      "psi_contribution": 0.0733
+    },
+    {
+      "bin_index": 5,
+      "range": "[1637.94, 1837.1]",
+      "expected_pct": 9.97,
+      "actual_pct": 7.41,
+      "pct_delta": -0.0256,
+      "psi_contribution": 0.0076
+    },
+    {
+      "bin_index": 6,
+      "range": "[1837.1, 2070.66]",
+      "expected_pct": 10.0,
+      "actual_pct": 8.89,
+      "pct_delta": -0.0111,
+      "psi_contribution": 0.0013
+    },
+    {
+      "bin_index": 7,
+      "range": "[2070.66, 2385.36]",
+      "expected_pct": 10.0,
+      "actual_pct": 9.26,
+      "pct_delta": -0.0074,
+      "psi_contribution": 0.0006
+    },
+    {
+      "bin_index": 8,
+      "range": "[2385.36, 2852.66]",
+      "expected_pct": 10.0,
+      "actual_pct": 11.11,
+      "pct_delta": 0.0111,
+      "psi_contribution": 0.0012
+    },
+    {
+      "bin_index": 9,
+      "range": "[2852.66, 3630.08]",
+      "expected_pct": 10.0,
+      "actual_pct": 12.22,
+      "pct_delta": 0.0222,
+      "psi_contribution": 0.0044
+    },
+    {
+      "bin_index": 10,
+      "range": "[3630.08, +inf]",
+      "expected_pct": 10.0,
+      "actual_pct": 31.11,
+      "pct_delta": 0.2111,
+      "psi_contribution": 0.2395
+    }
+  ],
+  "temporal_trajectory": {
+    "Time_1": {
+      "period": 1,
+      "n_firms": 242,
+      "mean": 2306.42,
+      "median": 1832.0,
+      "std": 1811.55,
+      "p10": 1150.27,
+      "p90": 3706.2,
+      "psi_vs_baseline": 0.0155,
+      "drift_classification": "STABLE"
+    },
+    "Time_2": {
+      "period": 2,
+      "n_firms": 271,
+      "mean": 2068.95,
+      "median": 1768.1,
+      "std": 1038.87,
+      "p10": 1122.5,
+      "p90": 3327.0,
+      "psi_vs_baseline": 0.0192,
+      "drift_classification": "STABLE"
+    },
+    "Time_3": {
+      "period": 3,
+      "n_firms": 277,
+      "mean": 1914.59,
+      "median": 1637.5,
+      "std": 1058.88,
+      "p10": 1096.76,
+      "p90": 3032.4,
+      "psi_vs_baseline": 0.0977,
+      "drift_classification": "STABLE"
+    },
+    "Time_4": {
+      "period": 4,
+      "n_firms": 274,
+      "mean": 1844.59,
+      "median": 1606.95,
+      "std": 1081.3,
+      "p10": 1095.28,
+      "p90": 2794.13,
+      "psi_vs_baseline": 0.1889,
+      "drift_classification": "MODERATE_DRIFT"
+    },
+    "Time_5": {
+      "period": 5,
+      "n_firms": 266,
+      "mean": 2306.21,
+      "median": 1908.65,
+      "std": 1386.37,
+      "p10": 1162.55,
+      "p90": 4094.65,
+      "psi_vs_baseline": 0.039,
+      "drift_classification": "STABLE"
+    },
+    "Time_6": {
+      "period": 6,
+      "n_firms": 263,
+      "mean": 2303.51,
+      "median": 1882.4,
+      "std": 1357.54,
+      "p10": 1276.82,
+      "p90": 3804.06,
+      "psi_vs_baseline": 0.0534,
+      "drift_classification": "STABLE"
+    },
+    "Time_7": {
+      "period": 7,
+      "n_firms": 257,
+      "mean": 2312.31,
+      "median": 1990.2,
+      "std": 1341.18,
+      "p10": 1166.04,
+      "p90": 3777.52,
+      "psi_vs_baseline": 0.0383,
+      "drift_classification": "STABLE"
+    },
+    "Time_8": {
+      "period": 8,
+      "n_firms": 245,
+      "mean": 2366.24,
+      "median": 1880.9,
+      "std": 1631.73,
+      "p10": 1132.28,
+      "p90": 3599.48,
+      "psi_vs_baseline": 0.0488,
+      "drift_classification": "STABLE"
+    },
+    "Time_9": {
+      "period": 9,
+      "n_firms": 245,
+      "mean": 2401.56,
+      "median": 1915.6,
+      "std": 1790.59,
+      "p10": 1117.62,
+      "p90": 3837.46,
+      "psi_vs_baseline": 0.0367,
+      "drift_classification": "STABLE"
+    },
+    "Time_10": {
+      "period": 10,
+      "n_firms": 249,
+      "mean": 2508.86,
+      "median": 2030.1,
+      "std": 1590.07,
+      "p10": 1174.76,
+      "p90": 4202.76,
+      "psi_vs_baseline": 0.0785,
+      "drift_classification": "STABLE"
+    },
+    "Time_11": {
+      "period": 11,
+      "n_firms": 259,
+      "mean": 3098.8,
+      "median": 2168.1,
+      "std": 3779.6,
+      "p10": 1116.82,
+      "p90": 5260.72,
+      "psi_vs_baseline": 0.2148,
+      "drift_classification": "MODERATE_DRIFT"
+    },
+    "Time_12": {
+      "period": 12,
+      "n_firms": 270,
+      "mean": 3731.62,
+      "median": 2521.35,
+      "std": 8374.13,
+      "p10": 1187.27,
+      "p90": 6162.59,
+      "psi_vs_baseline": 0.4277,
+      "drift_classification": "SIGNIFICANT_DRIFT"
+    },
+    "Time_13": {
+      "period": 13,
+      "n_firms": 274,
+      "mean": 2994.02,
+      "median": 2233.4,
+      "std": 2068.97,
+      "p10": 1241.4,
+      "p90": 5702.08,
+      "psi_vs_baseline": 0.29,
+      "drift_classification": "SIGNIFICANT_DRIFT"
+    },
+    "Time_14": {
+      "period": 14,
+      "n_firms": 280,
+      "mean": 2607.85,
+      "median": 1858.55,
+      "std": 2344.14,
+      "p10": 1100.79,
+      "p90": 4626.73,
+      "psi_vs_baseline": 0.067,
+      "drift_classification": "STABLE"
+    }
+  },
+  "related_features_drift": {
+    "x12": {
+      "psi_t12": 0.0701,
+      "status": "STABLE",
+      "ref_median": 4.4682,
+      "t12_median": 6.4422,
+      "ref_mean": 44682.3463,
+      "t12_mean": 557346.2542
+    },
+    "x16": {
+      "psi_t12": 0.1048,
+      "status": "MODERATE_DRIFT",
+      "ref_median": 0.1741,
+      "t12_median": 0.223,
+      "ref_mean": 14.9506,
+      "t12_mean": -173.6415
+    },
+    "x25": {
+      "psi_t12": 0.2321,
+      "status": "MODERATE_DRIFT",
+      "ref_median": 601.82,
+      "t12_median": 992.335,
+      "ref_mean": 878.9633,
+      "t12_mean": 1894.4595
+    },
+    "x2": {
+      "psi_t12": 0.2229,
+      "status": "MODERATE_DRIFT",
+      "ref_median": 0.1037,
+      "t12_median": 0.1527,
+      "ref_mean": 0.1252,
+      "t12_mean": 0.1839
+    }
+  },
+  "model_risk_recommendation": {
+    "action": "DO NOT RETRAIN OR RECALIBRATE AUTOMATICALLY",
+    "justification": "Because x48 reverted to baseline stability at T=14 (PSI=0.0670), retraining on T=12 would overfit temporary cyclical accounting distortions. The candidate model's point-in-time deterioration features successfully neutralized this shift without recall loss."
+  }
+}

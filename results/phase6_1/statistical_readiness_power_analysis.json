@@ -1,0 +1,123 @@
+{
+  "current_sample": {
+    "matured_distress_count": 8,
+    "pre_registered_minimum_gate": 10,
+    "gate_satisfied": false,
+    "status": "PROTOCOL_ELIGIBILITY_GATE_NOT_MET (8 < 10)"
+  },
+  "paired_distress_detection_table": {
+    "both_detected_tp": 5,
+    "both_missed_fn": 3,
+    "candidate_only_tp": 0,
+    "baseline_only_tp": 0,
+    "total_matured_distress": 8
+  },
+  "paired_recall_estimation": {
+    "baseline_recall": 0.625,
+    "candidate_recall": 0.625,
+    "point_difference": 0.0,
+    "newcombe_95_ci_difference": [
+      -0.3193,
+      0.2382
+    ],
+    "interpretation": "95% CI of paired difference is [-31.9%, +23.8%]. With N=8, we cannot rule out that candidate sensitivity is up to 31.9 percentage points worse than baseline."
+  },
+  "non_inferiority_power_curves": {
+    "business_non_inferiority_margins": {
+      "strict_tier_5pct": "Tolerate at most delta = 0.05 (5 pp) recall reduction in exchange for false alarm savings.",
+      "practical_tier_10pct": "Tolerate at most delta = 0.10 (10 pp) recall reduction."
+    },
+    "power_curve_delta_0_05": [
+      {
+        "n_distress": 8,
+        "statistical_power": 0.1155
+      },
+      {
+        "n_distress": 10,
+        "statistical_power": 0.1261
+      },
+      {
+        "n_distress": 15,
+        "statistical_power": 0.1509
+      },
+      {
+        "n_distress": 20,
+        "statistical_power": 0.1742
+      },
+      {
+        "n_distress": 30,
+        "statistical_power": 0.218
+      },
+      {
+        "n_distress": 40,
+        "statistical_power": 0.2595
+      },
+      {
+        "n_distress": 50,
+        "statistical_power": 0.2992
+      },
+      {
+        "n_distress": 60,
+        "statistical_power": 0.3372
+      },
+      {
+        "n_distress": 80,
+        "statistical_power": 0.4088
+      },
+      {
+        "n_distress": 100,
+        "statistical_power": 0.4746
+      }
+    ],
+    "power_curve_delta_0_10": [
+      {
+        "n_distress": 8,
+        "statistical_power": 0.2265
+      },
+      {
+        "n_distress": 10,
+        "statistical_power": 0.2595
+      },
+      {
+        "n_distress": 15,
+        "statistical_power": 0.3372
+      },
+      {
+        "n_distress": 20,
+        "statistical_power": 0.4088
+      },
+      {
+        "n_distress": 30,
+        "statistical_power": 0.5347
+      },
+      {
+        "n_distress": 40,
+        "statistical_power": 0.6388
+      },
+      {
+        "n_distress": 50,
+        "statistical_power": 0.7228
+      },
+      {
+        "n_distress": 60,
+        "statistical_power": 0.7895
+      },
+      {
+        "n_distress": 80,
+        "statistical_power": 0.8817
+      },
+      {
+        "n_distress": 100,
+        "statistical_power": 0.9354
+      }
+    ],
+    "required_events_for_80pct_power": {
+      "delta_0_05": 60,
+      "delta_0_10": 20
+    }
+  },
+  "promotion_decision": {
+    "recommendation": "DO NOT PROMOTE CANDIDATE AT THIS TIME",
+    "justification": "1) Fails pre-registered quorum gate (8 < 10 matured distress events). 2) Statistical power is only ~14% at N=8 for delta=0.05. 3) 95% CI of recall difference is extremely wide ([-31.9%, +23.8%]). Must continue shadow surveillance."
+  }
+}
