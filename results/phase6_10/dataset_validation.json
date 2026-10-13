@@ -1,0 +1,85 @@
+{
+  "validation_timestamp": "2026-10-13T14:15:00Z",
+  "dataset_file": "data/raw/Financial Distress.csv",
+  "dataset_sha256": "a6a13dd647a5ed14f1aaade81d969f3c20a18cfd0b1a742f071840cf917ee14d",
+  "dimensions": {
+    "total_rows": 3672,
+    "total_columns": 86,
+    "unique_companies": 422,
+    "company_id_range": [
+      1,
+      422
+    ],
+    "company_dtype": "int64",
+    "time_dtype": "int64"
+  },
+  "data_quality_invariants": {
+    "missing_values_count": 0,
+    "infinite_values_count": 0,
+    "duplicate_company_period_pairs": 0,
+    "time_contiguity_gaps": 0,
+    "min_periods_per_company": 1,
+    "max_periods_per_company": 14,
+    "zero_missing_invariant_verified": true,
+    "zero_duplicates_invariant_verified": true,
+    "full_time_contiguity_verified": true
+  },
+  "target_column_semantics": {
+    "column_name": "Financial Distress",
+    "statutory_distress_threshold": -0.5,
+    "distress_direction": "LOWER values indicate greater financial distress (<= -0.50 indicates statutory failure / default)",
+    "summary_statistics": {
+      "min": -8.6317,
+      "max": 128.4,
+      "mean": 1.0403,
+      "median": 0.5838,
+      "std": 2.6522
+    },
+    "raw_distress_observations": 136,
+    "raw_healthy_observations": 3536,
+    "raw_distress_rate_pct": 3.7
+  },
+  "panel_attrition_dynamics": {
+    "unique_distressed_firms": 136,
+    "distress_at_exact_final_observed_period": 136,
+    "terminal_exit_rate_pct": 100.0,
+    "post_distress_continuation_count": 0,
+    "finding": "100.0% of distressed firms exit the panel immediately upon reaching Financial Distress <= -0.50 (absorbing failure state)."
+  },
+  "forward_target_generation": {
+    "formula": "Y(i, t) = 1 if Financial_Distress(i, t+1) <= -0.50 else 0",
+    "evaluable_observations": 3250,
+    "terminal_unobserved_observations": 422,
+    "total_forward_distress_events": 120,
+    "total_forward_healthy_events": 3130,
+    "overall_forward_distress_rate_pct": 3.69,
+    "handling_of_terminal_records": "Strictly excluded from binary evaluation (set to NaN). Never assumed healthy."
+  },
+  "chronological_partitions": {
+    "training_set": {
+      "time_span": "Time <= 10",
+      "sample_count": 2471,
+      "distress_events": 95,
+      "distress_rate_pct": 3.84
+    },
+    "validation_set": {
+      "time_span": "Time in [11, 12]",
+      "sample_count": 517,
+      "distress_events": 14,
+      "distress_rate_pct": 2.71
+    },
+    "holdout_test_set": {
+      "time_span": "Time = 13 (predicting Time = 14)",
+      "sample_count": 262,
+      "distress_events": 11,
+      "distress_rate_pct": 4.2
+    },
+    "terminal_period_14": {
+      "time_span": "Time = 14",
+      "sample_count": 280,
+      "distress_events_observed_at_t14": 11,
+      "unobserved_forward_outcomes": 280
+    }
+  },
+  "dataset_validation_status": "DATASET_AND_TARGET_VERIFIED_AUTHENTIC"
+}

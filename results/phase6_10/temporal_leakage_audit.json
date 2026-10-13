@@ -1,0 +1,25 @@
+{
+  "temporal_architecture": "Chronological Out-of-Time Forward Splitting",
+  "leakage_checks": {
+    "cross_company_target_alignment_errors": 0,
+    "intra_firm_alignment_verified": true,
+    "preprocessor_fitted_strictly_on_train": true,
+    "scaler_mean_computed_on_train_only": true,
+    "calibration_fitted_on_validation_only": true,
+    "max_feature_target_correlation_train": {
+      "feature": "x2",
+      "abs_correlation": 0.196,
+      "leakage_threshold_exceeded": false
+    },
+    "rolling_and_lagged_features_direction": "Strictly backward-looking (historical lags only, zero future lookahead)",
+    "terminal_period_exclusion": "Period 14 records without t+1 observations are strictly excluded from evaluation"
+  },
+  "holdout_cohort_characterization": {
+    "holdout_period": "T=13 -> T=14",
+    "evaluable_firms": 262,
+    "distress_events": 11,
+    "status": "HISTORICALLY_EXAMINED_RESEARCH_COHORT",
+    "regulatory_note": "This holdout partition has been examined during Phases 6.0 through 6.9 research iterations. It represents an established benchmark cohort rather than an unexposed blind test set."
+  },
+  "temporal_leakage_status": "ZERO_LEAKAGE_CONFIRMED"
+}

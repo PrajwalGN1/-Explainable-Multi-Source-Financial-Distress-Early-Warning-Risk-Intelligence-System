@@ -1,0 +1,32 @@
+{
+  "explainability_engine": "TreeSHAP (TreeExplainer) on Approved Production Baseline Random Forest",
+  "feature_importance_validation": {
+    "top_feature_rank_1": "x2_roll_mean_2",
+    "top_feature_rank_2": "x12",
+    "top_feature_rank_3": "x8",
+    "top_3_features": [
+      "x2_roll_mean_2",
+      "x12",
+      "x8"
+    ],
+    "top_3_base_variables": [
+      "x2",
+      "x12",
+      "x8"
+    ],
+    "x2_retained_earnings_in_top_3": true,
+    "x12_cash_flow_in_top_3": true,
+    "x8_current_assets_in_top_3": true,
+    "top_features_reproduced": true
+  },
+  "shap_additivity_property": {
+    "sum_of_shaps_equals_model_output_minus_expected": true,
+    "efficiency_property_verified": true
+  },
+  "regulatory_semantics_audit": {
+    "interpretative_standard": "SR 11-7 / OCC 2011-12 Model Risk Management Standards",
+    "association_vs_causation": "SHAP values represent statistical attribution and predictive association within the empirical tree ensemble. They DO NOT establish causal counterfactuals or guarantee that managerial interventions altering x2 will prevent distress.",
+    "causality_claim_prevented": true
+  },
+  "explainability_status": "EXPLAINABILITY_ROBUST_AND_REGULATORILY_SOUND"
+}

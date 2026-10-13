@@ -1,0 +1,15 @@
+{
+  "target_file": "app.py",
+  "syntax_verification": "VALID (compiles without syntax errors)",
+  "sidebar_enterprise_universe": "422 Monitored Enterprises (1-422 range)",
+  "selection_modes": [
+    "Watchlist (Top 50)",
+    "All Universe (1-422)",
+    "Custom Search"
+  ],
+  "invalid_id_handling": "Displays explicit error message: 'Company ID not found in dataset (range: 1-422)' and halts execution via st.stop()",
+  "threshold_distinction_verified": "Official production threshold 0.0800 is explicitly labeled as frozen; research threshold 0.1072 is labeled as experimental budget-capped",
+  "disclaimer_present": "Academic & portfolio early-warning prototype. Does not constitute autonomous banking credit or loan origination decisions.",
+  "pages_verified": 12,
+  "smoke_test_status": "APPLICATION_SMOKE_TEST_PASSED"
+}

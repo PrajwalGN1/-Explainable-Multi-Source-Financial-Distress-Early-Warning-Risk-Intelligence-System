@@ -1,0 +1,211 @@
+{
+  "evaluation_cohort": "Matured T=13 -> T=14 Stress Cohort",
+  "cohort_size": 262,
+  "distress_events": 11,
+  "non_distress_events": 251,
+  "alert_budget_cap": 20,
+  "alert_budget_pct": 8.0,
+  "reconciled_models": [
+    {
+      "model_identifier": "Approved_Production_Baseline_Nominal",
+      "threshold_applied": 0.08,
+      "budget_capped_operating_point": false,
+      "confusion_matrix": {
+        "true_positives": 5,
+        "false_positives": 32,
+        "false_negatives": 6,
+        "true_negatives": 219
+      },
+      "alerts": {
+        "total_alerts": 37,
+        "alert_rate_pct": 14.12,
+        "budget_cap_alerts": 20,
+        "budget_compliant": false,
+        "excess_alerts": 17
+      },
+      "metrics": {
+        "recall": 0.4545,
+        "precision": 0.1351,
+        "specificity": 0.8725,
+        "false_positive_rate": 0.1275,
+        "roc_auc": 0.7961,
+        "pr_auc": 0.1816,
+        "brier_score": 0.0382,
+        "recall_wilson_ci_95": [
+          0.2127,
+          0.7199
+        ]
+      },
+      "invariant_checks": {
+        "tp_plus_fn_equals_positives": true,
+        "tn_plus_fp_equals_negatives": true,
+        "matrix_sum_equals_cohort_size": true,
+        "alerts_equal_tp_plus_fp": true
+      }
+    },
+    {
+      "model_identifier": "Approved_Production_Baseline_BudgetCapped",
+      "threshold_applied": 0.1072,
+      "budget_capped_operating_point": true,
+      "confusion_matrix": {
+        "true_positives": 4,
+        "false_positives": 16,
+        "false_negatives": 7,
+        "true_negatives": 235
+      },
+      "alerts": {
+        "total_alerts": 20,
+        "alert_rate_pct": 7.63,
+        "budget_cap_alerts": 20,
+        "budget_compliant": true,
+        "excess_alerts": 0
+      },
+      "metrics": {
+        "recall": 0.3636,
+        "precision": 0.2,
+        "specificity": 0.9363,
+        "false_positive_rate": 0.0637,
+        "roc_auc": 0.7961,
+        "pr_auc": 0.1816,
+        "brier_score": 0.0382,
+        "recall_wilson_ci_95": [
+          0.1517,
+          0.6462
+        ]
+      },
+      "invariant_checks": {
+        "tp_plus_fn_equals_positives": true,
+        "tn_plus_fp_equals_negatives": true,
+        "matrix_sum_equals_cohort_size": true,
+        "alerts_equal_tp_plus_fp": true
+      }
+    },
+    {
+      "model_identifier": "Shadow_Candidate_RF_CostSensitive_Nominal",
+      "description": "Phase5 RF Cost-Sensitive w10 at pre-registered threshold tau = 0.0894",
+      "threshold_applied": 0.0894,
+      "enforce_8pct_budget_cap": false,
+      "cohort_size": 262,
+      "distress_events": 11,
+      "confusion_matrix": {
+        "true_positives": 3,
+        "false_positives": 17,
+        "false_negatives": 8,
+        "true_negatives": 234
+      },
+      "alerts": {
+        "total_alerts": 20,
+        "alert_rate_pct": 7.63,
+        "budget_cap_alerts": 20,
+        "budget_compliant": true,
+        "excess_alerts": 0
+      },
+      "metrics": {
+        "recall": 0.2727,
+        "precision": 0.15,
+        "specificity": 0.9323,
+        "false_positive_rate": 0.0677,
+        "roc_auc": 0.7521,
+        "pr_auc": 0.141,
+        "brier_score": 0.0389
+      }
+    },
+    {
+      "model_identifier": "Interpretable_Logistic_Regression_Nominal",
+      "description": "Calibrated Balanced Logistic Regression at threshold tau = 0.0800",
+      "threshold_applied": 0.08,
+      "enforce_8pct_budget_cap": false,
+      "cohort_size": 262,
+      "distress_events": 11,
+      "confusion_matrix": {
+        "true_positives": 0,
+        "false_positives": 0,
+        "false_negatives": 11,
+        "true_negatives": 251
+      },
+      "alerts": {
+        "total_alerts": 0,
+        "alert_rate_pct": 0.0,
+        "budget_cap_alerts": 20,
+        "budget_compliant": true,
+        "excess_alerts": 0
+      },
+      "metrics": {
+        "recall": 0.0,
+        "precision": 0.0,
+        "specificity": 1.0,
+        "false_positive_rate": 0.0,
+        "roc_auc": 0.8095,
+        "pr_auc": 0.167,
+        "brier_score": 0.0404
+      }
+    },
+    {
+      "model_identifier": "Interpretable_Logistic_Regression_BudgetCapped",
+      "description": "Calibrated Balanced Logistic Regression operating strictly within 8% alert budget",
+      "threshold_applied": 0.0271,
+      "enforce_8pct_budget_cap": true,
+      "cohort_size": 262,
+      "distress_events": 11,
+      "confusion_matrix": {
+        "true_positives": 3,
+        "false_positives": 17,
+        "false_negatives": 8,
+        "true_negatives": 234
+      },
+      "alerts": {
+        "total_alerts": 20,
+        "alert_rate_pct": 7.63,
+        "budget_cap_alerts": 20,
+        "budget_compliant": true,
+        "excess_alerts": 0
+      },
+      "metrics": {
+        "recall": 0.2727,
+        "precision": 0.15,
+        "specificity": 0.9323,
+        "false_positive_rate": 0.0677,
+        "roc_auc": 0.8095,
+        "pr_auc": 0.167,
+        "brier_score": 0.0404
+      }
+    },
+    {
+      "model_identifier": "Standard_Unweighted_Random_Forest_Nominal",
+      "description": "Standard Unweighted Random Forest (100 trees, depth 5) at threshold tau = 0.0800",
+      "threshold_applied": 0.08,
+      "enforce_8pct_budget_cap": false,
+      "cohort_size": 262,
+      "distress_events": 11,
+      "confusion_matrix": {
+        "true_positives": 2,
+        "false_positives": 13,
+        "false_negatives": 9,
+        "true_negatives": 238
+      },
+      "alerts": {
+        "total_alerts": 15,
+        "alert_rate_pct": 5.73,
+        "budget_cap_alerts": 20,
+        "budget_compliant": true,
+        "excess_alerts": 0
+      },
+      "metrics": {
+        "recall": 0.1818,
+        "precision": 0.1333,
+        "specificity": 0.9482,
+        "false_positive_rate": 0.0518,
+        "roc_auc": 0.7342,
+        "pr_auc": 0.1041,
+        "brier_score": 0.0445
+      }
+    }
+  ],
+  "invariants_summary": {
+    "all_confusion_invariants_pass": true,
+    "tp_plus_fn_strictly_equals_11": true,
+    "tn_plus_fp_strictly_equals_251": true,
+    "total_evaluations_strictly_equals_262": true
+  },
+  "statistical_uncertainty_note": "With N_events=11, 95% Wilson intervals for Baseline (21.4% - 72.0%) and Candidate (9.7% - 56.6%) overlap substantially. No empirical superiority claim is statistically justified."
+}

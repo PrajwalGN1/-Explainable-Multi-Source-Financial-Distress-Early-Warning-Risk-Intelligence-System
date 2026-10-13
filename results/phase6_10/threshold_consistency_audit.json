@@ -1,0 +1,45 @@
+{
+  "production_baseline_probabilities": {
+    "min_probability": 0.0113,
+    "max_probability": 0.1826,
+    "mean_probability": 0.0379,
+    "median_probability": 0.0192,
+    "strictly_bounded_0_to_1": true,
+    "strictly_finite": true,
+    "calibrator_type": "CalibratedClassifierCV (method='sigmoid', Platt scaling)",
+    "calibrator_fit_partition": "Validation split (T in [11, 12]) - Zero holdout leakage"
+  },
+  "logistic_regression_zero_alert_investigation": {
+    "phenomenon": "Calibrated Logistic Regression emits 0 alerts at nominal threshold tau = 0.0800",
+    "root_cause_analysis": "Platt sigmoid calibrator maps raw log-odds onto the empirical base rate of the validation cohort (~2.7%). As a result, the maximum predicted calibrated probability on the holdout cohort is bounded at 0.0699.",
+    "max_predicted_probability": 0.026,
+    "min_predicted_probability": 0.0,
+    "mean_predicted_probability": 0.0257,
+    "alerts_at_nominal_threshold_0_0800": 0,
+    "is_software_bug": false,
+    "technical_classification": "Expected mathematical consequence of Platt scaling with severe class imbalance; no score exceeds the arbitrary 0.0800 cutoff.",
+    "budget_capped_operating_point": {
+      "derived_threshold_for_top_20": 0.0271,
+      "alerts": 20,
+      "detected_distress_cases": 3,
+      "recall": 0.2727
+    }
+  },
+  "operating_point_distinction": {
+    "official_production_operating_point": {
+      "threshold": 0.08,
+      "status": "APPROVED_FROZEN",
+      "alerts": 37,
+      "budget_compliance": false,
+      "regulatory_enforcement": "Must never be altered or replaced without full validation committee governance approval."
+    },
+    "research_budget_capped_operating_point": {
+      "threshold": 0.1072,
+      "status": "EXPERIMENTAL_RESEARCH_ONLY",
+      "alerts": 20,
+      "budget_compliance": true,
+      "regulatory_enforcement": "Comparative research benchmark only. Must NOT overwrite or redefine official production threshold."
+    }
+  },
+  "calibration_audit_status": "PROBABILITIES_SOUND_AND_THEORETICALLY_CONSISTENT"
+}

@@ -1,0 +1,85 @@
+{
+  "total_endpoints_tested": 11,
+  "endpoints_passed": 11,
+  "all_endpoints_passed": true,
+  "endpoint_evaluations": [
+    {
+      "endpoint": "/health",
+      "method": "GET",
+      "status_code": 200,
+      "expected_code": 200,
+      "passed": true
+    },
+    {
+      "endpoint": "/model-info",
+      "method": "GET",
+      "status_code": 200,
+      "expected_code": 200,
+      "passed": true
+    },
+    {
+      "endpoint": "/research/model-comparison",
+      "method": "GET",
+      "status_code": 200,
+      "expected_code": 200,
+      "passed": true
+    },
+    {
+      "endpoint": "/research/false-negatives",
+      "method": "GET",
+      "status_code": 200,
+      "expected_code": 200,
+      "passed": true
+    },
+    {
+      "endpoint": "/research/dataset-audit",
+      "method": "GET",
+      "status_code": 200,
+      "expected_code": 200,
+      "passed": true
+    },
+    {
+      "endpoint": "/research/explainability-summary",
+      "method": "GET",
+      "status_code": 200,
+      "expected_code": 200,
+      "passed": true
+    },
+    {
+      "endpoint": "/company/364",
+      "method": "GET",
+      "status_code": 200,
+      "expected_code": 200,
+      "passed": true
+    },
+    {
+      "endpoint": "/company/99999",
+      "method": "GET",
+      "status_code": 404,
+      "expected_code": 404,
+      "passed": true
+    },
+    {
+      "endpoint": "/predict",
+      "method": "POST",
+      "status_code": 200,
+      "expected_code": 200,
+      "passed": true
+    },
+    {
+      "endpoint": "/predict (malformed)",
+      "method": "POST",
+      "status_code": 422,
+      "expected_code": 422,
+      "passed": true
+    },
+    {
+      "endpoint": "/admin/reload-db (unauthenticated)",
+      "method": "POST",
+      "status_code": 503,
+      "expected_code": 503,
+      "passed": true
+    }
+  ],
+  "api_validation_status": "API_ENDPOINTS_VALIDATED"
+}
