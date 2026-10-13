@@ -865,7 +865,7 @@ elif menu_selection == "🔄 Why Did Risk Change?":
         )
     with d4:
         render_kpi_card(
-            "Operational Category Shift",
+            "Category Transition",
             f"{cat_prev} → {cat_curr}",
             "Threshold Governed",
             color="#ef4444" if delta_pts > 0 else "#10b981"
