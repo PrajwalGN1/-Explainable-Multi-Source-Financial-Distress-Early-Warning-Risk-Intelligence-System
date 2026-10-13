@@ -1,0 +1,25 @@
+{
+  "phase": "Phase 6.9 - Existing-Data Model Improvement and Project Completion",
+  "baseline_verified": true,
+  "protected_hashes": {
+    "models/phase2/best_ews_model.joblib": "fcec88142b59f55f915e7a7301bc15bc583be9f3d925f91eeff59530db7fa6d3",
+    "models/phase2/ews_calibrator.joblib": "774a411b14376591b99c68fbd5e1d19b5926bafeea431596bda2a162e6a79d1e",
+    "models/phase2/ews_preprocessor.joblib": "2342eb7f7b94657524a047d18b8760be55d82ea4045eae093b67b33edbc1659f",
+    "models/phase2/threshold_config.json": "e60ed3b1f35e23012f096b492855c367006eb48f6cd877c92c107ea6eb96d136",
+    "models/phase2/model_manifest.json": "aada1e00afdc3b07bf73eaa1b59755173b5e4e800aa3a5a2c988a8ddbee1a86c",
+    "models/phase2/ews_metrics.json": "5f9a2506114bfd690840401be24bb3f83d3684aab746204b942a0c8986e4ddd1",
+    "config/risk_config.yaml": "9975b94587bf641146b0566cbaa0e5fcb3a280ce831015e2b2f45fc926ef08e8",
+    "config/config.yaml": "77f228b100a9989da85ca8c8da916e07949f2a93744181f07624f73e58d83864"
+  },
+  "expected_hashes": {
+    "models/phase2/best_ews_model.joblib": "fcec88142b59f55f915e7a7301bc15bc583be9f3d925f91eeff59530db7fa6d3",
+    "models/phase2/ews_calibrator.joblib": "774a411b14376591b99c68fbd5e1d19b5926bafeea431596bda2a162e6a79d1e",
+    "models/phase2/ews_preprocessor.joblib": "2342eb7f7b94657524a047d18b8760be55d82ea4045eae093b67b33edbc1659f",
+    "models/phase2/threshold_config.json": "e60ed3b1f35e23012f096b492855c367006eb48f6cd877c92c107ea6eb96d136",
+    "models/phase2/model_manifest.json": "aada1e00afdc3b07bf73eaa1b59755173b5e4e800aa3a5a2c988a8ddbee1a86c",
+    "models/phase2/ews_metrics.json": "5f9a2506114bfd690840401be24bb3f83d3684aab746204b942a0c8986e4ddd1",
+    "config/risk_config.yaml": "9975b94587bf641146b0566cbaa0e5fcb3a280ce831015e2b2f45fc926ef08e8",
+    "config/config.yaml": "77f228b100a9989da85ca8c8da916e07949f2a93744181f07624f73e58d83864"
+  },
+  "immutability_status": "PROTECTED_BASELINE_VERIFIED_UNCHANGED"
+}

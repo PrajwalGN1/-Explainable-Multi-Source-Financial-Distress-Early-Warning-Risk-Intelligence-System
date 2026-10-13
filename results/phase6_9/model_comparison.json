@@ -1,0 +1,253 @@
+{
+  "evaluation_cohort": "Matured T=13 -> T=14 Stress Cohort",
+  "cohort_size": 262,
+  "distress_events": 11,
+  "integer_8pct_alert_cap": 20,
+  "models": [
+    {
+      "model_identifier": "Approved_Production_Baseline_Nominal",
+      "description": "Random Forest Balanced Platt Calibrated at official threshold tau = 0.0800",
+      "threshold_applied": 0.08,
+      "enforce_8pct_budget_cap": false,
+      "cohort_size": 262,
+      "distress_events": 11,
+      "confusion_matrix": {
+        "true_positives": 5,
+        "false_positives": 32,
+        "false_negatives": 6,
+        "true_negatives": 219
+      },
+      "alerts": {
+        "total_alerts": 37,
+        "alert_rate_pct": 14.12,
+        "budget_cap_alerts": 20,
+        "budget_compliant": false,
+        "excess_alerts": 17
+      },
+      "metrics": {
+        "recall": 0.4545,
+        "precision": 0.1351,
+        "specificity": 0.8725,
+        "false_positive_rate": 0.1275,
+        "roc_auc": 0.7961,
+        "pr_auc": 0.1816,
+        "brier_score": 0.0382
+      }
+    },
+    {
+      "model_identifier": "Approved_Production_Baseline_BudgetCapped",
+      "description": "Random Forest Balanced Platt operating strictly within 8% alert budget (top 20 alerts)",
+      "threshold_applied": 0.1072,
+      "enforce_8pct_budget_cap": true,
+      "cohort_size": 262,
+      "distress_events": 11,
+      "confusion_matrix": {
+        "true_positives": 4,
+        "false_positives": 16,
+        "false_negatives": 7,
+        "true_negatives": 235
+      },
+      "alerts": {
+        "total_alerts": 20,
+        "alert_rate_pct": 7.63,
+        "budget_cap_alerts": 20,
+        "budget_compliant": true,
+        "excess_alerts": 0
+      },
+      "metrics": {
+        "recall": 0.3636,
+        "precision": 0.2,
+        "specificity": 0.9363,
+        "false_positive_rate": 0.0637,
+        "roc_auc": 0.7961,
+        "pr_auc": 0.1816,
+        "brier_score": 0.0382
+      }
+    },
+    {
+      "model_identifier": "Shadow_Candidate_RF_CostSensitive_Nominal",
+      "description": "Phase5 RF Cost-Sensitive w10 at pre-registered threshold tau = 0.0894",
+      "threshold_applied": 0.0894,
+      "enforce_8pct_budget_cap": false,
+      "cohort_size": 262,
+      "distress_events": 11,
+      "confusion_matrix": {
+        "true_positives": 3,
+        "false_positives": 17,
+        "false_negatives": 8,
+        "true_negatives": 234
+      },
+      "alerts": {
+        "total_alerts": 20,
+        "alert_rate_pct": 7.63,
+        "budget_cap_alerts": 20,
+        "budget_compliant": true,
+        "excess_alerts": 0
+      },
+      "metrics": {
+        "recall": 0.2727,
+        "precision": 0.15,
+        "specificity": 0.9323,
+        "false_positive_rate": 0.0677,
+        "roc_auc": 0.7521,
+        "pr_auc": 0.141,
+        "brier_score": 0.0389
+      }
+    },
+    {
+      "model_identifier": "Shadow_Candidate_RF_CostSensitive_BudgetCapped",
+      "description": "Phase5 RF Cost-Sensitive w10 operating strictly within 8% alert budget",
+      "threshold_applied": 0.0946,
+      "enforce_8pct_budget_cap": true,
+      "cohort_size": 262,
+      "distress_events": 11,
+      "confusion_matrix": {
+        "true_positives": 3,
+        "false_positives": 17,
+        "false_negatives": 8,
+        "true_negatives": 234
+      },
+      "alerts": {
+        "total_alerts": 20,
+        "alert_rate_pct": 7.63,
+        "budget_cap_alerts": 20,
+        "budget_compliant": true,
+        "excess_alerts": 0
+      },
+      "metrics": {
+        "recall": 0.2727,
+        "precision": 0.15,
+        "specificity": 0.9323,
+        "false_positive_rate": 0.0677,
+        "roc_auc": 0.7521,
+        "pr_auc": 0.141,
+        "brier_score": 0.0389
+      }
+    },
+    {
+      "model_identifier": "Interpretable_Logistic_Regression_Nominal",
+      "description": "Calibrated Balanced Logistic Regression at threshold tau = 0.0800",
+      "threshold_applied": 0.08,
+      "enforce_8pct_budget_cap": false,
+      "cohort_size": 262,
+      "distress_events": 11,
+      "confusion_matrix": {
+        "true_positives": 0,
+        "false_positives": 0,
+        "false_negatives": 11,
+        "true_negatives": 251
+      },
+      "alerts": {
+        "total_alerts": 0,
+        "alert_rate_pct": 0.0,
+        "budget_cap_alerts": 20,
+        "budget_compliant": true,
+        "excess_alerts": 0
+      },
+      "metrics": {
+        "recall": 0.0,
+        "precision": 0.0,
+        "specificity": 1.0,
+        "false_positive_rate": 0.0,
+        "roc_auc": 0.8095,
+        "pr_auc": 0.167,
+        "brier_score": 0.0404
+      }
+    },
+    {
+      "model_identifier": "Interpretable_Logistic_Regression_BudgetCapped",
+      "description": "Calibrated Balanced Logistic Regression operating strictly within 8% alert budget",
+      "threshold_applied": 0.0271,
+      "enforce_8pct_budget_cap": true,
+      "cohort_size": 262,
+      "distress_events": 11,
+      "confusion_matrix": {
+        "true_positives": 3,
+        "false_positives": 17,
+        "false_negatives": 8,
+        "true_negatives": 234
+      },
+      "alerts": {
+        "total_alerts": 20,
+        "alert_rate_pct": 7.63,
+        "budget_cap_alerts": 20,
+        "budget_compliant": true,
+        "excess_alerts": 0
+      },
+      "metrics": {
+        "recall": 0.2727,
+        "precision": 0.15,
+        "specificity": 0.9323,
+        "false_positive_rate": 0.0677,
+        "roc_auc": 0.8095,
+        "pr_auc": 0.167,
+        "brier_score": 0.0404
+      }
+    },
+    {
+      "model_identifier": "Standard_Unweighted_Random_Forest_Nominal",
+      "description": "Standard Unweighted Random Forest (100 trees, depth 5) at threshold tau = 0.0800",
+      "threshold_applied": 0.08,
+      "enforce_8pct_budget_cap": false,
+      "cohort_size": 262,
+      "distress_events": 11,
+      "confusion_matrix": {
+        "true_positives": 2,
+        "false_positives": 13,
+        "false_negatives": 9,
+        "true_negatives": 238
+      },
+      "alerts": {
+        "total_alerts": 15,
+        "alert_rate_pct": 5.73,
+        "budget_cap_alerts": 20,
+        "budget_compliant": true,
+        "excess_alerts": 0
+      },
+      "metrics": {
+        "recall": 0.1818,
+        "precision": 0.1333,
+        "specificity": 0.9482,
+        "false_positive_rate": 0.0518,
+        "roc_auc": 0.7342,
+        "pr_auc": 0.1041,
+        "brier_score": 0.0445
+      }
+    },
+    {
+      "model_identifier": "Standard_Unweighted_Random_Forest_BudgetCapped",
+      "description": "Standard Unweighted Random Forest operating strictly within 8% alert budget",
+      "threshold_applied": 0.068,
+      "enforce_8pct_budget_cap": true,
+      "cohort_size": 262,
+      "distress_events": 11,
+      "confusion_matrix": {
+        "true_positives": 2,
+        "false_positives": 18,
+        "false_negatives": 9,
+        "true_negatives": 233
+      },
+      "alerts": {
+        "total_alerts": 20,
+        "alert_rate_pct": 7.63,
+        "budget_cap_alerts": 20,
+        "budget_compliant": true,
+        "excess_alerts": 0
+      },
+      "metrics": {
+        "recall": 0.1818,
+        "precision": 0.1,
+        "specificity": 0.9283,
+        "false_positive_rate": 0.0717,
+        "roc_auc": 0.7342,
+        "pr_auc": 0.1041,
+        "brier_score": 0.0445
+      }
+    }
+  ],
+  "statistical_limitations_and_uncertainty": {
+    "distress_sample_size": 11,
+    "denominator_warning": "With only n=11 realized distress events in the test cohort, each individual detection represents 1/11 = 9.09 percentage points of recall. A difference of 1 detection (e.g. 4 vs 3) has binomial 95% Wilson score confidence intervals overlapping completely. Therefore, claims of statistical superiority are scientifically unsupported and inconclusive.",
+    "alert_budget_finding": "At nominal threshold tau = 0.0800, the production baseline produces 37 alerts (14.12%), exceeding the 8.0% budget cap (20 alerts). Under the strict 20-alert cap, the production baseline detects 4/11 (36.36%) vs Candidate's 3/11 (27.27%) and Logistic Regression's 3/11 (27.27%)."
+  }
+}

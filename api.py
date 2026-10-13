@@ -522,4 +522,64 @@ def post_shadow_predict(req: ShadowPredictRequest, response: Response):
         raise HTTPException(status_code=500, detail=f"Shadow evaluation failed: {str(e)}")
 
 
+# =====================================================================
+# Phase 6.9: Research Model Comparison, Diagnostics & Audits
+# =====================================================================
+
+@app.get("/research/model-comparison", tags=["Research & Model Validation"])
+def get_research_model_comparison():
+    """
+    Returns empirical model comparison under the 8% alert budget constraint,
+    comparing Approved Production Baseline, Cost-Sensitive Candidate,
+    Logistic Regression, and Standard Random Forest.
+    """
+    path = "results/phase6_9/model_comparison.json"
+    if not os.path.exists(path):
+        raise HTTPException(status_code=404, detail="Model comparison results not found. Run Phase 6.9 pipeline first.")
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+@app.get("/research/false-negatives", tags=["Research & Model Validation"])
+def get_research_false_negatives():
+    """
+    Returns auditable diagnostics for missed distress cases in the matured test cohort,
+    including transition dynamics (acute cliff vs chronic deterioration) and failure taxonomy.
+    """
+    path = "results/phase6_9/false_negative_audit.csv"
+    if not os.path.exists(path):
+        raise HTTPException(status_code=404, detail="False negative audit not found. Run Phase 6.9 pipeline first.")
+    df_fn = pd.read_csv(path)
+    df_fn = df_fn.replace({np.nan: None})
+    return df_fn.to_dict(orient="records")
+
+
+@app.get("/research/dataset-audit", tags=["Research & Model Validation"])
+def get_research_dataset_audit():
+    """
+    Returns empirical dataset and target audit for Dataset A (Financial Distress.csv),
+    including missingness, company-period contiguity, terminal distress exit dynamics,
+    and target direction semantics.
+    """
+    path = "results/phase6_9/dataset_audit.json"
+    if not os.path.exists(path):
+        raise HTTPException(status_code=404, detail="Dataset audit not found. Run Phase 6.9 pipeline first.")
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+@app.get("/research/explainability-summary", tags=["Research & Model Validation"])
+def get_research_explainability_summary():
+    """
+    Returns TreeSHAP global and local attribution summary with explicit regulatory
+    clarification on predictive association vs causality.
+    """
+    path = "results/phase6_9/explainability_summary.json"
+    if not os.path.exists(path):
+        raise HTTPException(status_code=404, detail="Explainability summary not found. Run Phase 6.9 pipeline first.")
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+
 

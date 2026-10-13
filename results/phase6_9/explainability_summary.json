@@ -1,0 +1,148 @@
+{
+  "methodology": "TreeSHAP Exact Tree Attribution (Lundberg et al., Nature MI 2020)",
+  "model_explained": "Approved Production Baseline (RandomForestClassifier, 100 trees, max_depth=5)",
+  "evaluated_population": "Test Holdout Cohort (Time=13)",
+  "additivity_guarantee": "Exact: base_value + sum(shap_values) == raw_model_output",
+  "top_global_features": [
+    {
+      "rank": 1,
+      "feature": "x2_roll_mean_2",
+      "base_variable": "x2",
+      "category": "Statistical/Unmapped Feature",
+      "is_temporal_engineered": true,
+      "mean_abs_shap": 0.02468,
+      "mean_signed_shap": -0.01841,
+      "risk_direction": "Protective Factor (Reduces Distress Probability)",
+      "interpretation": "Temporal feature: roll mean 2 of x2"
+    },
+    {
+      "rank": 2,
+      "feature": "x12",
+      "base_variable": "x12",
+      "category": "Statistical/Unmapped Feature",
+      "is_temporal_engineered": false,
+      "mean_abs_shap": 0.02243,
+      "mean_signed_shap": -0.01006,
+      "risk_direction": "Protective Factor (Reduces Distress Probability)",
+      "interpretation": "Statistical predictor x12"
+    },
+    {
+      "rank": 3,
+      "feature": "x8",
+      "base_variable": "x8",
+      "category": "Statistical/Unmapped Feature",
+      "is_temporal_engineered": false,
+      "mean_abs_shap": 0.02039,
+      "mean_signed_shap": -0.01553,
+      "risk_direction": "Protective Factor (Reduces Distress Probability)",
+      "interpretation": "Statistical predictor x8"
+    },
+    {
+      "rank": 4,
+      "feature": "x10_roll_mean_2",
+      "base_variable": "x10",
+      "category": "Statistical/Unmapped Feature",
+      "is_temporal_engineered": true,
+      "mean_abs_shap": 0.01765,
+      "mean_signed_shap": -0.01514,
+      "risk_direction": "Protective Factor (Reduces Distress Probability)",
+      "interpretation": "Temporal feature: roll mean 2 of x10"
+    },
+    {
+      "rank": 5,
+      "feature": "x2_roll_mean_3",
+      "base_variable": "x2",
+      "category": "Statistical/Unmapped Feature",
+      "is_temporal_engineered": true,
+      "mean_abs_shap": 0.01679,
+      "mean_signed_shap": -0.00787,
+      "risk_direction": "Protective Factor (Reduces Distress Probability)",
+      "interpretation": "Temporal feature: roll mean 3 of x2"
+    },
+    {
+      "rank": 6,
+      "feature": "x16",
+      "base_variable": "x16",
+      "category": "Statistical/Unmapped Feature",
+      "is_temporal_engineered": false,
+      "mean_abs_shap": 0.01546,
+      "mean_signed_shap": -0.00794,
+      "risk_direction": "Protective Factor (Reduces Distress Probability)",
+      "interpretation": "Statistical predictor x16"
+    },
+    {
+      "rank": 7,
+      "feature": "x52",
+      "base_variable": "x52",
+      "category": "Statistical/Unmapped Feature",
+      "is_temporal_engineered": false,
+      "mean_abs_shap": 0.01527,
+      "mean_signed_shap": -0.00909,
+      "risk_direction": "Protective Factor (Reduces Distress Probability)",
+      "interpretation": "Statistical predictor x52"
+    },
+    {
+      "rank": 8,
+      "feature": "x46",
+      "base_variable": "x46",
+      "category": "Statistical/Unmapped Feature",
+      "is_temporal_engineered": false,
+      "mean_abs_shap": 0.0144,
+      "mean_signed_shap": -0.01117,
+      "risk_direction": "Protective Factor (Reduces Distress Probability)",
+      "interpretation": "Statistical predictor x46"
+    },
+    {
+      "rank": 9,
+      "feature": "x2",
+      "base_variable": "x2",
+      "category": "Statistical/Unmapped Feature",
+      "is_temporal_engineered": false,
+      "mean_abs_shap": 0.01244,
+      "mean_signed_shap": -0.00772,
+      "risk_direction": "Protective Factor (Reduces Distress Probability)",
+      "interpretation": "Statistical predictor x2"
+    },
+    {
+      "rank": 10,
+      "feature": "x5",
+      "base_variable": "x5",
+      "category": "Statistical/Unmapped Feature",
+      "is_temporal_engineered": false,
+      "mean_abs_shap": 0.01151,
+      "mean_signed_shap": -0.00241,
+      "risk_direction": "Protective Factor (Reduces Distress Probability)",
+      "interpretation": "Statistical predictor x5"
+    }
+  ],
+  "causal_vs_predictive_governance_disclaimer": {
+    "regulatory_standard": "SR 11-7 / OCC 2011-12 Model Risk Management",
+    "critical_distinction": "Feature importance values (SHAP attributions) represent STATISTICAL PREDICTIVE ASSOCIATIONS, NOT CAUSAL MECHANISMS. A feature with high positive SHAP attribution (e.g. accelerating debt x48) indicates that firms with this profile historically suffered distress more frequently. It DOES NOT prove that altering that variable alone will prevent financial failure. Supervisory reviewers must treat model outputs as diagnostic signals, not prescriptive levers."
+  },
+  "selected_firm_profiles": [
+    {
+      "company_id": 28,
+      "profile": "Acute Sudden Default",
+      "antecedent_solvency": "FD = +1.4430 (Solidly solvent at T=13)",
+      "key_risk_drivers": "High debt velocity (x48 diff) and sudden collapse in operating liquidity.",
+      "model_score": 0.0858,
+      "decision": "Alerted by Baseline at nominal tau=0.0800; missed by candidate (0.0496)."
+    },
+    {
+      "company_id": 60,
+      "profile": "Acute Sudden Default",
+      "antecedent_solvency": "FD = +0.1357 (Marginally solvent at T=13)",
+      "key_risk_drivers": "Severe working capital contraction and high negative cash flow shift.",
+      "model_score": 0.1135,
+      "decision": "Alerted by Baseline under both nominal and budget-capped thresholds."
+    },
+    {
+      "company_id": 100,
+      "profile": "Chronic Solvency Deterioration",
+      "antecedent_solvency": "FD = -0.4824 (Severely stressed prior to formal default)",
+      "key_risk_drivers": "Persistent negative retained earnings (x2) and chronic cash deficit.",
+      "model_score": 0.1072,
+      "decision": "Alerted by both Baseline and Candidate under nominal and budget-capped thresholds."
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "total_model_features": 163,
+  "raw_financial_ratios_count": 83,
+  "temporal_engineered_features_count": 80,
+  "core_ratio_temporal_derivations": {
+    "core_ratios": [
+      "x1",
+      "x2",
+      "x5",
+      "x10",
+      "x25",
+      "x48",
+      "x64",
+      "x81"
+    ],
+    "derivation_types": [
+      "lag_1",
+      "lag_2",
+      "diff_1",
+      "growth_1",
+      "acceleration",
+      "roll_mean_2",
+      "roll_mean_3",
+      "roll_std_3",
+      "consec_decline_2",
+      "dev_from_baseline"
+    ],
+    "derivations_per_ratio": 10,
+    "total_temporal_derivatives": 80
+  },
+  "preprocessing_configuration": {
+    "imputation_strategy": "SimpleImputer(strategy='median')",
+    "scaling_strategy": "RobustScaler()",
+    "fitting_boundary": "Strictly on Training Partition (Time <= 10). Zero validation/test data used."
+  },
+  "leakage_verification": {
+    "temporal_features_leakage_status": "VERIFIED_LEAK_FREE",
+    "evidence": "All lags, differences, and rolling windows strictly use observations at or before time t.",
+    "top_correlated_raw_with_continuous_fd": [
+      {
+        "feature": "x81",
+        "abs_correlation": 0.4429
+      },
+      {
+        "feature": "x48",
+        "abs_correlation": 0.4353
+      },
+      {
+        "feature": "x25",
+        "abs_correlation": 0.3768
+      },
+      {
+        "feature": "x10",
+        "abs_correlation": 0.3383
+      },
+      {
+        "feature": "x5",
+        "abs_correlation": 0.2744
+      }
+    ],
+    "max_feature_correlation_with_continuous_fd": 0.4429,
+    "top_correlated_features_with_forward_target": [
+      {
+        "feature": "x2",
+        "abs_correlation": 0.1901
+      },
+      {
+        "feature": "x36",
+        "abs_correlation": 0.176
+      },
+      {
+        "feature": "x14",
+        "abs_correlation": 0.176
+      },
+      {
+        "feature": "x2_roll_mean_2",
+        "abs_correlation": 0.1754
+      },
+      {
+        "feature": "x5",
+        "abs_correlation": 0.1707
+      },
+      {
+        "feature": "x2_roll_mean_3",
+        "abs_correlation": 0.169
+      }
+    ],
+    "max_feature_correlation_with_forward_target": 0.1901,
+    "target_encoding_verdict": "PASS: No feature exhibits correlation > 0.45 with continuous FD or > 0.20 with forward target. No variable encodes the future label or target identity."
+  }
+}

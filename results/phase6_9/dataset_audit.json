@@ -1,0 +1,80 @@
+{
+  "dataset_name": "Dataset A (Tehran Stock Exchange SME Financial Distress Panel)",
+  "source_file": "data/raw/Financial Distress.csv",
+  "total_rows": 3672,
+  "total_columns": 86,
+  "unique_companies": 422,
+  "periods_per_company": {
+    "min_periods": 1,
+    "max_periods": 14,
+    "mean_periods": 8.7,
+    "median_periods": 9.0
+  },
+  "missing_values_count": 0,
+  "duplicate_company_period_records": 0,
+  "time_contiguity": {
+    "has_time_gaps": false,
+    "total_time_gaps": 0,
+    "description": "Strictly contiguous annual reporting intervals for all 422 companies."
+  },
+  "target_semantics": {
+    "raw_column_name": "Financial Distress",
+    "nature": "Continuous financial solvency / distress index",
+    "distribution": {
+      "mean": 1.0403,
+      "std": 2.6522,
+      "min": -8.6317,
+      "q25": 0.1723,
+      "median": 0.5838,
+      "q75": 1.3518,
+      "max": 128.4
+    },
+    "statutory_threshold": -0.5,
+    "direction_interpretation": "LOWER values indicate greater financial distress. Values <= -0.50 define statutory financial distress (Article 141 of Commercial Code). Values > -0.50 indicate solvent, commercially viable operating health.",
+    "raw_distress_records": 136,
+    "raw_distress_percentage": 3.7,
+    "raw_healthy_records": 3536,
+    "raw_healthy_percentage": 96.3
+  },
+  "panel_attrition_and_terminal_dynamics": {
+    "unique_distressed_firms": 136,
+    "distress_at_exact_final_observed_period": 136,
+    "terminal_exit_rate_pct": 100.0,
+    "explanation": "All 136 distressed firms exit the panel immediately upon experiencing distress. No distressed firm has subsequent observations after distress is recorded."
+  },
+  "forward_target_construction": {
+    "formula": "Y_{i, t} = 1{ Financial Distress_{i, t+1} <= -0.50 }",
+    "prediction_horizon": "Next reporting period (t+1)",
+    "leakage_safety": "Features at period t strictly predict distress realized at period t+1",
+    "total_evaluable_records": 3250,
+    "unobserved_terminal_records": 422,
+    "total_forward_distress_events": 120,
+    "total_forward_solvent_events": 3130,
+    "overall_forward_distress_rate_pct": 3.69
+  },
+  "chronological_partitions": {
+    "training_set": {
+      "period_filter": "Time <= 10",
+      "sample_count": 2471,
+      "distress_events": 95,
+      "distress_rate_pct": 3.84
+    },
+    "validation_set": {
+      "period_filter": "11 <= Time <= 12",
+      "sample_count": 517,
+      "distress_events": 14,
+      "distress_rate_pct": 2.71
+    },
+    "test_holdout_cohort": {
+      "period_filter": "Time == 13 (predicting Time 14 outcome)",
+      "sample_count": 262,
+      "distress_events": 11,
+      "distress_rate_pct": 4.2
+    },
+    "terminal_unobserved_period_14": {
+      "period_filter": "Time == 14",
+      "sample_count": 280,
+      "distress_events": "UNOBSERVED (Time 15 does not exist in dataset)"
+    }
+  }
+}
