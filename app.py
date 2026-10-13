@@ -565,7 +565,24 @@ elif menu_selection == "📈 Risk Timeline & Trajectory":
     """, unsafe_allow_html=True)
     
     # Trajectory KPI Cards
-    k1, k2, k3, k4 = st.columns(4)
+    latest_assess = c_info.get("latest_assessment", {})
+    latest_p = c_info.get("latest_period", history[-1].get("period", "N/A") if history else "N/A")
+    raw_prob = latest_assess.get("final_risk_probability_pct", history[-1].get("risk_pct", 0.0) if history else 0.0)
+    try:
+        latest_prob = float(raw_prob)
+    except (ValueError, TypeError):
+        latest_prob = 0.0
+    risk_cat = latest_assess.get("risk_category", "Critical" if latest_prob >= 17 else "High Risk" if latest_prob >= 13 else "Watch" if latest_prob >= 8 else "Low Risk")
+    risk_color = latest_assess.get("risk_color", "#ef4444" if latest_prob >= 17 else "#f97316" if latest_prob >= 13 else "#f59e0b" if latest_prob >= 8 else "#10b981")
+    
+    k0, k1, k2, k3, k4 = st.columns(5)
+    with k0:
+        render_kpi_card(
+            "Current Risk Level",
+            f"{latest_prob:.1f}%",
+            f"Period T={latest_p} ({risk_cat})",
+            color=risk_color
+        )
     with k1:
         render_kpi_card("Trajectory Trend", f"{trajectory.get('trend', 'Stable')}", "Directional Vector", color="#38bdf8")
     with k2:

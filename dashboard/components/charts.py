@@ -90,7 +90,7 @@ def create_timeline_chart(trajectory_history: List[Dict[str, Any]], signals: Lis
     df_traj = pd.DataFrame(trajectory_history)
     fig = go.Figure()
     
-    # Background threshold bands synchronized with canonical risk config
+    # Background threshold bands synchronized with canonical risk config (placed on top-right to prevent axis overlap)
     bands = get_canonical_risk_bands(risk_config)
     for b in bands:
         fig.add_hrect(
@@ -99,10 +99,23 @@ def create_timeline_chart(trajectory_history: List[Dict[str, Any]], signals: Lis
             fillcolor=b["color"],
             opacity=0.08,
             line_width=0,
-            annotation_text=b["label"],
-            annotation_position="top left",
-            annotation_font_color=b["color"]
+            annotation_text=f"  {b['label']}",
+            annotation_position="top right",
+            annotation_font_color=b["color"],
+            annotation_font_size=10
         )
+    
+    # Baseline supervisory EWS alert threshold (tau = 8.0%)
+    fig.add_hline(
+        y=8.0,
+        line_dash="dot",
+        line_color="rgba(245, 158, 11, 0.65)",
+        line_width=1.5,
+        annotation_text="EWS Alert Threshold (8.0%)",
+        annotation_position="bottom right",
+        annotation_font_color="#f59e0b",
+        annotation_font_size=10
+    )
     
     # Trajectory line
     fig.add_trace(go.Scatter(
@@ -111,30 +124,35 @@ def create_timeline_chart(trajectory_history: List[Dict[str, Any]], signals: Lis
         mode="lines+markers",
         name="Risk Probability (%)",
         line=dict(color="#38bdf8", width=3, shape="spline"),
-        marker=dict(size=8, color="#38bdf8", symbol="circle")
+        marker=dict(size=8, color="#38bdf8", symbol="circle"),
+        hovertemplate="<b>Period T=%{x}</b><br>Distress Probability: %{y:.1f}%<extra></extra>"
     ))
     
-    # Overlay alert markers if present on latest period
+    # Overlay alert markers if present on latest period with clear callout
     if signals and len(df_traj) > 0:
         latest_period = df_traj["period"].iloc[-1]
         latest_risk = df_traj["risk_pct"].iloc[-1]
         fig.add_trace(go.Scatter(
             x=[latest_period],
             y=[latest_risk],
-            mode="markers",
+            mode="markers+text",
             name="Warning Triggered",
-            marker=dict(size=14, color="#ef4444", symbol="star")
+            text=[f"  {latest_risk:.1f}% (Alert)"],
+            textposition="top right",
+            textfont=dict(color="#ef4444", size=11, family="Inter, sans-serif"),
+            marker=dict(size=14, color="#ef4444", symbol="star"),
+            hovertemplate="<b>Period T=%{x} (Warning Triggered)</b><br>Distress Probability: %{y:.1f}%<extra></extra>"
         ))
         
     fig.update_layout(
         title="<b>Multi-Period Risk Trajectory & Surveillance Timeline</b>",
-        xaxis=dict(title="Reporting Period (Time)", gridcolor="rgba(255,255,255,0.08)", tickmode="linear"),
+        xaxis=dict(title="Reporting Period (Time)", gridcolor="rgba(255,255,255,0.08)", tickmode="linear", dtick=1),
         yaxis=dict(title="Distress Risk Probability (%)", range=[0, 100], gridcolor="rgba(255,255,255,0.08)"),
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(15, 23, 42, 0.4)",
         font=dict(color="#f8fafc", family="Inter, sans-serif"),
-        height=380,
-        margin=dict(l=40, r=30, t=50, b=40),
+        height=390,
+        margin=dict(l=75, r=40, t=50, b=45),
         legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
     )
     return fig
