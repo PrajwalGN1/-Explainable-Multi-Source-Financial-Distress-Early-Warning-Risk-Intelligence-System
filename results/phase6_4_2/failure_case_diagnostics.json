@@ -1,0 +1,331 @@
+{
+  "audit_objective": "Forensic reconstruction of missed distress transitions on Firms 28 and 60",
+  "cohort_size": 262,
+  "matured_distress_count": 11,
+  "cases": {
+    "firm_28": {
+      "firm_identifier": "Firm 28",
+      "sector_code_x80": 25,
+      "size_proxy_x1": 1.1032,
+      "prediction_period_timestamp": "Time = 13 (Strictly point-in-time features)",
+      "statutory_outcome_period": "Time = 14",
+      "previous_period_distress_index_t13": 1.443,
+      "target_period_distress_index_t14": -0.6815,
+      "statutory_transition_type": "SUDDEN_DISTRESS_TRANSITION (Historically solvent firm experiencing acute default)",
+      "key_financial_ratios_at_t13": {
+        "operating_cash_flow_to_debt_x12": 2.509,
+        "leverage_x2": 0.0322,
+        "working_capital_to_assets_x5": 0.0169,
+        "retained_earnings_to_assets_x16": 0.0356,
+        "sales_to_assets_x25": 1025.3,
+        "profitability_x48": 4423.1
+      },
+      "production_model_evaluation": {
+        "raw_probability": 0.464,
+        "calibrated_probability": 0.0858,
+        "operating_threshold": 0.08,
+        "native_alert_decision": true,
+        "cohort_rank": 35,
+        "cohort_percentile": 12.98,
+        "disposition": "DETECTED (Alert issued prior to collapse)"
+      },
+      "candidate_model_evaluation": {
+        "raw_probability": 0.1912,
+        "calibrated_probability": 0.0496,
+        "operating_threshold": 0.0894,
+        "native_alert_decision": false,
+        "cohort_rank": 51,
+        "cohort_percentile": 19.08,
+        "disposition": "MISSED (Suppressed risk assignment)"
+      },
+      "probability_ranking_differential": {
+        "rank_slippage": 16,
+        "probability_gap": 0.0362,
+        "below_candidate_threshold_0_0894": true,
+        "below_production_threshold_0_0800": true,
+        "mechanism_classification": "PROBABILITY_RANKING_FAILURE",
+        "proof": "Candidate probability (0.0496) is strictly below BOTH the candidate threshold (0.0894) and the production threshold (0.0800). Lowering the candidate threshold to 0.0800 would NOT trigger an alert on Firm 28. The failure is therefore 100% attributable to structural probability ranking suppression, not a threshold cutoff interaction."
+      },
+      "feature_attribution_diagnostics": {
+        "production_risk_increasing_features": [
+          {
+            "feature": "x5",
+            "value": -0.8522,
+            "shap_attribution": 0.0217
+          },
+          {
+            "feature": "x16",
+            "value": -0.7368,
+            "shap_attribution": 0.0209
+          },
+          {
+            "feature": "x2_roll_mean_3",
+            "value": -0.9671,
+            "shap_attribution": 0.0207
+          },
+          {
+            "feature": "x2_roll_mean_2",
+            "value": -0.8985,
+            "shap_attribution": 0.0159
+          },
+          {
+            "feature": "x5_roll_mean_2",
+            "value": -1.0555,
+            "shap_attribution": 0.014
+          }
+        ],
+        "production_risk_decreasing_features": [
+          {
+            "feature": "x2_lag_2",
+            "value": -1.4674,
+            "shap_attribution": -0.0125
+          },
+          {
+            "feature": "x81",
+            "value": 2.8794,
+            "shap_attribution": -0.0141
+          },
+          {
+            "feature": "x68",
+            "value": 19.1325,
+            "shap_attribution": -0.016
+          },
+          {
+            "feature": "x48",
+            "value": 2.115,
+            "shap_attribution": -0.0167
+          },
+          {
+            "feature": "x10",
+            "value": 0.0951,
+            "shap_attribution": -0.0183
+          }
+        ],
+        "candidate_risk_increasing_features": [
+          {
+            "feature": "x16",
+            "value": -0.7368,
+            "shap_attribution": 0.0205
+          },
+          {
+            "feature": "x46",
+            "value": -0.5467,
+            "shap_attribution": 0.0128
+          },
+          {
+            "feature": "x36",
+            "value": -0.5238,
+            "shap_attribution": 0.0118
+          },
+          {
+            "feature": "x8",
+            "value": -0.3396,
+            "shap_attribution": 0.0099
+          },
+          {
+            "feature": "x2_roll_mean_2",
+            "value": -0.5742,
+            "shap_attribution": 0.0079
+          }
+        ],
+        "candidate_risk_suppressing_features": [
+          {
+            "feature": "x25_roll_mean_3",
+            "value": 2.639,
+            "shap_attribution": -0.0079
+          },
+          {
+            "feature": "x10_roll_mean_2",
+            "value": 0.0732,
+            "shap_attribution": -0.0147
+          },
+          {
+            "feature": "x52_roll_mean_3",
+            "value": 0.4663,
+            "shap_attribution": -0.0163
+          },
+          {
+            "feature": "x25",
+            "value": 0.4449,
+            "shap_attribution": -0.0173
+          },
+          {
+            "feature": "x16_roll_mean_3",
+            "value": 0.6076,
+            "shap_attribution": -0.0246
+          }
+        ],
+        "diagnostic_interpretation": "Production model identified level vulnerabilities in working capital and retained earnings (x5, x16, x2). In contrast, the candidate model's rolling stability features (e.g., x16_roll_mean_3, x25_roll_mean_3, x10_roll_mean_2) recorded positive backward values, exerting strong negative SHAP contributions that drove raw and calibrated risk below alert levels."
+      },
+      "data_quality_and_leakage_audit": {
+        "missing_values_at_t13": 0,
+        "outlier_status": "NORMAL_FINANCIAL_PROFILE (Solvent ratios within standard historical bounds)",
+        "future_information_leakage": "ZERO (Strict within-company backward-looking features, T=14 excluded)"
+      }
+    },
+    "firm_60": {
+      "firm_identifier": "Firm 60",
+      "sector_code_x80": 25,
+      "size_proxy_x1": 1.1309,
+      "prediction_period_timestamp": "Time = 13 (Strictly point-in-time features)",
+      "statutory_outcome_period": "Time = 14",
+      "previous_period_distress_index_t13": 0.1357,
+      "target_period_distress_index_t14": -1.2361,
+      "statutory_transition_type": "SUDDEN_DISTRESS_TRANSITION (Historically solvent firm experiencing acute default)",
+      "key_financial_ratios_at_t13": {
+        "operating_cash_flow_to_debt_x12": 1.477,
+        "leverage_x2": 0.0228,
+        "working_capital_to_assets_x5": 0.0688,
+        "retained_earnings_to_assets_x16": 0.0501,
+        "sales_to_assets_x25": 100.28,
+        "profitability_x48": 1456.7
+      },
+      "production_model_evaluation": {
+        "raw_probability": 0.5198,
+        "calibrated_probability": 0.1135,
+        "operating_threshold": 0.08,
+        "native_alert_decision": true,
+        "cohort_rank": 16,
+        "cohort_percentile": 5.73,
+        "disposition": "DETECTED (Alert issued prior to collapse)"
+      },
+      "candidate_model_evaluation": {
+        "raw_probability": 0.2817,
+        "calibrated_probability": 0.0695,
+        "operating_threshold": 0.0894,
+        "native_alert_decision": false,
+        "cohort_rank": 35,
+        "cohort_percentile": 12.98,
+        "disposition": "MISSED (Suppressed risk assignment)"
+      },
+      "probability_ranking_differential": {
+        "rank_slippage": 19,
+        "probability_gap": 0.044,
+        "below_candidate_threshold_0_0894": true,
+        "below_production_threshold_0_0800": true,
+        "mechanism_classification": "PROBABILITY_RANKING_FAILURE",
+        "proof": "Candidate probability (0.0695) is strictly below BOTH the candidate threshold (0.0894) and the production threshold (0.0800). Lowering the candidate threshold to 0.0800 would NOT trigger an alert on Firm 60. The failure is therefore 100% attributable to structural probability ranking suppression, not a threshold cutoff interaction."
+      },
+      "feature_attribution_diagnostics": {
+        "production_risk_increasing_features": [
+          {
+            "feature": "x12",
+            "value": -0.2629,
+            "shap_attribution": 0.0233
+          },
+          {
+            "feature": "x16",
+            "value": -0.6628,
+            "shap_attribution": 0.0172
+          },
+          {
+            "feature": "x2_roll_mean_3",
+            "value": -0.9671,
+            "shap_attribution": 0.0164
+          },
+          {
+            "feature": "x2_roll_mean_2",
+            "value": -0.8985,
+            "shap_attribution": 0.016
+          },
+          {
+            "feature": "x25",
+            "value": -0.5842,
+            "shap_attribution": 0.0153
+          }
+        ],
+        "production_risk_decreasing_features": [
+          {
+            "feature": "x1_lag_2",
+            "value": -3.8822,
+            "shap_attribution": -0.011
+          },
+          {
+            "feature": "x68",
+            "value": 19.1325,
+            "shap_attribution": -0.0113
+          },
+          {
+            "feature": "x2_lag_2",
+            "value": -1.4674,
+            "shap_attribution": -0.0133
+          },
+          {
+            "feature": "x10",
+            "value": 0.0104,
+            "shap_attribution": -0.0176
+          },
+          {
+            "feature": "x79",
+            "value": 0.8026,
+            "shap_attribution": -0.0181
+          }
+        ],
+        "candidate_risk_increasing_features": [
+          {
+            "feature": "x12",
+            "value": -0.2629,
+            "shap_attribution": 0.0381
+          },
+          {
+            "feature": "x25",
+            "value": -0.5842,
+            "shap_attribution": 0.0254
+          },
+          {
+            "feature": "x25_pct_change_1",
+            "value": -1.5003,
+            "shap_attribution": 0.0194
+          },
+          {
+            "feature": "x8",
+            "value": -0.5905,
+            "shap_attribution": 0.0137
+          },
+          {
+            "feature": "x2_pct_change_1",
+            "value": -1.7362,
+            "shap_attribution": 0.0122
+          }
+        ],
+        "candidate_risk_suppressing_features": [
+          {
+            "feature": "x11",
+            "value": 0.0054,
+            "shap_attribution": -0.0094
+          },
+          {
+            "feature": "x2_roll_mean_2",
+            "value": 0.0046,
+            "shap_attribution": -0.0104
+          },
+          {
+            "feature": "x10",
+            "value": 0.0104,
+            "shap_attribution": -0.0144
+          },
+          {
+            "feature": "x3_roll_mean_2",
+            "value": -0.3669,
+            "shap_attribution": -0.0149
+          },
+          {
+            "feature": "x10_roll_mean_2",
+            "value": 0.5847,
+            "shap_attribution": -0.0161
+          }
+        ],
+        "diagnostic_interpretation": "Production model identified level vulnerabilities in working capital and retained earnings (x5, x16, x2). In contrast, the candidate model's rolling stability features (e.g., x16_roll_mean_3, x25_roll_mean_3, x10_roll_mean_2) recorded positive backward values, exerting strong negative SHAP contributions that drove raw and calibrated risk below alert levels."
+      },
+      "data_quality_and_leakage_audit": {
+        "missing_values_at_t13": 0,
+        "outlier_status": "NORMAL_FINANCIAL_PROFILE (Solvent ratios within standard historical bounds)",
+        "future_information_leakage": "ZERO (Strict within-company backward-looking features, T=14 excluded)"
+      }
+    }
+  },
+  "overall_synthesis": {
+    "root_cause_summary": "Both Firm 28 and Firm 60 appeared robustly solvent at prediction time T=13 (FD = +1.44 and +0.14). The Phase 5 candidate model, heavily tuned to penalize deterioration on historical default trajectories via cost-sensitive loss weighting (w=10), assigned low risk to firms lacking antecedent deterioration. Consequently, the candidate model is structurally blind to sudden, acute corporate failure.",
+    "threshold_vs_ranking_verdict": "PROBABILITY_RANKING_DOMINATED (Threshold adjustments cannot cure the misses)"
+  }
+}

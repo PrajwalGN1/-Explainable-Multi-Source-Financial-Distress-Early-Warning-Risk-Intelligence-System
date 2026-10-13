@@ -1,0 +1,165 @@
+{
+  "analysis_cohort": "Matured T=13 -> T=14 (N=262, Distress N_D=11)",
+  "prior_financial_health_subgroups": {
+    "prior_healthy_solvent": {
+      "subgroup_name": "Prior Solvent / Healthy (FD_t13 > 0.0)",
+      "total_firms": 241,
+      "distress_events": 5,
+      "non_distress_firms": 236,
+      "production_baseline": {
+        "alerts": 27,
+        "detected": 2,
+        "missed": 3,
+        "recall": 0.4,
+        "precision": 0.0741
+      },
+      "shadow_candidate": {
+        "alerts": 12,
+        "detected": 0,
+        "missed": 5,
+        "recall": 0.0,
+        "precision": 0.0
+      },
+      "recall_differential": -0.4,
+      "finding": "TOTAL_SENSITIVITY_COLLAPSE (0% candidate recall)"
+    },
+    "prior_distressed_borderline": {
+      "subgroup_name": "Prior Distressed / Borderline (FD_t13 <= 0.0)",
+      "total_firms": 21,
+      "distress_events": 6,
+      "non_distress_firms": 15,
+      "production_baseline": {
+        "alerts": 10,
+        "detected": 3,
+        "missed": 3,
+        "recall": 0.5,
+        "precision": 0.3
+      },
+      "shadow_candidate": {
+        "alerts": 8,
+        "detected": 3,
+        "missed": 3,
+        "recall": 0.5,
+        "precision": 0.375
+      },
+      "recall_differential": 0.0,
+      "finding": "EQUIVALENT_SENSITIVITY"
+    },
+    "critical_supervisory_insight": "The candidate model matches production recall exactly on borderline/distressed firms (50.0%, 3/6). However, on historically solvent firms experiencing sudden collapse, production detects 40.0% (2/5) while the candidate detects exactly 0.0% (0/5). This confirms that candidate recall deterioration is isolated entirely to sudden transition events."
+  },
+  "industry_sector_subgroups": {
+    "sector_25_stress_cluster": {
+      "subgroup_name": "Sector 25 (Primary Stress Cluster)",
+      "total_firms": 28,
+      "distress_events": 5,
+      "non_distress_firms": 23,
+      "production_baseline": {
+        "alerts": 5,
+        "detected": 2,
+        "missed": 3,
+        "recall": 0.4,
+        "precision": 0.4
+      },
+      "shadow_candidate": {
+        "alerts": 2,
+        "detected": 0,
+        "missed": 5,
+        "recall": 0.0,
+        "precision": 0.0
+      },
+      "recall_differential": -0.4,
+      "finding": "TOTAL_SENSITIVITY_COLLAPSE (0% candidate recall)"
+    },
+    "other_sectors": {
+      "subgroup_name": "Other Industry Sectors",
+      "total_firms": 234,
+      "distress_events": 6,
+      "non_distress_firms": 228,
+      "production_baseline": {
+        "alerts": 32,
+        "detected": 3,
+        "missed": 3,
+        "recall": 0.5,
+        "precision": 0.0938
+      },
+      "shadow_candidate": {
+        "alerts": 18,
+        "detected": 3,
+        "missed": 3,
+        "recall": 0.5,
+        "precision": 0.1667
+      },
+      "recall_differential": 0.0,
+      "finding": "EQUIVALENT_SENSITIVITY"
+    },
+    "concentration_finding": "Sector 25 accounts for 5 of 11 distress events (45.5% of total defaults). Production detected 2/5 in Sector 25 (Firms 28 and 60), while candidate detected 0/5."
+  },
+  "firm_size_terciles": {
+    "small_firms": {
+      "subgroup_name": "Small Firm Tercile (x1 <= 1.10)",
+      "total_firms": 87,
+      "distress_events": 8,
+      "non_distress_firms": 79,
+      "production_baseline": {
+        "alerts": 20,
+        "detected": 2,
+        "missed": 6,
+        "recall": 0.25,
+        "precision": 0.1
+      },
+      "shadow_candidate": {
+        "alerts": 14,
+        "detected": 2,
+        "missed": 6,
+        "recall": 0.25,
+        "precision": 0.1429
+      },
+      "recall_differential": 0.0,
+      "finding": "EQUIVALENT_SENSITIVITY"
+    },
+    "medium_firms": {
+      "subgroup_name": "Medium Firm Tercile (1.10 < x1 <= 1.62)",
+      "total_firms": 86,
+      "distress_events": 3,
+      "non_distress_firms": 83,
+      "production_baseline": {
+        "alerts": 16,
+        "detected": 3,
+        "missed": 0,
+        "recall": 1.0,
+        "precision": 0.1875
+      },
+      "shadow_candidate": {
+        "alerts": 6,
+        "detected": 1,
+        "missed": 2,
+        "recall": 0.3333,
+        "precision": 0.1667
+      },
+      "recall_differential": -0.6667,
+      "finding": "CANDIDATE_OUTPERFORMS"
+    },
+    "large_firms": {
+      "subgroup_name": "Large Firm Tercile (x1 > 1.62)",
+      "total_firms": 89,
+      "distress_events": 0,
+      "non_distress_firms": 89,
+      "production_baseline": {
+        "alerts": 1,
+        "detected": 0,
+        "missed": 0,
+        "recall": 0.0,
+        "precision": 0.0
+      },
+      "shadow_candidate": {
+        "alerts": 0,
+        "detected": 0,
+        "missed": 0,
+        "recall": 0.0,
+        "precision": 0.0
+      },
+      "recall_differential": 0.0,
+      "finding": "EQUIVALENT_SENSITIVITY"
+    }
+  }
+}
