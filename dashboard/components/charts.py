@@ -207,17 +207,21 @@ def create_waterfall_chart(
     protective: List[Dict[str, Any]],
     expected_value: Optional[float] = None
 ) -> go.Figure:
-    """Builds a waterfall chart of local TreeSHAP feature contributions pushing RF risk up or down."""
+    """Builds a waterfall bridge chart of local TreeSHAP feature contributions pushing RF risk up or down."""
     x_labels = []
     y_values = []
     measures = []
     hover_texts = []
+    bar_texts = []
+    running_sum = 0.0
     
     if expected_value is not None:
         x_labels.append("Base Expected Value")
         y_values.append(expected_value)
         measures.append("absolute")
+        bar_texts.append(f"{expected_value:.2f}")
         hover_texts.append(f"Model Baseline Prior: {expected_value:.4f}")
+        running_sum += expected_value
 
     for d in drivers[:5]:
         fn = d.get("feature", "Unknown")
@@ -225,8 +229,10 @@ def create_waterfall_chart(
         x_labels.append(fn)
         y_values.append(imp)
         measures.append("relative")
+        bar_texts.append(f"+{imp:.3f}")
         val = d.get("feature_value_scaled", d.get("feature_value", 0.0))
         hover_texts.append(f"Risk Driver: {fn}<br>SHAP: +{imp:.4f}<br>Scaled Value: {val:.3f}")
+        running_sum += imp
 
     for p in protective[:5]:
         fn = p.get("feature", "Unknown")
@@ -234,8 +240,18 @@ def create_waterfall_chart(
         x_labels.append(fn)
         y_values.append(imp)
         measures.append("relative")
+        bar_texts.append(f"{imp:.3f}")
         val = p.get("feature_value_scaled", p.get("feature_value", 0.0))
         hover_texts.append(f"Protective Factor: {fn}<br>SHAP: {imp:.4f}<br>Scaled Value: {val:.3f}")
+        running_sum += imp
+
+    # Final Total bar anchors the bridge from floating deltas to the final predicted probability
+    if expected_value is not None:
+        x_labels.append("Final Model Output")
+        y_values.append(0)  # Plotly computes running total automatically for measure='total'
+        measures.append("total")
+        bar_texts.append(f"{running_sum:.2f}")
+        hover_texts.append(f"Final Random Forest Prediction (p_RF): {running_sum:.4f}")
 
     fig = go.Figure(go.Waterfall(
         name="TreeSHAP Impact",
@@ -243,9 +259,13 @@ def create_waterfall_chart(
         measure=measures,
         x=x_labels,
         y=y_values,
+        text=bar_texts,
+        textposition="outside",
+        textfont=dict(color="#f8fafc", size=10, family="Inter, sans-serif"),
+        cliponaxis=False,
         hovertext=hover_texts,
         hoverinfo="text",
-        connector={"line": {"color": "rgba(255,255,255,0.2)"}},
+        connector={"line": {"color": "rgba(255, 255, 255, 0.45)", "dash": "dot", "width": 1.5}},
         decreasing={"marker": {"color": "#10b981"}},
         increasing={"marker": {"color": "#ef4444"}},
         totals={"marker": {"color": "#38bdf8"}}
@@ -255,11 +275,11 @@ def create_waterfall_chart(
         title="<b>Local TreeSHAP Feature Attributions (Random Forest Probability Output Space)</b>",
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(15, 23, 42, 0.4)",
-        font=dict(color="#f8fafc"),
+        font=dict(color="#f8fafc", family="Inter, sans-serif"),
         xaxis=dict(gridcolor="rgba(255,255,255,0.08)", tickangle=-30),
         yaxis=dict(title="TreeSHAP Impact on Probability Output (p_RF)", gridcolor="rgba(255,255,255,0.08)"),
-        height=380,
-        margin=dict(l=40, r=30, t=50, b=60)
+        height=390,
+        margin=dict(l=65, r=30, t=55, b=65)
     )
     return fig
 
