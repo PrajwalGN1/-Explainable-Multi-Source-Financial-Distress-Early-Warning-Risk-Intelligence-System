@@ -1,0 +1,38 @@
+{
+  "plan_identifier": "PLAN-PHASE6.6-ALTERNATIVE-DATA-EXPLORATION",
+  "objective": "Define data acquisition protocols, legal safeguards, and validation rules for alternative risk modeling",
+  "governance_mandate": "Unrestricted modeling without verified point-in-time alternative data is strictly prohibited",
+  "preconditions_for_exploratory_modeling": [
+    {
+      "phase": "Milestone 1: Commercial / Open Banking Data Acquisition",
+      "status": "NOT_STARTED",
+      "prerequisite": "Execute legal data sharing agreements for SME bank transaction ledgers or credit bureau trade tapes",
+      "verification_gate": "Cryptographic checksum and licensing documentation in experiments/external_data_manifest.json"
+    },
+    {
+      "phase": "Milestone 2: Point-in-Time Availability Logging",
+      "status": "NOT_STARTED",
+      "prerequisite": "Verify availability timestamps (T_avail) and quantify exact reporting delays (Delta T) for every record",
+      "verification_gate": "Point-in-time timestamp verification script passing 100% tests without look-ahead leakage"
+    },
+    {
+      "phase": "Milestone 3: Chronological Split with SME Grouping",
+      "status": "NOT_STARTED",
+      "prerequisite": "Isolate training (T <= 10), validation (T in 11, 12), and untouched shadow evaluation (T >= 13) cohorts",
+      "verification_gate": "Zero borrower overlap across folds enforced by GroupKFold"
+    },
+    {
+      "phase": "Milestone 4: Alert Capacity Constraint Pre-Registration",
+      "status": "ACTIVE_MANDATE",
+      "prerequisite": "Enforce maximum_alerts = floor(0.08 * eligible_firms) as an unbreachable integer constraint",
+      "verification_gate": "Candidate policies must demonstrate compliance across all prospective surveillance cohorts"
+    }
+  ],
+  "minimum_meaningful_performance_target": {
+    "sudden_distress_recall_target": ">= 60.0% (at least 3 of 5 sudden transitions detected)",
+    "chronic_distress_recall_target": ">= 80.0% (at least 5 of 6 chronic transitions detected)",
+    "overall_recall_target": ">= 70.0% under strict 8% alert cap",
+    "alert_rate_cap": "<= 8.0% integer capacity floor"
+  },
+  "current_state_verdict": "HALT AT MILESTONE 1. Because Milestone 1 (External Data Acquisition) has not been initiated and zero alternative datasets exist in data/external/, exploratory modeling cannot proceed. Manufacturing synthetic transaction proxies or pseudo-macro variables violates SR 11-7 model validation standards."
+}

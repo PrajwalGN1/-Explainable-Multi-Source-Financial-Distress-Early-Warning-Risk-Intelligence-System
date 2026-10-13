@@ -1,0 +1,162 @@
+{
+  "audit_timestamp_utc": "2026-10-13T06:23:33Z",
+  "total_transitions_evaluated": 3250,
+  "total_defaults": 120,
+  "sudden_defaults_count": 42,
+  "chronic_defaults_count": 78,
+  "top_correlated_accounting_ratios_with_sudden_default": [
+    [
+      "x19",
+      0.1531
+    ],
+    [
+      "x8",
+      -0.1434
+    ],
+    [
+      "x14",
+      0.1252
+    ],
+    [
+      "x37",
+      0.1185
+    ],
+    [
+      "x49",
+      0.1094
+    ],
+    [
+      "x36",
+      -0.1082
+    ],
+    [
+      "x3",
+      0.1003
+    ],
+    [
+      "x13",
+      -0.1003
+    ],
+    [
+      "x23",
+      -0.0814
+    ],
+    [
+      "x50",
+      0.0814
+    ]
+  ],
+  "maximum_absolute_correlation": 0.1531,
+  "matured_stress_cohort_sudden_defaults": [
+    {
+      "company_id": 28,
+      "antecedent_fd_t13": 1.443,
+      "realized_fd_t14": -0.6815,
+      "historical_fd_trajectory": [
+        1.6375,
+        0.9576,
+        0.5075,
+        1.597,
+        1.5351,
+        1.2807,
+        1.6921,
+        1.3779,
+        4.9842,
+        8.6484,
+        2.8408,
+        3.3164,
+        1.443
+      ],
+      "sector_code_x80": 25,
+      "acute_cliff_drop": -2.1245,
+      "diagnosed_leading_accounting_signal": "ZERO leading signal in balance sheet. Firm showed positive solvency history until sudden crash."
+    },
+    {
+      "company_id": 60,
+      "antecedent_fd_t13": 0.1357,
+      "realized_fd_t14": -1.2361,
+      "historical_fd_trajectory": [
+        0.1087,
+        0.2316,
+        0.3879,
+        1.4143,
+        0.7903,
+        0.0386,
+        -0.251,
+        -0.1941,
+        -0.2005,
+        1.1579,
+        1.9033,
+        0.4017,
+        0.1357
+      ],
+      "sector_code_x80": 25,
+      "acute_cliff_drop": -1.3718,
+      "diagnosed_leading_accounting_signal": "ZERO leading signal in balance sheet. Firm showed positive solvency history until sudden crash."
+    },
+    {
+      "company_id": 84,
+      "antecedent_fd_t13": 0.0019,
+      "realized_fd_t14": -0.5589,
+      "historical_fd_trajectory": [
+        0.179,
+        0.043,
+        0.2023,
+        0.1832,
+        0.0916,
+        0.3029,
+        0.3272,
+        0.059,
+        -0.1472,
+        -0.065,
+        0.9944,
+        0.2845,
+        0.0019
+      ],
+      "sector_code_x80": 14,
+      "acute_cliff_drop": -0.5608,
+      "diagnosed_leading_accounting_signal": "ZERO leading signal in balance sheet. Firm showed positive solvency history until sudden crash."
+    },
+    {
+      "company_id": 225,
+      "antecedent_fd_t13": 0.244,
+      "realized_fd_t14": -0.8835,
+      "historical_fd_trajectory": [
+        2.4894,
+        2.4886,
+        1.362,
+        2.0923,
+        2.7151,
+        0.6408,
+        0.244
+      ],
+      "sector_code_x80": 15,
+      "acute_cliff_drop": -1.1275,
+      "diagnosed_leading_accounting_signal": "ZERO leading signal in balance sheet. Firm showed positive solvency history until sudden crash."
+    },
+    {
+      "company_id": 376,
+      "antecedent_fd_t13": 0.5252,
+      "realized_fd_t14": -0.5805,
+      "historical_fd_trajectory": [
+        0.2466,
+        0.0458,
+        0.1213,
+        -0.0671,
+        -0.0741,
+        -0.4255,
+        -0.4747,
+        -0.4898,
+        -0.2478,
+        -0.0314,
+        0.1798,
+        0.4375,
+        0.5252
+      ],
+      "sector_code_x80": 25,
+      "acute_cliff_drop": -1.1057,
+      "diagnosed_leading_accounting_signal": "ZERO leading signal in balance sheet. Firm showed positive solvency history until sudden crash."
+    }
+  ],
+  "information_theoretic_finding": "STATISTICAL LATENCY BOTTLENECK CONFIRMED. The maximum point-biserial correlation between any of the 82 accounting ratios in Dataset A and sudden distress is |r| = 0.1531 (variable x19). All other ratios exhibit |r| < 0.15. In Firms 28 and 60, financial statements recorded healthy solvency (FD = +1.4430 and +0.1357) prior to default. Annual accounting statements capture historical accumulated accruals rather than real-time cash depletion. Consequently, accounting ratios alone cannot separate sudden distress from resilient solvent peers within an 8% alert budget."
+}

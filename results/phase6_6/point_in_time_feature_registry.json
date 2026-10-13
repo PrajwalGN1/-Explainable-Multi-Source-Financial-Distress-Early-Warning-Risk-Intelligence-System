@@ -1,0 +1,112 @@
+{
+  "registry_version": "v1.0-Phase6.6-PointInTime-Specification",
+  "timestamp_standard": "ISO 8601 UTC Point-in-Time Availability Standard",
+  "governance_mandate": "Features without verified historical availability timestamps are strictly prohibited from model training",
+  "total_registered_features": 7,
+  "registry": [
+    {
+      "feature_id": "PIT_FEAT_001",
+      "feature_name": "working_capital_annual_diff_x1",
+      "signal_family": "D. Existing financial-report signals",
+      "provenance_dataset": "Dataset A (Tehran Stock Exchange SME Panel)",
+      "observation_timestamp_definition": "Fiscal year-end date T_fy (e.g. December 31 / Esfand 29)",
+      "availability_timestamp_definition": "Public audited financial statement release timestamp T_pub (typically T_fy + 60 to 120 days)",
+      "reporting_delay_days": "60 to 120 days (simulated as period index Time t)",
+      "transformation_logic": "Delta x1_{i,t} = x1_{i,t} - x1_{i,t-1}",
+      "missing_data_treatment": "Zero-fill for initial reporting period t=1; median-fill across sector x80 for irregular gaps",
+      "leakage_risk_assessment": "ZERO leakage; strictly backward-looking lag within Company group",
+      "expected_update_frequency": "Annual (period index step = 1)",
+      "point_in_time_compliance": "COMPLIANT (Available in repository)"
+    },
+    {
+      "feature_id": "PIT_FEAT_002",
+      "feature_name": "solvency_ratio_rolling_mean_3_x48",
+      "signal_family": "D. Existing financial-report signals",
+      "provenance_dataset": "Dataset A (Tehran Stock Exchange SME Panel)",
+      "observation_timestamp_definition": "Fiscal year-end date T_fy",
+      "availability_timestamp_definition": "Public financial statement release timestamp T_pub",
+      "reporting_delay_days": "60 to 120 days",
+      "transformation_logic": "roll_mean_3(x48_{i,t}) = mean(x48_{i,t-2}, x48_{i,t-1}, x48_{i,t})",
+      "missing_data_treatment": "min_periods=1 allows computing mean on available historical periods",
+      "leakage_risk_assessment": "ZERO leakage; strictly backward-looking window",
+      "expected_update_frequency": "Annual",
+      "point_in_time_compliance": "COMPLIANT (Available in repository)"
+    },
+    {
+      "feature_id": "PIT_FEAT_003",
+      "feature_name": "sector_cross_sectional_distress_rate_x80",
+      "signal_family": "C. Macroeconomic and sector stress",
+      "provenance_dataset": "Dataset A (Derived from Sector x80 and historical target)",
+      "observation_timestamp_definition": "Observation time Time t",
+      "availability_timestamp_definition": "Prior period realized distress rate: defaults_{x80, t-1} / active_firms_{x80, t-1}",
+      "reporting_delay_days": "Lagged by 1 full period (Time t-1)",
+      "transformation_logic": "Lagged sector default rate computed strictly on prior historical partitions",
+      "missing_data_treatment": "Global historical default rate fallback if sector has zero observations in prior period",
+      "leakage_risk_assessment": "PROTECTED via strict 1-period lag; never includes concurrent Time t target",
+      "expected_update_frequency": "Annual",
+      "point_in_time_compliance": "COMPLIANT (Computable from repository)"
+    },
+    {
+      "feature_id": "PIT_FEAT_004",
+      "feature_name": "bank_account_inflow_velocity_30d",
+      "signal_family": "A. Cash-flow dynamics",
+      "provenance_dataset": "EXTERNAL_REQUIRED: Open Banking Bank Statement API",
+      "observation_timestamp_definition": "Real-time clearing timestamp of bank credit transactions",
+      "availability_timestamp_definition": "T_obs + 24 hours via daily end-of-day bank aggregator sync",
+      "reporting_delay_days": "1 day",
+      "transformation_logic": "sum(inflows_{t-30..t}) / sum(inflows_{t-60..t-31}) - 1.0",
+      "missing_data_treatment": "Indicator flag for missing account connection; zero-fill velocity",
+      "leakage_risk_assessment": "Requires timestamp verification to prevent ingestion of post-prediction credit entries",
+      "expected_update_frequency": "Daily / Weekly",
+      "point_in_time_compliance": "NON_COMPLIANT_UNAVAILABLE (External ingestion pipeline required)"
+    },
+    {
+      "feature_id": "PIT_FEAT_005",
+      "feature_name": "nsf_bounced_payment_count_60d",
+      "signal_family": "A. Cash-flow dynamics",
+      "provenance_dataset": "EXTERNAL_REQUIRED: Core Banking Exception Log / Clearinghouse Feed",
+      "observation_timestamp_definition": "Clearinghouse return timestamp (ACH / check return code)",
+      "availability_timestamp_definition": "T_obs + 48 hours post return notification",
+      "reporting_delay_days": "2 business days",
+      "transformation_logic": "count(NSF_events_{t-60..t})",
+      "missing_data_treatment": "Zero-fill (absence of return notification indicates normal payment processing)",
+      "leakage_risk_assessment": "Requires settlement timestamp isolation to prevent post-default return contamination",
+      "expected_update_frequency": "Daily",
+      "point_in_time_compliance": "NON_COMPLIANT_UNAVAILABLE (External ingestion pipeline required)"
+    },
+    {
+      "feature_id": "PIT_FEAT_006",
+      "feature_name": "trade_payable_delinquency_days_past_due",
+      "signal_family": "B. Trade-credit and payment behavior",
+      "provenance_dataset": "EXTERNAL_REQUIRED: Commercial Credit Bureau (e.g. D&B PAYDEX / Experian)",
+      "observation_timestamp_definition": "Supplier invoice due date T_due",
+      "availability_timestamp_definition": "Bureau monthly trade tape aggregation timestamp (T_due + 30 to 45 days)",
+      "reporting_delay_days": "30 to 45 days",
+      "transformation_logic": "max(days_past_due across all reported open trade lines)",
+      "missing_data_treatment": "Missing bureau coverage indicator flag + sector median imputation",
+      "leakage_risk_assessment": "Bureau tape publication date MUST precede prediction timestamp",
+      "expected_update_frequency": "Monthly",
+      "point_in_time_compliance": "NON_COMPLIANT_UNAVAILABLE (External subscription required)"
+    },
+    {
+      "feature_id": "PIT_FEAT_007",
+      "feature_name": "central_bank_policy_rate_spread",
+      "signal_family": "C. Macroeconomic and sector stress",
+      "provenance_dataset": "EXTERNAL_REQUIRED: Central Bank / FRED Macro Series",
+      "observation_timestamp_definition": "Monetary policy decision announcement date T_ann",
+      "availability_timestamp_definition": "T_ann (real-time public market quote)",
+      "reporting_delay_days": "0 days",
+      "transformation_logic": "Policy_Rate_{t} - roll_mean_12m(Policy_Rate)",
+      "missing_data_treatment": "Forward-fill last observed policy rate",
+      "leakage_risk_assessment": "ZERO leakage if announcement timestamp <= prediction timestamp",
+      "expected_update_frequency": "Monthly",
+      "point_in_time_compliance": "NON_COMPLIANT_UNAVAILABLE (External time series ingestion required)"
+    }
+  ],
+  "enforcement_rules": [
+    "Rule 1: An observation timestamp (T_obs) alone is insufficient; an explicit availability timestamp (T_avail) must be recorded.",
+    "Rule 2: At prediction timestamp T_pred, a feature x is valid if and only if T_avail(x) <= T_pred.",
+    "Rule 3: Backward-looking windows must not include observations where T_obs > T_pred.",
+    "Rule 4: In absence of verified timestamp metadata (as in Dataset A), integer time step Time t serves as a proxy, and lag must be >= 1 for forward target t+1."
+  ]
+}

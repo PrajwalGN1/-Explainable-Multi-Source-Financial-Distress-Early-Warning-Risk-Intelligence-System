@@ -1,0 +1,80 @@
+{
+  "audit_timestamp_utc": "2026-10-13T06:23:33Z",
+  "repository_storage_state": {
+    "data_raw_files": [
+      "bankruptcy_Test_X.csv",
+      "data.csv",
+      "Financial Distress.csv"
+    ],
+    "data_external_files": [],
+    "data_external_status": "EMPTY_DIRECTORY (Zero alternative datasets stored)",
+    "data_processed_files": [
+      "companies_risk_intelligence.json",
+      "watchlist.csv"
+    ]
+  },
+  "modalities_coverage_audit": {
+    "annual_balance_sheet_ratios": {
+      "source": "Dataset A (Financial Distress.csv)",
+      "status": "AVAILABLE_AND_VERIFIED",
+      "rows": 3672,
+      "firms": 422,
+      "reporting_periods": 14,
+      "missingness_rate": 0.0,
+      "temporal_frequency": "Annual (Time 1 to 14)",
+      "timestamp_granularity": "Integer period index only (no calendar dates)"
+    },
+    "bank_transaction_cash_flows": {
+      "source": "data/external/ (Target directory)",
+      "status": "NOT_PRESENT (100% Data Deficit)",
+      "rows": 0,
+      "firms": 0,
+      "missingness_rate": 100.0,
+      "temporal_frequency": "Daily / Weekly required",
+      "timestamp_granularity": "UNAVAILABLE"
+    },
+    "b2b_trade_credit_delinquency": {
+      "source": "data/external/ (Target directory)",
+      "status": "NOT_PRESENT (100% Data Deficit)",
+      "rows": 0,
+      "firms": 0,
+      "missingness_rate": 100.0,
+      "temporal_frequency": "Monthly credit bureau tape required",
+      "timestamp_granularity": "UNAVAILABLE"
+    },
+    "macroeconomic_interest_rate_series": {
+      "source": "data/external/ (Target directory)",
+      "status": "NOT_PRESENT (100% Data Deficit)",
+      "rows": 0,
+      "firms": 0,
+      "missingness_rate": 100.0,
+      "temporal_frequency": "Monthly benchmark curves required",
+      "timestamp_granularity": "UNAVAILABLE"
+    },
+    "taiwan_cross_sectional_bankruptcy": {
+      "source": "Dataset B (data.csv)",
+      "status": "AVAILABLE_BUT_STATIC",
+      "rows": 6819,
+      "firms": 6819,
+      "missingness_rate": 0.0,
+      "temporal_frequency": "Cross-sectional (Zero longitudinal tracking)",
+      "timestamp_granularity": "UNAVAILABLE"
+    },
+    "polish_cross_sectional_bankruptcy": {
+      "source": "Dataset C (bankruptcy_Test_X.csv)",
+      "status": "AVAILABLE_BUT_STATIC",
+      "rows": 5000,
+      "firms": 5000,
+      "missingness_rate": 0.0,
+      "temporal_frequency": "Cross-sectional test partition",
+      "timestamp_granularity": "UNAVAILABLE"
+    }
+  },
+  "empirical_gap_summary": {
+    "verified_longitudinal_datasets": 1,
+    "alternative_transaction_datasets": 0,
+    "alternative_trade_credit_datasets": 0,
+    "alternative_macroeconomic_datasets": 0,
+    "data_deficit_percentage_for_high_frequency_signals": 100.0
+  }
+}
