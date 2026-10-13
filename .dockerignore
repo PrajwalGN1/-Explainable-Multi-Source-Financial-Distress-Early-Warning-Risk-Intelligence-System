@@ -1,0 +1,36 @@
+# Git & VCS
+.git/
+.gitignore
+.gitattributes
+
+# Python byte code & caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+env/
+venv/
+ENV/
+
+# Development environments & IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Temporary outputs & logs
+logs/
+*.log
+tmp/
+scratch/
+.gemini/
+
+# Documentation source artifacts not needed in image
+docs/screenshots/

@@ -1,14 +1,28 @@
-streamlit>=1.35.0
+# =============================================================================
+# Production Dependencies for SME Financial Distress Early-Warning System
+# Tested on Python 3.10 - 3.13 (x86_64 / Windows / Linux)
+# =============================================================================
+
+# Core Web Frameworks
+streamlit>=1.35.0,<=1.52.2
 fastapi>=0.110.0
-uvicorn>=0.29.0
+uvicorn[standard]>=0.29.0
 pydantic>=2.7.0
-pandas>=2.2.0
+
+# Scientific & Machine Learning Stack
 numpy>=1.26.0
+pandas>=2.2.0
 scipy>=1.13.0
-scikit-learn>=1.4.0
+scikit-learn>=1.4.0,<1.7.0
 xgboost>=2.0.0
+shap>=0.45.0
+joblib>=1.4.0
+
+# Visualization & UX
 plotly>=5.20.0
 pyyaml>=6.0.1
-joblib>=1.4.0
+requests>=2.31.0
+
+# Testing & Client Tooling
 pytest>=8.1.0
 httpx>=0.27.0

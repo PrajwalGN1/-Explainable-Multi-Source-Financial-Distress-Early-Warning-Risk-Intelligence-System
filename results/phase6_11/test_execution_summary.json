@@ -1,0 +1,37 @@
+{
+  "execution_timestamp": "2026-10-13T14:41:40Z",
+  "environment": {
+    "operating_system": "Windows 11",
+    "python_version": "3.13.5",
+    "pytest_version": "9.1.1",
+    "pluggy_version": "1.6.0"
+  },
+  "test_execution_results": {
+    "command_executed": "pytest --ignore=scripts -q",
+    "collected_tests": 226,
+    "passed": 226,
+    "failed": 0,
+    "skipped": 0,
+    "warnings": 177,
+    "execution_duration_seconds": 141.78,
+    "overall_status": "ALL_TESTS_PASSING"
+  },
+  "test_suite_breakdown": {
+    "core_features_and_health": "tests/test_features_and_health.py",
+    "fusion_and_scoring": "tests/test_fusion_and_scoring.py",
+    "temporal_leakage_prevention": "tests/test_leakage_prevention.py",
+    "model_validation_and_ablation": "tests/test_model_validation.py",
+    "fastapi_service_endpoints": "tests/test_api.py",
+    "explainability_and_shap": "tests/test_explainability.py",
+    "validation_hardening": "tests/test_validation_hardening.py",
+    "phase6_shadow_surveillance": "tests/test_phase6_shadow_evaluation.py",
+    "phase6_9_model_improvement": "tests/test_phase6_9_model_improvement.py (8 passed)",
+    "phase6_10_final_validation": "tests/test_phase6_10_final_validation.py (9 passed)"
+  },
+  "production_baseline_integrity": {
+    "protected_files_count": 8,
+    "intact_files_count": 8,
+    "hash_verification": "100.0%_MATCH_INVARIANT",
+    "status": "PROTECTED_BASELINE_VERIFIED_UNCHANGED"
+  }
+}
