@@ -27,6 +27,7 @@ from dashboard.components.charts import (
     create_temporal_attribution_chart
 )
 from dashboard.components.kpi_cards import render_kpi_card, render_badge
+from src.data.loaders import DataLoader
 
 # Page Configuration
 st.set_page_config(
@@ -144,6 +145,11 @@ def load_global_importance():
     if os.path.exists(legacy_path):
         return pd.read_csv(legacy_path)
     return pd.DataFrame()
+
+@st.cache_data
+def load_raw_dataset_a():
+    loader = DataLoader("data/raw")
+    return loader.load_dataset_a()
 
 db = load_risk_db()
 df_watchlist = load_watchlist()
@@ -1723,8 +1729,7 @@ elif menu_selection == "🔬 Research Model Improvement & Baseline Audit":
 
             # Historical Financial Indicators Table
             st.markdown('<div class="section-title">📈 Corporate Financial Profile Across Reporting Periods</div>', unsafe_allow_html=True)
-            loader = DataLoader("data/raw")
-            df_raw_co = loader.load_dataset_a()
+            df_raw_co = load_raw_dataset_a()
             co_hist_df = df_raw_co[df_raw_co["Company"] == int(selected_company_id)].sort_values(by="Time")
             show_cols = ["Time", "Financial Distress", "x1", "x2", "x5", "x10", "x25", "x48", "x64", "x81"]
             st.dataframe(co_hist_df[show_cols].rename(columns={
