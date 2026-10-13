@@ -104,33 +104,33 @@ The platform utilizes three distinct tabular corporate topologies without fabric
 The following diagram illustrates the complete, leakage-free processing architecture from raw accounting ingestion to client delivery:
 
 ```mermaid
-flowchart TD
-    subgraph Data_Pipeline ["1. Data Ingestion & Integrity Layer"]
-        RAW["Financial Distress.csv<br/>3,672 rows • 422 firms • 14 periods"] --> AUDIT["Integrity & Contiguity Audit<br/>0 missing • 0 duplicates • 0 time gaps"]
-        AUDIT --> TGT["Forward Target Shift Engine<br/>Y(i,t) = 1 if FD(i,t+1) &le; -0.50 else 0"]
+graph TD
+    subgraph Data_Pipeline [1. Data Ingestion and Integrity Layer]
+        RAW["Financial Distress.csv (3,672 rows, 422 firms, 14 periods)"] --> AUDIT["Integrity and Contiguity Audit (0 missing, 0 duplicates, 0 gaps)"]
+        AUDIT --> TGT["Forward Target Shift Engine: Y(i,t)=1 if FD(i,t+1) is -0.50 or lower"]
     end
 
-    subgraph Feature_Pipeline ["2. Temporal Feature Engineering Layer"]
-        TGT --> FE["TemporalFeatureEngine<br/>Historical Lags (L=1, 2) • Rolling Means (k=2, 3) • Deltas"]
-        FE --> SPLIT["Chronological Partitioning<br/>Train: T&le;10 • Val: 11-12 • Out-of-Time Test: 13-14"]
-        SPLIT --> SCALER["EWSPreprocessor (Frozen)<br/>Train-only median imputation and RobustScaler"]
+    subgraph Feature_Pipeline [2. Temporal Feature Engineering Layer]
+        TGT --> FE["TemporalFeatureEngine: Historical Lags, Rolling Means, Deltas"]
+        FE --> SPLIT["Chronological Partitioning: Train T1-10, Val 11-12, Test 13-14"]
+        SPLIT --> SCALER["EWSPreprocessor: Train-only Median Imputation and RobustScaler"]
     end
 
-    subgraph Modeling_Layer ["3. Protected Baseline & Inference Layer"]
-        SCALER --> BASELINE["Approved Production Baseline (Frozen)<br/>Balanced Random Forest (100 trees, max depth 5)<br/>SHA-256: fcec8814... • Operating tau = 0.0800"]
-        BASELINE --> CALIB["Platt Sigmoid Calibrator (Frozen)<br/>Fitted on Validation Set (T in 11, 12)<br/>SHA-256: 774a411b..."]
-        SCALER -.-> CANDIDATE["Research Benchmark Candidates (Isolated)<br/>Cost-Sensitive RF • Calibrated Logistic Reg • Standard RF"]
-        BASELINE --> SHAP["TreeSHAP Exact Explainer<br/>Exact Additive Decomposition (Lundberg 2020)"]
+    subgraph Modeling_Layer [3. Protected Baseline and Inference Layer]
+        SCALER --> BASELINE["Approved Production Baseline: Balanced Random Forest (100 trees, tau=0.0800)"]
+        BASELINE --> CALIB["Platt Sigmoid Calibrator: Fitted on Validation Set (T in 11, 12)"]
+        SCALER -.-> CANDIDATE["Research Benchmark Candidates: Cost-Sensitive RF, Logistic Regression"]
+        BASELINE --> SHAP["TreeSHAP Exact Explainer: Local Additive Feature Attribution"]
     end
 
-    subgraph Multi_Source_Fusion ["4. Multi-Source Risk Evidence Synthesis"]
-        CALIB --> FUSE["Two-Level Risk Fusion Engine<br/>Temporal EWS (45%) • Structural Bankruptcy (25%)<br/>Anomaly Distance (15%) • Financial Health (15%)"]
+    subgraph Multi_Source_Fusion [4. Multi-Source Risk Evidence Synthesis]
+        CALIB --> FUSE["Two-Level Risk Fusion Engine: Temporal EWS, Bankruptcy, Anomaly, Health"]
     end
 
-    subgraph Delivery_Layer ["5. Dual-Channel Delivery Layer"]
-        FUSE --> STREAMLIT["Streamlit Analytics Dashboard (:8501)<br/>12 interactive views • Glassmorphism UI • 422 monitored firms"]
+    subgraph Delivery_Layer [5. Dual-Channel Delivery Layer]
+        FUSE --> STREAMLIT["Streamlit Analytics Dashboard (Port 8501, 12 views, 422 firms)"]
         SHAP --> STREAMLIT
-        FUSE --> FASTAPI["FastAPI REST Microservice (:8000)<br/>11 endpoints • Pydantic schemas • Fail-closed admin security"]
+        FUSE --> FASTAPI["FastAPI REST Microservice (Port 8000, 11 endpoints, fail-closed)"]
         SHAP --> FASTAPI
     end
 ```
