@@ -1,0 +1,121 @@
+{
+  "hypothesis_specification": {
+    "framework": "Paired one-sided non-inferiority test for distress recall",
+    "null_hypothesis": "H_0: R_cand - R_base <= -delta",
+    "alternative_hypothesis": "H_1: R_cand - R_base > -delta",
+    "significance_level": 0.05,
+    "strict_non_inferiority_margin_delta": 0.05,
+    "practical_non_inferiority_margin_delta": 0.1,
+    "test_statistic_formula": "Z = ( (R_cand - R_base) + delta ) / sqrt( (p_disc - d^2) / N_D )"
+  },
+  "spending_function_clarification": {
+    "selected_spending_function": "Lan-DeMets (1983) O'Brien-Fleming approximation (sfLDOF)",
+    "mathematical_formula": "alpha*(t) = 2 - 2 * Phi( 1.95996 / sqrt(t) )",
+    "nature_of_spending_function": "DELIBERATELY_CONSERVATIVE_EARLY_STOPPING",
+    "clarification_notes": "The Lan-DeMets sfLDOF spending function incorporates Brownian motion reflection principle (factor of 2). To spend exactly alpha=0.05 at horizon t=1, the argument must evaluate to Z_{0.025} = 1.95996. This design is deliberately conservative at early looks, spending only 0.000687 at t=1/3 (compared to 0.001533 under classical discrete OBF and 0.002187 under unreflected Formula C), thereby preserving the bulk of statistical power for final confirmatory assessment.",
+    "comparison_to_alternatives": {
+      "formula_A_lan_demets_sfldof": {
+        "formula": "2 - 2 * Phi(1.95996 / sqrt(t))",
+        "t_1_3": 0.000687,
+        "t_2_3": 0.016375,
+        "t_1_0": 0.05,
+        "verdict": "STANDARD_REGULATORY_IMPLEMENTATION (Matches gsDesign::sfLDOF and rpact)"
+      },
+      "formula_B_naive_z005": {
+        "formula": "2 - 2 * Phi(1.64485 / sqrt(t))",
+        "t_1_0": 0.1,
+        "verdict": "FATAL_ERROR (Doubles Type I error to 0.1000)"
+      },
+      "formula_C_unreflected": {
+        "formula": "1 - Phi(1.64485 / sqrt(t))",
+        "t_1_3": 0.002193,
+        "t_2_3": 0.021977,
+        "t_1_0": 0.05,
+        "verdict": "LESS_CONSERVATIVE_ALTERNATIVE (Spends 3.19x faster at Look 1: 0.002187 vs 0.000687)"
+      }
+    }
+  },
+  "critical_boundaries": {
+    "information_fractions": [
+      0.3333,
+      0.6667,
+      1.0
+    ],
+    "planned_events": [
+      20,
+      40,
+      60
+    ],
+    "target_cumulative_alpha": [
+      0.000687,
+      0.016375,
+      0.05
+    ],
+    "target_incremental_alpha": [
+      0.000687,
+      0.015688,
+      0.033625
+    ],
+    "deterministic_numerical_quadrature": {
+      "method": "Exact numerical integration of multivariate Gaussian Brownian increments via Markov transition",
+      "critical_z_boundaries": [
+        3.2001,
+        2.1408,
+        1.6948
+      ],
+      "nominal_boundary_p_values": [
+        0.000687,
+        0.016144,
+        0.045056
+      ],
+      "joint_type_I_error": 0.05
+    },
+    "reproducible_monte_carlo_validation": {
+      "seed": 20261013,
+      "draws": 10000000,
+      "simulated_critical_z_boundaries": [
+        3.1984,
+        2.1414,
+        1.6946
+      ],
+      "stage_exit_probabilities": [
+        0.000687,
+        0.015688,
+        0.033625
+      ],
+      "overall_simulated_type_I_error": 0.05,
+      "monte_carlo_standard_error": 6.9e-05,
+      "confidence_interval_95pct": [
+        0.049865,
+        0.050135
+      ],
+      "methodological_disclosure": "Monte Carlo simulation produces an empirical estimate with standard error SE = 0.000069, not a deterministic mathematical proof. Mathematical exactness is established by deterministic numerical integration (quadrature), which yields Z = [3.2001, 2.1408, 1.6948] with exact alpha = 0.050000."
+    }
+  },
+  "discrepancy_analysis_against_phase6_3_1": {
+    "look_1": {
+      "phase6_3_1_mc": 3.1993,
+      "phase6_4_quadrature": 3.2001,
+      "phase6_4_mc": 3.1984,
+      "delta_quad_vs_p631": 0.0008
+    },
+    "look_2": {
+      "phase6_3_1_mc": 2.1405,
+      "phase6_4_quadrature": 2.1408,
+      "phase6_4_mc": 2.1414,
+      "delta_quad_vs_p631": 0.0003
+    },
+    "look_3": {
+      "phase6_3_1_mc": 1.6946,
+      "phase6_4_quadrature": 1.6948,
+      "phase6_4_mc": 1.6946,
+      "delta_quad_vs_p631": 0.0002
+    }
+  },
+  "confirmatory_protocol_status": {
+    "statistical_specification_validity": "VALIDATED",
+    "mathematical_reproducibility": "CONFIRMED_WITHIN_MONTE_CARLO_TOLERANCE",
+    "maturity_gating_status": "LOCKED (Current matured distress N_D = 8 < 20 required for Look 1)",
+    "operational_promotion_authorization": "PROHIBITED (Protocol validation is a prerequisite, but cannot authorize promotion while maturity and capacity gates remain unfulfilled)"
+  }
+}

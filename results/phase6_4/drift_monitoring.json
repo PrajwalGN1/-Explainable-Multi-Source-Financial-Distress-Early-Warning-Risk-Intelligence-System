@@ -1,0 +1,323 @@
+{
+  "multi_period_feature_drift": {
+    "x48": {
+      "trajectories": {
+        "T_10": {
+          "period": 10,
+          "n_obs": 249,
+          "psi": 0.0785,
+          "status": "STABLE",
+          "median": 2030.1,
+          "q25": 1562.0,
+          "q75": 2960.7
+        },
+        "T_11": {
+          "period": 11,
+          "n_obs": 259,
+          "psi": 0.2148,
+          "status": "MODERATE_DRIFT",
+          "median": 2168.1,
+          "q25": 1633.35,
+          "q75": 3285.35
+        },
+        "T_12": {
+          "period": 12,
+          "n_obs": 270,
+          "psi": 0.4277,
+          "status": "SIGNIFICANT_DRIFT",
+          "median": 2521.35,
+          "q25": 1765.9,
+          "q75": 4004.225
+        },
+        "T_13": {
+          "period": 13,
+          "n_obs": 274,
+          "psi": 0.29,
+          "status": "SIGNIFICANT_DRIFT",
+          "median": 2233.4,
+          "q25": 1594.875,
+          "q75": 3852.6
+        },
+        "T_14": {
+          "period": 14,
+          "n_obs": 280,
+          "psi": 0.067,
+          "status": "STABLE",
+          "median": 1858.55,
+          "q25": 1383.475,
+          "q75": 2841.625
+        }
+      },
+      "status_t12": "SIGNIFICANT_DRIFT",
+      "status_t13": "SIGNIFICANT_DRIFT",
+      "status_t14": "STABLE",
+      "psi_t12": 0.4277,
+      "psi_t13": 0.29,
+      "psi_t14": 0.067
+    },
+    "x12": {
+      "trajectories": {
+        "T_10": {
+          "period": 10,
+          "n_obs": 249,
+          "psi": 0.0216,
+          "status": "STABLE",
+          "median": 4.0964,
+          "q25": 1.6285,
+          "q75": 13.618
+        },
+        "T_11": {
+          "period": 11,
+          "n_obs": 259,
+          "psi": 0.0625,
+          "status": "STABLE",
+          "median": 4.9021,
+          "q25": 2.1961,
+          "q75": 21.759
+        },
+        "T_12": {
+          "period": 12,
+          "n_obs": 270,
+          "psi": 0.0701,
+          "status": "STABLE",
+          "median": 6.4422,
+          "q25": 2.4268,
+          "q75": 21.6863
+        },
+        "T_13": {
+          "period": 13,
+          "n_obs": 274,
+          "psi": 0.082,
+          "status": "STABLE",
+          "median": 4.9516,
+          "q25": 1.7687,
+          "q75": 15.7025
+        },
+        "T_14": {
+          "period": 14,
+          "n_obs": 280,
+          "psi": 0.1785,
+          "status": "MODERATE_DRIFT",
+          "median": 3.0626,
+          "q25": 1.0932,
+          "q75": 12.1683
+        }
+      },
+      "status_t12": "STABLE",
+      "status_t13": "STABLE",
+      "status_t14": "MODERATE_DRIFT",
+      "psi_t12": 0.0701,
+      "psi_t13": 0.082,
+      "psi_t14": 0.1785
+    },
+    "x16": {
+      "trajectories": {
+        "T_10": {
+          "period": 10,
+          "n_obs": 249,
+          "psi": 0.043,
+          "status": "STABLE",
+          "median": 0.1741,
+          "q25": 0.0804,
+          "q75": 0.2986
+        },
+        "T_11": {
+          "period": 11,
+          "n_obs": 259,
+          "psi": 0.0687,
+          "status": "STABLE",
+          "median": 0.2063,
+          "q25": 0.1029,
+          "q75": 0.3441
+        },
+        "T_12": {
+          "period": 12,
+          "n_obs": 270,
+          "psi": 0.1048,
+          "status": "MODERATE_DRIFT",
+          "median": 0.223,
+          "q25": 0.1066,
+          "q75": 0.3884
+        },
+        "T_13": {
+          "period": 13,
+          "n_obs": 274,
+          "psi": 0.119,
+          "status": "MODERATE_DRIFT",
+          "median": 0.1848,
+          "q25": 0.0725,
+          "q75": 0.3204
+        },
+        "T_14": {
+          "period": 14,
+          "n_obs": 280,
+          "psi": 0.1103,
+          "status": "MODERATE_DRIFT",
+          "median": 0.1283,
+          "q25": 0.0576,
+          "q75": 0.2594
+        }
+      },
+      "status_t12": "MODERATE_DRIFT",
+      "status_t13": "MODERATE_DRIFT",
+      "status_t14": "MODERATE_DRIFT",
+      "psi_t12": 0.1048,
+      "psi_t13": 0.119,
+      "psi_t14": 0.1103
+    },
+    "x25": {
+      "trajectories": {
+        "T_10": {
+          "period": 10,
+          "n_obs": 249,
+          "psi": 0.0117,
+          "status": "STABLE",
+          "median": 562.6,
+          "q25": 259.05,
+          "q75": 1144.2
+        },
+        "T_11": {
+          "period": 11,
+          "n_obs": 259,
+          "psi": 0.098,
+          "status": "STABLE",
+          "median": 653.03,
+          "q25": 282.94,
+          "q75": 1457.2
+        },
+        "T_12": {
+          "period": 12,
+          "n_obs": 270,
+          "psi": 0.2321,
+          "status": "MODERATE_DRIFT",
+          "median": 992.335,
+          "q25": 413.33,
+          "q75": 2133.975
+        },
+        "T_13": {
+          "period": 13,
+          "n_obs": 274,
+          "psi": 0.0655,
+          "status": "STABLE",
+          "median": 564.575,
+          "q25": 281.0175,
+          "q75": 1575.125
+        },
+        "T_14": {
+          "period": 14,
+          "n_obs": 280,
+          "psi": 0.2102,
+          "status": "MODERATE_DRIFT",
+          "median": 348.95,
+          "q25": 82.6883,
+          "q75": 950.665
+        }
+      },
+      "status_t12": "MODERATE_DRIFT",
+      "status_t13": "STABLE",
+      "status_t14": "MODERATE_DRIFT",
+      "psi_t12": 0.2321,
+      "psi_t13": 0.0655,
+      "psi_t14": 0.2102
+    },
+    "x2": {
+      "trajectories": {
+        "T_10": {
+          "period": 10,
+          "n_obs": 249,
+          "psi": 0.0301,
+          "status": "STABLE",
+          "median": 0.107,
+          "q25": 0.0407,
+          "q75": 0.1732
+        },
+        "T_11": {
+          "period": 11,
+          "n_obs": 259,
+          "psi": 0.0598,
+          "status": "STABLE",
+          "median": 0.118,
+          "q25": 0.0506,
+          "q75": 0.2185
+        },
+        "T_12": {
+          "period": 12,
+          "n_obs": 270,
+          "psi": 0.2229,
+          "status": "MODERATE_DRIFT",
+          "median": 0.1527,
+          "q25": 0.0743,
+          "q75": 0.2695
+        },
+        "T_13": {
+          "period": 13,
+          "n_obs": 274,
+          "psi": 0.0331,
+          "status": "STABLE",
+          "median": 0.1149,
+          "q25": 0.0506,
+          "q75": 0.2095
+        },
+        "T_14": {
+          "period": 14,
+          "n_obs": 280,
+          "psi": 0.1075,
+          "status": "MODERATE_DRIFT",
+          "median": 0.0753,
+          "q25": 0.0212,
+          "q75": 0.1458
+        }
+      },
+      "status_t12": "MODERATE_DRIFT",
+      "status_t13": "STABLE",
+      "status_t14": "MODERATE_DRIFT",
+      "psi_t12": 0.2229,
+      "psi_t13": 0.0331,
+      "psi_t14": 0.1075
+    }
+  },
+  "x12_deep_dive_investigation": {
+    "feature_name": "x12 (Operating Cash Flow / Total Debt)",
+    "psi_trajectory": {
+      "T_10": 0.0216,
+      "T_11": 0.0625,
+      "T_12": 0.0701,
+      "T_13": 0.082,
+      "T_14": 0.1785
+    },
+    "psi_at_t14": 0.1785,
+    "drift_classification_at_t14": "MODERATE_DRIFT (0.10 <= PSI < 0.25)",
+    "persistence_audit": {
+      "consecutive_drift_cycles": 1,
+      "persistence_threshold_cycles": 2,
+      "persists_across_multiple_cycles": false,
+      "verdict": "TRANSIENT_OR_EARLY_PHASE (Persistence not yet established; T=10..13 were stable with PSI < 0.082)"
+    },
+    "root_cause_analysis": "Median x12 compressed from 4.47 (baseline T<=10) to 3.06 at T=14, reflecting systematic macroeconomic contraction in operating cash flows relative to corporate debt loads. The 25th percentile compressed from 1.82 to 0.94, increasing solvency pressure across the portfolio.",
+    "association_with_performance_at_t14": {
+      "matured_cohort_size_t14": 262,
+      "matured_distress_events_t14": 11,
+      "production_recall": 0.4545,
+      "candidate_recall": 0.2727,
+      "production_precision": 0.1351,
+      "candidate_precision": 0.15,
+      "production_brier": 0.0382,
+      "candidate_brier": 0.0389,
+      "candidate_alert_count": 20,
+      "candidate_alert_rate_pct": 7.63,
+      "performance_verdict": "Candidate recall deteriorated substantially to 0.2727 (3 of 11 distress events detected) compared to production recall of 0.4545 (5 of 11). Candidate probability calibration remained stable (Brier score 0.0389 vs baseline 0.0382), but detection sensitivity degraded during the x12 cash-flow contraction."
+    },
+    "governance_rule_enforcement": {
+      "mandate": "PSI alone must NOT trigger retraining or recalibration.",
+      "rationale": "SR 11-7 model governance prohibits knee-jerk automated model updates driven solely by statistical drift. Retraining immediately on drifted data without structural regime confirmation risks fitting to transitory shocks and destabilizing model risk controls. Passive monitoring and manual risk review are enforced.",
+      "action_taken": "NO_RETRAINING_AUTHORIZED (Passive surveillance continues without intervention)"
+    }
+  },
+  "summary_drift_status": {
+    "x48": "RETURNED_TO_STABLE (PSI compressed to 0.0670 at T=14)",
+    "x12": "MODERATE_DRIFT_AT_T14 (PSI=0.1785, single cycle, sensitivity drop observed)",
+    "x16": "MODERATE_DRIFT (PSI=0.1103)",
+    "x25": "MODERATE_DRIFT (PSI=0.2102)",
+    "x2": "MODERATE_DRIFT (PSI=0.1075)"
+  }
+}

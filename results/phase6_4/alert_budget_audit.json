@@ -1,0 +1,102 @@
+{
+  "policy_rule": "maximum_alerts = floor(cohort_size * 0.08)",
+  "prospective_cohort": {
+    "cohort_name": "Full Prospective Surveillance Cohort (T=12)",
+    "cohort_size": 270,
+    "maximum_permitted_alerts": 21,
+    "candidate_alerts": 23,
+    "candidate_alert_rate_pct": 8.52,
+    "production_alerts": 33,
+    "production_alert_rate_pct": 12.22,
+    "excess_alerts": 2,
+    "capacity_compliance_status": "CAPACITY_BREACH",
+    "capacity_utilization_pct": 109.52
+  },
+  "matured_cohort": {
+    "cohort_name": "Audited Matured Surveillance Cohort (T=13 Observed)",
+    "cohort_size": 264,
+    "maximum_permitted_alerts": 21,
+    "candidate_alerts": 19,
+    "candidate_alert_rate_pct": 7.2,
+    "production_alerts": 29,
+    "production_alert_rate_pct": 10.98,
+    "excess_alerts": 0,
+    "capacity_compliance_status": "COMPLIANT",
+    "capacity_utilization_pct": 90.48
+  },
+  "right_censored_cohort": {
+    "cohort_name": "Right-Censored Filing Cessation Cohort",
+    "cohort_size": 6,
+    "maximum_permitted_alerts": 0,
+    "candidate_alerts": 4,
+    "candidate_alert_rate_pct": 66.67,
+    "excess_alerts": 4,
+    "capacity_compliance_status": "CAPACITY_BREACH"
+  },
+  "offline_workload_impact_investigation": {
+    "governance_status": "OFFLINE_ANALYSIS_ONLY (Does NOT alter production or registered candidate threshold)",
+    "registered_candidate_operating_point": {
+      "threshold": 0.0894,
+      "prospective_alerts": 23,
+      "prospective_excess": 2,
+      "matured_recall": 0.625
+    },
+    "minimum_compliant_threshold": {
+      "threshold": 0.093,
+      "prospective_alerts": 21,
+      "prospective_excess": 0,
+      "matured_recall": 0.5,
+      "governance_note": "Raising candidate threshold to >= 0.0930 would satisfy the 8% capacity cap (<= 21 alerts). However, modifying the threshold post hoc constitutes data snooping. The candidate must remain at 0.0894 in shadow surveillance; any adjustment requires a formal new phase."
+    },
+    "threshold_sweep_sample": [
+      {
+        "threshold": 0.08,
+        "alerts_count": 26,
+        "alert_rate_pct": 9.63,
+        "max_permitted_alerts": 21,
+        "excess_alerts": 5,
+        "is_compliant": false
+      },
+      {
+        "threshold": 0.085,
+        "alerts_count": 26,
+        "alert_rate_pct": 9.63,
+        "max_permitted_alerts": 21,
+        "excess_alerts": 5,
+        "is_compliant": false
+      },
+      {
+        "threshold": 0.09,
+        "alerts_count": 23,
+        "alert_rate_pct": 8.52,
+        "max_permitted_alerts": 21,
+        "excess_alerts": 2,
+        "is_compliant": false
+      },
+      {
+        "threshold": 0.093,
+        "alerts_count": 20,
+        "alert_rate_pct": 7.41,
+        "max_permitted_alerts": 21,
+        "excess_alerts": 0,
+        "is_compliant": true
+      },
+      {
+        "threshold": 0.095,
+        "alerts_count": 20,
+        "alert_rate_pct": 7.41,
+        "max_permitted_alerts": 21,
+        "excess_alerts": 0,
+        "is_compliant": true
+      },
+      {
+        "threshold": 0.1,
+        "alerts_count": 19,
+        "alert_rate_pct": 7.04,
+        "max_permitted_alerts": 21,
+        "excess_alerts": 0,
+        "is_compliant": true
+      }
+    ]
+  }
+}

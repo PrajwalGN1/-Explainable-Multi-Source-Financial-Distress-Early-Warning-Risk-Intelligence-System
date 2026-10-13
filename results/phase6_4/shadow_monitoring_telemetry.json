@@ -1,0 +1,72 @@
+{
+  "pipeline_health_and_reliability": {
+    "mode": "PASSIVE_PARALLEL_SHADOW_SURVEILLANCE",
+    "pipeline_uptime_pct": 100.0,
+    "inference_failures": 0,
+    "inference_exceptions": 0,
+    "shadow_failure_isolation": "VERIFIED (Zero effect on production inference or responses)",
+    "average_latency_ms": 0.42,
+    "max_latency_ms": 1.85,
+    "p99_latency_ms": 0.88,
+    "native_decision_handling": "PRESERVED (Production thresholds and scores evaluated strictly before shadow candidate)"
+  },
+  "cohort_denominators": {
+    "total_prospective_firms": 270,
+    "audited_matured_firms": 264,
+    "right_censored_firms": 6,
+    "matured_distress_count": 8,
+    "matured_healthy_count": 256,
+    "minimum_required_for_interim_look_1": 20,
+    "look_1_maturity_readiness": "NOT_REACHED (8 of 20 events observed, 40.0% of Look 1 target)"
+  },
+  "matured_performance_metrics": {
+    "production_baseline": {
+      "threshold": 0.08,
+      "tp": 5,
+      "fp": 24,
+      "tn": 232,
+      "fn": 3,
+      "recall": 0.625,
+      "precision": 0.1724,
+      "specificity": 0.9062,
+      "brier_score": 0.0274,
+      "alert_count": 29,
+      "alert_rate_pct": 10.98
+    },
+    "shadow_candidate": {
+      "threshold": 0.0894,
+      "tp": 5,
+      "fp": 14,
+      "tn": 242,
+      "fn": 3,
+      "recall": 0.625,
+      "precision": 0.2632,
+      "specificity": 0.9453,
+      "brier_score": 0.026,
+      "alert_count": 19,
+      "alert_rate_pct": 7.2
+    },
+    "operational_impact": {
+      "recall_parity_verified": true,
+      "false_positive_reduction_count": 10,
+      "false_positive_reduction_pct": 41.67,
+      "precision_relative_gain_pct": 52.63
+    }
+  },
+  "prospective_agreement_telemetry": {
+    "concordant_pairs": 256,
+    "discordant_pairs": 14,
+    "overall_agreement_pct": 94.81,
+    "contingency_table": {
+      "both_alerted": 21,
+      "neither_alerted": 235,
+      "shadow_candidate_only_alerted": 2,
+      "production_only_alerted": 12
+    }
+  },
+  "right_censored_governance": {
+    "count": 6,
+    "treatment": "STRICT_EXCLUSION_FROM_BINARY_ANALYSIS",
+    "justification": "Firms ceased statutory reporting at T=12. Imputing healthy (Y=0) or distressed (Y=1) introduces verification bias."
+  }
+}
