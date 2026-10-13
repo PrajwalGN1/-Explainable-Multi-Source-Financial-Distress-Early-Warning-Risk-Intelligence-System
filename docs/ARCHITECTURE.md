@@ -13,42 +13,42 @@ The system is architected as an end-to-end corporate risk intelligence engine. I
 
 ```mermaid
 flowchart TD
-    subgraph Data Tier [Data Tier: Contiguous Historical Panel]
-        D_RAW["Dataset A: Tehran SME Financial Distress Panel<br/>3,672 observations | 422 unique enterprises | 14 annual periods"]
-        D_SCHEMA["Schema Validation & Contiguity Audit<br/>0 missing | 0 infinite | 0 time gaps | 100% terminal exits"]
+    subgraph Data_Tier ["Data Tier: Contiguous Historical Panel"]
+        D_RAW["Dataset A: Tehran SME Financial Distress Panel<br/>3,672 observations • 422 unique enterprises • 14 annual periods"]
+        D_SCHEMA["Schema Validation & Contiguity Audit<br/>0 missing • 0 infinite • 0 time gaps • 100% terminal exits"]
         D_RAW --> D_SCHEMA
     end
 
-    subgraph Feature Tier [Feature Tier: Leakage-Free Temporal Pipeline]
-        T_TARGET["Forward Target Builder<br/>Y(i,t) = 1 if FD(i,t+1) <= -0.50 else 0"]
-        T_ENGINE["Temporal Feature Engine<br/>Historical Lags (L=1, 2) | Backward Rolling Means (k=2, 3) | Deltas"]
-        T_PREP["EWSPreprocessor (Frozen)<br/>Train-only median imputation & RobustScaler (T <= 10)"]
+    subgraph Feature_Tier ["Feature Tier: Leakage-Free Temporal Pipeline"]
+        T_TARGET["Forward Target Builder<br/>Y(i,t) = 1 if FD(i,t+1) &le; -0.50 else 0"]
+        T_ENGINE["Temporal Feature Engine<br/>Historical Lags (L=1, 2) • Backward Rolling Means (k=2, 3) • Deltas"]
+        T_PREP["EWSPreprocessor (Frozen)<br/>Train-only median imputation & RobustScaler (T &le; 10)"]
         D_SCHEMA --> T_TARGET
         D_SCHEMA --> T_ENGINE
         T_ENGINE --> T_PREP
     end
 
-    subgraph Modeling Tier [Modeling Tier: Protected Baseline & Evaluation]
-        M_PROD["Approved Production Baseline (Frozen)<br/>Balanced Random Forest (100 trees, depth 5)<br/>SHA-256: fcec8814... | Nominal tau = 0.0800"]
-        M_CALIB["Platt Sigmoid Calibrator (Frozen)<br/>Validation-fitted (T in [11, 12])<br/>SHA-256: 774a411b..."]
+    subgraph Modeling_Tier ["Modeling Tier: Protected Baseline and Evaluation"]
+        M_PROD["Approved Production Baseline (Frozen)<br/>Balanced Random Forest (100 trees, depth 5)<br/>SHA-256: fcec8814... • Nominal tau = 0.0800"]
+        M_CALIB["Platt Sigmoid Calibrator (Frozen)<br/>Validation-fitted (T in 11, 12)<br/>SHA-256: 774a411b..."]
         M_RESEARCH["Research Benchmark Candidates (Isolated)<br/>- Candidate Cost-Sensitive RF (tau=0.0894)<br/>- Calibrated Logistic Regression (tau=0.0271)<br/>- Standard RF (tau=0.0680)"]
         T_PREP --> M_PROD
         M_PROD --> M_CALIB
         T_PREP -.-> M_RESEARCH
     end
 
-    subgraph Explainability Tier [Explainability Tier: TreeSHAP Attribution]
+    subgraph Explainability_Tier ["Explainability Tier: TreeSHAP Attribution"]
         SHAP_TREE["TreeSHAP Exact Tree Explainer<br/>Exact Additivity: base_value + sum(shap_values) == f(x)"]
-        SHAP_DRIVERS["Top Attribution Drivers<br/>x2: Retained Earnings / Assets | x12: Cash Flow Ratio | x8: Liquidity"]
-        SHAP_GOV["Regulatory Non-Causal Semantics<br/>Statistical predictive association != causal counterfactuals"]
+        SHAP_DRIVERS["Top Attribution Drivers<br/>x2: Retained Earnings / Assets • x12: Cash Flow Ratio • x8: Liquidity"]
+        SHAP_GOV["Regulatory Non-Causal Semantics<br/>Statistical predictive association &ne; causal counterfactuals"]
         M_PROD --> SHAP_TREE
         SHAP_TREE --> SHAP_DRIVERS
         SHAP_DRIVERS --> SHAP_GOV
     end
 
-    subgraph Delivery Tier [Delivery Tier: Client Applications & Services]
-        UI_STREAMLIT["Streamlit Analytics Dashboard (:8501)<br/>12 interactive views | 422 monitored enterprises | Dark-mode glassmorphism"]
-        API_FASTAPI["FastAPI REST Microservice (:8000)<br/>11 endpoints | Pydantic validation | Fail-closed admin security"]
+    subgraph Delivery_Tier ["Delivery Tier: Client Applications and Services"]
+        UI_STREAMLIT["Streamlit Analytics Dashboard (:8501)<br/>12 interactive views • 422 monitored enterprises • Dark-mode glassmorphism"]
+        API_FASTAPI["FastAPI REST Microservice (:8000)<br/>11 endpoints • Pydantic validation • Fail-closed admin security"]
         M_CALIB --> UI_STREAMLIT
         M_CALIB --> API_FASTAPI
         SHAP_TREE --> UI_STREAMLIT
@@ -95,26 +95,39 @@ To prevent synthetic leakage while providing multi-dimensional evidence, the sys
 
 ```mermaid
 flowchart LR
-    subgraph Signal Inputs
-        S1["Temporal EWS Signal<br/>Calibrated Probability P_ews in [0, 1]"]
-        S2["Structural Bankruptcy Likelihood<br/>Calibrated Probability P_bnk in [0, 1]"]
-        S3["Out-of-Distribution Anomaly Score<br/>Isolation Forest Normalized Score in [0, 1]"]
+    subgraph Signal_Inputs ["Signal Inputs"]
+        S1["Temporal EWS Signal<br/>Calibrated Probability P_ews in 0 to 1"]
+        S2["Structural Bankruptcy Likelihood<br/>Calibrated Probability P_bnk in 0 to 1"]
+        S3["Out-of-Distribution Anomaly Score<br/>Isolation Forest Normalized Score in 0 to 1"]
         S4["Composite Financial Health Score<br/>Dimensionally Weighted Index (0-100)"]
     end
 
-    subgraph Two-Level Fusion Engine
+    subgraph Fusion_Engine ["Two-Level Fusion Engine"]
         F1["Baseline Weighted Risk Synthesis<br/>Rule-Governed Multi-Criteria Scoring"]
-        F2["Stacking Meta-Learner Layer<br/>L2 Logistic Stacking fitted on Out-of-Fold Splits"]
-        S1 & S2 & S3 & S4 --> F1
-        S1 & S2 & S3 & S4 --> F2
+        F2["Stacking Meta-Learner Layer<br/>L2 Logistic Stacking on Out-of-Fold Splits"]
+        S1 --> F1
+        S2 --> F1
+        S3 --> F1
+        S4 --> F1
+        S1 --> F2
+        S2 --> F2
+        S3 --> F2
+        S4 --> F2
     end
 
-    subgraph Intelligence Outputs
+    subgraph Intelligence_Outputs ["Intelligence Outputs"]
         OUT_P["Final Calibrated Risk Probability %"]
         OUT_S["Composite Risk Score (0 - 100)"]
-        OUT_C["Calibrated Risk Category<br/>Healthy | Low | Watch | High | Critical"]
+        OUT_C["Calibrated Risk Category<br/>Healthy • Low • Watch • High • Critical"]
         OUT_A["Deterministic Early-Warning Action Protocol"]
-        F1 & F2 --> OUT_P & OUT_S & OUT_C & OUT_A
+        F1 --> OUT_P
+        F1 --> OUT_S
+        F1 --> OUT_C
+        F1 --> OUT_A
+        F2 --> OUT_P
+        F2 --> OUT_S
+        F2 --> OUT_C
+        F2 --> OUT_A
     end
 ```
 
@@ -132,22 +145,23 @@ flowchart TD
     RF_FOREST["Balanced Random Forest (100 Decision Trees)"]
     INPUT_ROW --> RF_FOREST
     
-    subgraph TreeSHAP Exact Computation
+    subgraph TreeSHAP_Computation ["TreeSHAP Exact Computation"]
         TREES["Traverse 100 Tree Graph Topologies"]
         VALS["Recursive Conditional Expectation via Algorithm 1"]
         TREES --> VALS
     end
     RF_FOREST --> TREES
     
-    subgraph Local Attribution Breakdown
-        POS["Positive Risk Drivers (phi_j > 0)<br/>Deteriorating Solvency, Negative Cash Flows"]
-        NEG["Protective Balance Sheet Buffers (phi_j < 0)<br/>Healthy Retained Earnings, Current Asset Liquidity"]
+    subgraph Local_Attribution ["Local Attribution Breakdown"]
+        POS["Positive Risk Drivers (phi_j &gt; 0)<br/>Deteriorating Solvency, Negative Cash Flows"]
+        NEG["Protective Balance Sheet Buffers (phi_j &lt; 0)<br/>Healthy Retained Earnings, Current Asset Liquidity"]
         VALS --> POS
         VALS --> NEG
     end
     
     GOV_ASSERT["SR 11-7 Compliance Guardrail:<br/>Attributions certified as statistical predictive associations, not causal proofs."]
-    POS & NEG --> GOV_ASSERT
+    POS --> GOV_ASSERT
+    NEG --> GOV_ASSERT
 ```
 
 ---

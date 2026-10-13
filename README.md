@@ -100,27 +100,29 @@ Terminal Exclusions:              422 final-period rows excluded (NaN), never im
 
 ```mermaid
 flowchart TD
-    subgraph Data Pipeline [Data Ingestion & Integrity]
-        RAW["Financial Distress.csv<br/>3,672 rows | 422 firms | 14 periods"] --> AUDIT["Integrity & Contiguity Check<br/>0 missing | 0 duplicates | 0 gaps"]
-        AUDIT --> TGT["Forward Target Shift<br/>Y(t) = 1 if FD(t+1) <= -0.50"]
+    subgraph Data_Pipeline ["Data Ingestion and Integrity"]
+        RAW["Financial Distress.csv<br/>3,672 rows • 422 firms • 14 periods"] --> AUDIT["Integrity & Contiguity Check<br/>0 missing • 0 duplicates • 0 gaps"]
+        AUDIT --> TGT["Forward Target Shift<br/>Y(t) = 1 if FD(t+1) &le; -0.50"]
     end
 
-    subgraph Feature Pipeline [Temporal Feature Engineering]
-        TGT --> FE["TemporalFeatureEngine<br/>Lags (L=1, 2) | Rolling Means (k=2, 3) | Deltas"]
-        FE --> SPLIT["Chronological Partitioning<br/>Train: T<=10 | Val: 11-12 | Test: 13->14"]
+    subgraph Feature_Pipeline ["Temporal Feature Engineering"]
+        TGT --> FE["TemporalFeatureEngine<br/>Lags (L=1, 2) • Rolling Means (k=2, 3) • Deltas"]
+        FE --> SPLIT["Chronological Partitioning<br/>Train: T&le;10 • Val: 11-12 • Test: 13-14"]
         SPLIT --> SCALER["EWSPreprocessor (Frozen)<br/>Train-only imputation & RobustScaler"]
     end
 
-    subgraph Inference & Explainability [Modeling & Attribution]
-        SCALER --> BASELINE["Approved Production Baseline (Frozen)<br/>Balanced Random Forest (100 trees, depth 5)<br/>SHA-256: fcec8814... | Threshold tau = 0.0800"]
-        BASELINE --> CALIB["Platt Sigmoid Calibrator (Frozen)<br/>Validation-fitted (T in [11, 12])<br/>SHA-256: 774a411b..."]
-        SCALER -.-> CANDIDATE["Research Candidates (Isolated)<br/>Cost-Sensitive RF | Logistic Reg | Standard RF"]
+    subgraph Inference_Explainability ["Modeling and Attribution"]
+        SCALER --> BASELINE["Approved Production Baseline (Frozen)<br/>Balanced Random Forest (100 trees, depth 5)<br/>SHA-256: fcec8814... • Threshold tau = 0.0800"]
+        BASELINE --> CALIB["Platt Sigmoid Calibrator (Frozen)<br/>Validation-fitted (T in 11, 12)<br/>SHA-256: 774a411b..."]
+        SCALER -.-> CANDIDATE["Research Candidates (Isolated)<br/>Cost-Sensitive RF • Logistic Reg • Standard RF"]
         BASELINE --> SHAP["TreeSHAP Exact Explainer<br/>Exact Additive Local Attribution"]
     end
 
-    subgraph Delivery Layer [Delivery & Surveillance]
-        CALIB & SHAP --> STREAMLIT["Streamlit Dashboard (:8501)<br/>12 interactive views | 422 firms"]
-        CALIB & SHAP --> FASTAPI["FastAPI REST Service (:8000)<br/>11 endpoints | Fail-closed admin security"]
+    subgraph Delivery_Layer ["Delivery and Surveillance"]
+        CALIB --> STREAMLIT["Streamlit Dashboard (:8501)<br/>12 interactive views • 422 firms"]
+        SHAP --> STREAMLIT
+        CALIB --> FASTAPI["FastAPI REST Service (:8000)<br/>11 endpoints • Fail-closed admin security"]
+        SHAP --> FASTAPI
     end
 ```
 

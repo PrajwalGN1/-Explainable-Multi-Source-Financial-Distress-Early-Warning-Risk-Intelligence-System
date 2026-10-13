@@ -43,8 +43,8 @@ The project is built on **Dataset A** (Tehran Stock Exchange SME Corporate Panel
 ```mermaid
 flowchart LR
     A["Raw Historical Panel<br/>(Contiguous T=1..14)"] --> B["Temporal Feature Engine<br/>(Lags, Rolling Means, Deltas)"]
-    B --> C["Forward Target Construction<br/>(Y_t = 1 if FD_t+1 <= -0.5)"]
-    C --> D["Leakage-Safe Chronological Split<br/>Train: T<=10 | Val: 11-12 | Test: 13->14"]
+    B --> C["Forward Target Construction<br/>(Y_t = 1 if FD_t+1 &le; -0.5)"]
+    C --> D["Leakage-Safe Chronological Split<br/>Train: T&le;10 • Val: 11-12 • Test: 13-14"]
     D --> E["Frozen Approved EWS Model<br/>Balanced RF + Platt Calibrator"]
     E --> F["TreeSHAP Explainer<br/>Exact Additive Local Drivers"]
     F --> G["Multi-Channel Delivery<br/>Streamlit Dashboard + FastAPI"]
