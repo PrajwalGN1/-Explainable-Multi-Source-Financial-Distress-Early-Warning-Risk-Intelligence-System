@@ -3,6 +3,18 @@ import json
 import pandas as pd
 import numpy as np
 import streamlit as st
+
+# Safe HTML Markdown wrapper: Strips leading indentation from HTML lines so CommonMark
+# never misinterprets indented HTML as <pre><code> code blocks.
+_orig_st_markdown = st.markdown
+
+def _safe_st_markdown(body, *args, **kwargs):
+    if isinstance(body, str) and kwargs.get("unsafe_allow_html", False):
+        body = "\n".join(line.strip() for line in body.strip().splitlines())
+    return _orig_st_markdown(body, *args, **kwargs)
+
+st.markdown = _safe_st_markdown
+
 import plotly.express as px
 import plotly.graph_objects as go
 
