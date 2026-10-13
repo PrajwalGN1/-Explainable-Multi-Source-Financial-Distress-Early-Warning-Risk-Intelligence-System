@@ -1,0 +1,44 @@
+{
+  "operating_threshold": 0.08,
+  "cohort_size": 262,
+  "distress_events": 11,
+  "healthy_firms": 251,
+  "integer_8pct_cap": 20,
+  "total_alerts": 37,
+  "alert_rate": 0.1412,
+  "cap_compliant": false,
+  "excess_alerts": 17,
+  "confusion_matrix": {
+    "true_positives": 5,
+    "false_positives": 32,
+    "false_negatives": 6,
+    "true_negatives": 219
+  },
+  "metrics": {
+    "recall": 0.4545,
+    "precision": 0.1351,
+    "specificity": 0.8725,
+    "false_positive_rate": 0.1275,
+    "roc_auc": 0.7961,
+    "pr_auc": 0.1816,
+    "brier_score": 0.0382,
+    "false_alerts_per_detection": 6.4
+  },
+  "subgroup_performance": {
+    "prior_healthy_defaults": 5,
+    "prior_healthy_detected": 2,
+    "prior_healthy_recall": 0.4,
+    "prior_distressed_defaults": 6,
+    "prior_distressed_detected": 3,
+    "prior_distressed_recall": 0.5,
+    "detected_company_ids": [
+      28,
+      60,
+      100,
+      101,
+      112
+    ]
+  },
+  "path_identifier": "Path B (Acute Financial Distress Detector / Production Baseline)",
+  "base_model": "models/phase2/best_ews_model.joblib"
+}

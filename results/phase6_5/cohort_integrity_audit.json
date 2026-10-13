@@ -1,0 +1,79 @@
+{
+  "audit_objective": "Cohort size, right-censoring, and alert-capacity verification",
+  "cohorts": {
+    "cohort_T12_prospective": {
+      "cohort_identifier": "COHORT_T12_PROSPECTIVE",
+      "observation_period": 12,
+      "realization_period": 13,
+      "eligible_firms": 270,
+      "integer_8pct_cap": 21,
+      "right_censored_non_filing_firms": 6,
+      "distress_events": "PENDING_AT_OBSERVATION",
+      "healthy_outcomes": "PENDING_AT_OBSERVATION",
+      "status": "Workload cap evaluated at observation time (Cap=21 alerts)"
+    },
+    "cohort_T12_T13_matured": {
+      "cohort_identifier": "COHORT_T12_T13_MATURED",
+      "observation_period": 12,
+      "realization_period": 13,
+      "eligible_firms": 264,
+      "integer_8pct_cap": 21,
+      "distress_events": 8,
+      "healthy_outcomes": 256,
+      "right_censored_excluded": 6,
+      "distress_company_ids": [
+        32,
+        46,
+        81,
+        118,
+        182,
+        201,
+        379,
+        384
+      ],
+      "status": "Matured surveillance cohort (Cap=21 alerts)"
+    },
+    "cohort_T13_prospective": {
+      "cohort_identifier": "COHORT_T13_PROSPECTIVE",
+      "observation_period": 13,
+      "realization_period": 14,
+      "eligible_firms": 274,
+      "integer_8pct_cap": 21,
+      "right_censored_non_filing_firms": 12,
+      "distress_events": "PENDING_AT_OBSERVATION",
+      "healthy_outcomes": "PENDING_AT_OBSERVATION",
+      "status": "Workload cap evaluated at observation time (Cap=21 alerts)"
+    },
+    "cohort_T13_T14_matured": {
+      "cohort_identifier": "COHORT_T13_T14_MATURED",
+      "observation_period": 13,
+      "realization_period": 14,
+      "eligible_firms": 262,
+      "integer_8pct_cap": 20,
+      "distress_events": 11,
+      "healthy_outcomes": 251,
+      "right_censored_excluded": 12,
+      "distress_company_ids": [
+        23,
+        28,
+        29,
+        53,
+        60,
+        84,
+        100,
+        101,
+        112,
+        225,
+        376
+      ],
+      "status": "Matured stress surveillance cohort (Cap=20 alerts)"
+    }
+  },
+  "distress_overlap_audit": {
+    "t13_distress_count": 8,
+    "t14_distress_count": 11,
+    "shared_distress_count": 0,
+    "shared_distress_company_ids": [],
+    "overlap_verdict": "ZERO_OVERLAP (0.0%). Perfectly disjoint corporate failures across T13 and T14."
+  }
+}

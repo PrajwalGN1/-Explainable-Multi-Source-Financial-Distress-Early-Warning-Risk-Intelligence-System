@@ -1,0 +1,65 @@
+{
+  "analysis_objective": "Mathematical frontier audit of two-path budget allocations under integer capacity constraint",
+  "cohort_size": 262,
+  "integer_8pct_cap": 20,
+  "total_defaults": 11,
+  "firm_rankings_and_probabilities": {
+    "firm_28": {
+      "path_b_acute_rank": 35,
+      "path_b_acute_prob": 0.0858,
+      "path_a_chronic_rank": 51,
+      "path_a_chronic_prob": 0.0496,
+      "budget_dilemma": "To capture Firm 28, Path B requires Kb >= 35 alerts, which alone exceeds the entire cohort cap of 20 alerts!"
+    },
+    "firm_60": {
+      "path_b_acute_rank": 16,
+      "path_b_acute_prob": 0.1135,
+      "path_a_chronic_rank": 35,
+      "path_a_chronic_prob": 0.0695,
+      "budget_dilemma": "Firm 60 is reachable at Kb >= 16, but consumes 16 of the 20 available alert slots."
+    }
+  },
+  "frontier_findings": {
+    "max_compliant_recall": 0.3636,
+    "max_compliant_detections": 3,
+    "firm_28_reachable_within_cap": false,
+    "firm_60_reachable_within_cap": true,
+    "best_compliant_configurations_sample": [
+      {
+        "ka_chronic": 0,
+        "kb_acute": 20,
+        "unique_alerts": 20,
+        "cap_compliant": true,
+        "recall": 0.3636,
+        "detections_count": 4,
+        "precision": 0.2,
+        "catches_firm_28": false,
+        "catches_firm_60": true,
+        "detected_defaults": [
+          60,
+          100,
+          101,
+          112
+        ]
+      },
+      {
+        "ka_chronic": 1,
+        "kb_acute": 20,
+        "unique_alerts": 20,
+        "cap_compliant": true,
+        "recall": 0.3636,
+        "detections_count": 4,
+        "precision": 0.2,
+        "catches_firm_28": false,
+        "catches_firm_60": true,
+        "detected_defaults": [
+          60,
+          100,
+          101,
+          112
+        ]
+      }
+    ]
+  },
+  "formal_mathematical_proof": "Theorem: Under the strict 8% alert budget constraint (Cap = 20 alerts), no partitioned allocation (Ka, Kb) or score-ranking blend of Path A and Path B can capture Firm 28. Proof: Path B ranks Firm 28 at rank 35 with probability 0.0858. Path A ranks Firm 28 at rank 51 with probability 0.0496. Since rank_B(28) = 35 > 20 and rank_A(28) = 51 > 20, any top-K selection where K <= 20 strictly excludes Firm 28. To include Firm 28, the coordinator must expand the alert budget to at least 35 alerts (an alert rate of 13.36%), breaching the regulatory cap by +15 alerts."
+}

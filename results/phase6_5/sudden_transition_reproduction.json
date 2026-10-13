@@ -1,0 +1,148 @@
+{
+  "reproduction_timestamp_utc": "2026-10-13T05:32:56Z",
+  "dataset_a_historical_transitions": {
+    "total_evaluated_distress_events": 106,
+    "sudden_transitions_count": 36,
+    "sudden_transitions_percentage": 33.96,
+    "chronic_transitions_count": 70,
+    "chronic_transitions_percentage": 66.04,
+    "path_b_acute_production_performance": {
+      "operating_threshold": 0.08,
+      "overall_recall": 0.8019,
+      "overall_detections": 85,
+      "sudden_recall": 0.6944,
+      "sudden_detections": 25,
+      "chronic_recall": 0.8571,
+      "chronic_detections": 60
+    },
+    "path_a_chronic_candidate_performance": {
+      "operating_threshold": 0.0894,
+      "overall_recall": 0.8585,
+      "overall_detections": 91,
+      "sudden_recall": 0.7778,
+      "sudden_detections": 28,
+      "chronic_recall": 0.9,
+      "chronic_detections": 63
+    }
+  },
+  "matured_cohort_t13_t14_breakdown": {
+    "total_defaults": 11,
+    "sudden_defaults_count": 5,
+    "chronic_defaults_count": 6,
+    "path_b_detections": 5,
+    "path_a_detections": 3,
+    "default_events_audit": [
+      {
+        "company_id": 23,
+        "antecedent_fd_t13": -0.482,
+        "realized_fd_t14": -3.9594,
+        "transition_category": "CHRONIC",
+        "path_b_score": 0.0768,
+        "path_b_alert": false,
+        "path_a_score": 0.0763,
+        "path_a_alert": false
+      },
+      {
+        "company_id": 28,
+        "antecedent_fd_t13": 1.443,
+        "realized_fd_t14": -0.6815,
+        "transition_category": "SUDDEN",
+        "path_b_score": 0.0858,
+        "path_b_alert": true,
+        "path_a_score": 0.0496,
+        "path_a_alert": false
+      },
+      {
+        "company_id": 29,
+        "antecedent_fd_t13": -0.4929,
+        "realized_fd_t14": -1.1315,
+        "transition_category": "CHRONIC",
+        "path_b_score": 0.019,
+        "path_b_alert": false,
+        "path_a_score": 0.0141,
+        "path_a_alert": false
+      },
+      {
+        "company_id": 53,
+        "antecedent_fd_t13": -0.1569,
+        "realized_fd_t14": -2.7519,
+        "transition_category": "CHRONIC",
+        "path_b_score": 0.0187,
+        "path_b_alert": false,
+        "path_a_score": 0.0133,
+        "path_a_alert": false
+      },
+      {
+        "company_id": 60,
+        "antecedent_fd_t13": 0.1357,
+        "realized_fd_t14": -1.2361,
+        "transition_category": "SUDDEN",
+        "path_b_score": 0.1135,
+        "path_b_alert": true,
+        "path_a_score": 0.0695,
+        "path_a_alert": false
+      },
+      {
+        "company_id": 84,
+        "antecedent_fd_t13": 0.0019,
+        "realized_fd_t14": -0.5589,
+        "transition_category": "SUDDEN",
+        "path_b_score": 0.0308,
+        "path_b_alert": false,
+        "path_a_score": 0.0292,
+        "path_a_alert": false
+      },
+      {
+        "company_id": 100,
+        "antecedent_fd_t13": -0.4824,
+        "realized_fd_t14": -1.0118,
+        "transition_category": "CHRONIC",
+        "path_b_score": 0.1072,
+        "path_b_alert": true,
+        "path_a_score": 0.1098,
+        "path_a_alert": true
+      },
+      {
+        "company_id": 101,
+        "antecedent_fd_t13": -0.3137,
+        "realized_fd_t14": -1.9532,
+        "transition_category": "CHRONIC",
+        "path_b_score": 0.15,
+        "path_b_alert": true,
+        "path_a_score": 0.2223,
+        "path_a_alert": true
+      },
+      {
+        "company_id": 112,
+        "antecedent_fd_t13": -0.0699,
+        "realized_fd_t14": -1.9827,
+        "transition_category": "CHRONIC",
+        "path_b_score": 0.1701,
+        "path_b_alert": true,
+        "path_a_score": 0.1305,
+        "path_a_alert": true
+      },
+      {
+        "company_id": 225,
+        "antecedent_fd_t13": 0.244,
+        "realized_fd_t14": -0.8835,
+        "transition_category": "SUDDEN",
+        "path_b_score": 0.0247,
+        "path_b_alert": false,
+        "path_a_score": 0.013,
+        "path_a_alert": false
+      },
+      {
+        "company_id": 376,
+        "antecedent_fd_t13": 0.5252,
+        "realized_fd_t14": -0.5805,
+        "transition_category": "SUDDEN",
+        "path_b_score": 0.0674,
+        "path_b_alert": false,
+        "path_a_score": 0.0398,
+        "path_a_alert": false
+      }
+    ]
+  },
+  "pathology_diagnosis": "Over all 106 historical forward defaults in Dataset A, Path A achieves 85.85% recall (91/106) vs Path B's 80.19% recall (85/106). However, in the matured out-of-time T=13 -> T=14 stress cohort, Path A detects 0 of 5 sudden transitions (Firms 28, 60, 84, 225, 376), whereas Path B detects 2 of 5 (Firms 28 and 60). Path A's rolling solvency features (backward means and cumulative worsening slopes) severely suppress predicted risk for firms with healthy prior accounting histories."
+}

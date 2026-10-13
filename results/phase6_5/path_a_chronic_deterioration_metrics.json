@@ -1,0 +1,42 @@
+{
+  "operating_threshold": 0.0894,
+  "cohort_size": 262,
+  "distress_events": 11,
+  "healthy_firms": 251,
+  "integer_8pct_cap": 20,
+  "total_alerts": 20,
+  "alert_rate": 0.0763,
+  "cap_compliant": true,
+  "excess_alerts": 0,
+  "confusion_matrix": {
+    "true_positives": 3,
+    "false_positives": 17,
+    "false_negatives": 8,
+    "true_negatives": 234
+  },
+  "metrics": {
+    "recall": 0.2727,
+    "precision": 0.15,
+    "specificity": 0.9323,
+    "false_positive_rate": 0.0677,
+    "roc_auc": 0.7521,
+    "pr_auc": 0.141,
+    "brier_score": 0.0389,
+    "false_alerts_per_detection": 5.67
+  },
+  "subgroup_performance": {
+    "prior_healthy_defaults": 5,
+    "prior_healthy_detected": 0,
+    "prior_healthy_recall": 0.0,
+    "prior_distressed_defaults": 6,
+    "prior_distressed_detected": 3,
+    "prior_distressed_recall": 0.5,
+    "detected_company_ids": [
+      100,
+      101,
+      112
+    ]
+  },
+  "path_identifier": "Path A (Chronic Financial Deterioration Detector)",
+  "base_model": "Phase5_RF_CostSensitive_w10"
+}

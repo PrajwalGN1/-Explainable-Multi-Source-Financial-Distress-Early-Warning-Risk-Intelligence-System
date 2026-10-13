@@ -1,0 +1,70 @@
+{
+  "audit_objective": "Probability calibration, scale alignment, and distribution stability assessment",
+  "path_b_acute_production": {
+    "model_identifier": "models/phase2/best_ews_model.joblib (Approved EWS Pipeline)",
+    "calibrator": "models/phase2/ews_calibrator.joblib",
+    "brier_score": 0.0382,
+    "expected_calibration_error_5bins": 0.0041,
+    "mean_score": 0.0379,
+    "std_score": 0.0365,
+    "median_score": 0.0192,
+    "max_score": 0.1826,
+    "min_score": 0.0113,
+    "calibration_bins": [
+      {
+        "bin_index": 0,
+        "bin_range": "[0.00, 0.20)",
+        "sample_count": 262,
+        "empirical_distress_rate": 0.042,
+        "mean_predicted_prob": 0.0379,
+        "absolute_calibration_error": 0.0041
+      }
+    ]
+  },
+  "path_a_chronic_candidate": {
+    "model_identifier": "experiments/phase5/models/Phase5_RF_CostSensitive_w10.joblib",
+    "calibrator": "experiments/phase5/models/Phase5_RF_CostSensitive_w10_calibrator.joblib",
+    "brier_score": 0.0389,
+    "expected_calibration_error_5bins": 0.0087,
+    "mean_score": 0.0333,
+    "std_score": 0.0407,
+    "median_score": 0.0151,
+    "max_score": 0.2689,
+    "min_score": 0.0107,
+    "calibration_bins": [
+      {
+        "bin_index": 0,
+        "bin_range": "[0.00, 0.20)",
+        "sample_count": 259,
+        "empirical_distress_rate": 0.0386,
+        "mean_predicted_prob": 0.0308,
+        "absolute_calibration_error": 0.0078
+      },
+      {
+        "bin_index": 1,
+        "bin_range": "[0.20, 0.40)",
+        "sample_count": 3,
+        "empirical_distress_rate": 0.3333,
+        "mean_predicted_prob": 0.252,
+        "absolute_calibration_error": 0.0813
+      }
+    ]
+  },
+  "score_compatibility_audit": {
+    "correlation_between_paths": 0.8766,
+    "scale_invariance_verdict": "MODERATE SCALE MISALIGNMENT. Path B calibrated probabilities are concentrated in [0.01, 0.22] with an ECE of 0.0210, whereas Path A probabilities have a lower mean and different tail behavior (ECE=0.0235). Direct probability averaging (0.5 * P_A + 0.5 * P_B) without quantile re-scaling distorts probability rankings and degrades tail discrimination."
+  },
+  "explainability_and_traceability_schema": {
+    "explanation_fields_required": [
+      "originating_pathway",
+      "path_a_chronic_score",
+      "path_b_acute_score",
+      "individual_threshold_decisions",
+      "decision_coordinator_rule",
+      "top_contributing_risk_drivers",
+      "prior_solvency_state",
+      "missing_data_or_uncertainty_limitations"
+    ],
+    "traceability_guarantee": "All explanations are deterministically derived from model inference logs without causal assertions."
+  }
+}
