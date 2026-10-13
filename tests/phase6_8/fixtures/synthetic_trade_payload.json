@@ -1,0 +1,22 @@
+[
+  {
+    "firm_id": "FIRM_HMAC_1dad573061d833fb11e802279f45219b534b2b690a0449a46b04f8fafdcf0eaa",
+    "timestamp_obs": "2023-06-15T00:00:00Z",
+    "timestamp_avail": "2023-06-25T00:00:00Z",
+    "invoice_due_date": "2023-05-15T00:00:00Z",
+    "invoice_settlement_date": "2023-06-14T00:00:00Z",
+    "reporting_period": "2023-M06",
+    "metric_name": "days_past_due_max",
+    "metric_value": 30.0,
+    "metric_unit": "DAYS"
+  },
+  {
+    "firm_id": "FIRM_HMAC_b3eff5e4a3d02ba86f8f60af85bb6cc7417457619cd619ae7e2d220a00d5afc9",
+    "timestamp_obs": "2023-06-15T00:00:00Z",
+    "timestamp_avail": "2023-06-25T00:00:00Z",
+    "reporting_period": "2023-M06",
+    "metric_name": "days_past_due_max",
+    "metric_value": -15.0,
+    "metric_unit": "DAYS"
+  }
+]

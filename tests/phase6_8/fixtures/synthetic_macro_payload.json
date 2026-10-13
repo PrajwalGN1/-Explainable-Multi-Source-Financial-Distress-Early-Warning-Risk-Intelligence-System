@@ -1,0 +1,18 @@
+[
+  {
+    "observation_period_timestamp": "2023-03-31T00:00:00Z",
+    "vintage_release_timestamp": "2023-04-28T12:30:00Z",
+    "reporting_period": "2023-Q1",
+    "metric_name": "central_bank_policy_rate",
+    "metric_value": 5.0,
+    "metric_unit": "PERCENT"
+  },
+  {
+    "observation_period_timestamp": "2023-03-31T00:00:00Z",
+    "vintage_release_timestamp": "2023-05-25T12:30:00Z",
+    "reporting_period": "2023-Q1",
+    "metric_name": "central_bank_policy_rate",
+    "metric_value": 5.25,
+    "metric_unit": "PERCENT"
+  }
+]

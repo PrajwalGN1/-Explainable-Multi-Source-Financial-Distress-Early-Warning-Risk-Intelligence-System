@@ -1,0 +1,94 @@
+[
+  {
+    "firm_id": "FIRM_HMAC_1dad573061d833fb11e802279f45219b534b2b690a0449a46b04f8fafdcf0eaa",
+    "source_id": "SYNTHETIC_TEST_FIXTURE_DO_NOT_USE_FOR_MODELING",
+    "event_id": "878f2d0f-1d49-4a9e-a861-1597cdcfac86",
+    "timestamp_obs": "2023-06-01T12:00:00Z",
+    "timestamp_pub": "2023-06-01T23:59:59Z",
+    "timestamp_avail": "2023-06-02T04:00:00Z",
+    "timestamp_ingest": "2023-06-02T04:05:00Z",
+    "reporting_period": "2023-W22",
+    "metric_name": "daily_gross_inflows",
+    "metric_value": 15000.0,
+    "metric_unit": "CURRENCY_BASE",
+    "currency": "USD",
+    "scale_factor": 1.0,
+    "is_imputed": false,
+    "missingness_code": "PRESENT",
+    "data_provenance": {
+      "schema_version": "1.1.0",
+      "source_batch_id": "BATCH_BANK_c3e14ab2",
+      "raw_checksum_sha256": "55957e5165704085687d3b6cc3b37230ad11a11f88ae47040ef4d9f887139825",
+      "ingestion_pipeline_commit": "6635a6c"
+    }
+  },
+  {
+    "firm_id": "FIRM_HMAC_1dad573061d833fb11e802279f45219b534b2b690a0449a46b04f8fafdcf0eaa",
+    "source_id": "SYNTHETIC_TEST_FIXTURE_DO_NOT_USE_FOR_MODELING",
+    "event_id": "2ea33f45-806f-42db-84b5-bef97791d07f",
+    "timestamp_obs": "2023-06-02T12:00:00Z",
+    "timestamp_pub": "2023-06-02T12:00:00Z",
+    "timestamp_avail": "2023-06-03T04:00:00Z",
+    "timestamp_ingest": "2026-10-13T06:57:33.066474+00:00",
+    "reporting_period": "2023-W22",
+    "metric_name": "daily_gross_outflows",
+    "metric_value": 22000.0,
+    "metric_unit": "CURRENCY_BASE",
+    "currency": "USD",
+    "scale_factor": 1.0,
+    "is_imputed": false,
+    "missingness_code": "PRESENT",
+    "data_provenance": {
+      "schema_version": "1.1.0",
+      "source_batch_id": "BATCH_BANK_c3e14ab2",
+      "raw_checksum_sha256": "55957e5165704085687d3b6cc3b37230ad11a11f88ae47040ef4d9f887139825",
+      "ingestion_pipeline_commit": "6635a6c"
+    }
+  },
+  {
+    "firm_id": "FIRM_HMAC_1dad573061d833fb11e802279f45219b534b2b690a0449a46b04f8fafdcf0eaa",
+    "source_id": "SYNTHETIC_TEST_FIXTURE_DO_NOT_USE_FOR_MODELING",
+    "event_id": "0e1cd87b-0dd8-4d35-a19c-404bc881aeeb",
+    "timestamp_obs": "2023-06-03T12:00:00Z",
+    "timestamp_pub": "2023-06-03T12:00:00Z",
+    "timestamp_avail": "2023-06-04T04:00:00Z",
+    "timestamp_ingest": "2026-10-13T06:57:33.066474+00:00",
+    "reporting_period": "2023-W22",
+    "metric_name": "eod_available_cash_balance",
+    "metric_value": 45000.0,
+    "metric_unit": "CURRENCY_BASE",
+    "currency": "USD",
+    "scale_factor": 1.0,
+    "is_imputed": false,
+    "missingness_code": "PRESENT",
+    "data_provenance": {
+      "schema_version": "1.1.0",
+      "source_batch_id": "BATCH_BANK_c3e14ab2",
+      "raw_checksum_sha256": "55957e5165704085687d3b6cc3b37230ad11a11f88ae47040ef4d9f887139825",
+      "ingestion_pipeline_commit": "6635a6c"
+    }
+  },
+  {
+    "firm_id": "FIRM_HMAC_1dad573061d833fb11e802279f45219b534b2b690a0449a46b04f8fafdcf0eaa",
+    "source_id": "SYNTHETIC_TEST_FIXTURE_DO_NOT_USE_FOR_MODELING",
+    "event_id": "08facbd3-cac9-470e-b737-ff6d3b6009cf",
+    "timestamp_obs": "2023-06-04T12:00:00Z",
+    "timestamp_pub": "2023-06-04T12:00:00Z",
+    "timestamp_avail": "2023-06-05T04:00:00Z",
+    "timestamp_ingest": "2026-10-13T06:57:33.066474+00:00",
+    "reporting_period": "2023-W22",
+    "metric_name": "nsf_returned_payment_count",
+    "metric_value": 1.0,
+    "metric_unit": "COUNT",
+    "currency": "USD",
+    "scale_factor": 1.0,
+    "is_imputed": false,
+    "missingness_code": "PRESENT",
+    "data_provenance": {
+      "schema_version": "1.1.0",
+      "source_batch_id": "BATCH_BANK_c3e14ab2",
+      "raw_checksum_sha256": "55957e5165704085687d3b6cc3b37230ad11a11f88ae47040ef4d9f887139825",
+      "ingestion_pipeline_commit": "6635a6c"
+    }
+  }
+]

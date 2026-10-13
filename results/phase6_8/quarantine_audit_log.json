@@ -1,0 +1,8 @@
+{
+  "timestamp_utc": "2026-10-13T06:57:33.091467+00:00",
+  "total_quarantined_records": 1,
+  "quarantine_directory": "D:\\Financial Distress\\tests\\phase6_8\\fixtures\\quarantine",
+  "quarantine_files": [
+    "SYNTHETIC_TEST_FIXTURE_DO_NOT_USE_FOR_MODELING_BATCH_BANK_c3e14ab2_quarantine.json"
+  ]
+}

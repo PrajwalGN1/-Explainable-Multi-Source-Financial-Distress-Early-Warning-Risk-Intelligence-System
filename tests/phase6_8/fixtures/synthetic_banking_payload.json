@@ -1,0 +1,56 @@
+[
+  {
+    "firm_id": "FIRM_HMAC_1dad573061d833fb11e802279f45219b534b2b690a0449a46b04f8fafdcf0eaa",
+    "event_id": "878f2d0f-1d49-4a9e-a861-1597cdcfac86",
+    "timestamp_obs": "2023-06-01T12:00:00Z",
+    "timestamp_pub": "2023-06-01T23:59:59Z",
+    "timestamp_avail": "2023-06-02T04:00:00Z",
+    "timestamp_ingest": "2023-06-02T04:05:00Z",
+    "reporting_period": "2023-W22",
+    "metric_name": "daily_gross_inflows",
+    "metric_value": 15000.0,
+    "metric_unit": "CURRENCY_BASE",
+    "currency": "USD"
+  },
+  {
+    "firm_a_id": "FIRM_HMAC_1dad573061d833fb11e802279f45219b534b2b690a0449a46b04f8fafdcf0eaa",
+    "tax_id": "SYNTHETIC_BORROWER_1001",
+    "country_code": "US",
+    "timestamp_obs": "2023-06-02T12:00:00Z",
+    "timestamp_avail": "2023-06-03T04:00:00Z",
+    "reporting_period": "2023-W22",
+    "metric_name": "daily_gross_outflows",
+    "metric_value": 22000.0,
+    "metric_unit": "CURRENCY_BASE",
+    "currency": "USD"
+  },
+  {
+    "firm_id": "FIRM_HMAC_1dad573061d833fb11e802279f45219b534b2b690a0449a46b04f8fafdcf0eaa",
+    "timestamp_obs": "2023-06-03T12:00:00Z",
+    "timestamp_avail": "2023-06-04T04:00:00Z",
+    "reporting_period": "2023-W22",
+    "metric_name": "eod_available_cash_balance",
+    "metric_value": 45000.0,
+    "metric_unit": "CURRENCY_BASE",
+    "currency": "USD"
+  },
+  {
+    "firm_id": "FIRM_HMAC_1dad573061d833fb11e802279f45219b534b2b690a0449a46b04f8fafdcf0eaa",
+    "timestamp_obs": "2023-06-04T12:00:00Z",
+    "timestamp_avail": "2023-06-05T04:00:00Z",
+    "reporting_period": "2023-W22",
+    "metric_name": "nsf_returned_payment_count",
+    "metric_value": 1.0,
+    "metric_unit": "COUNT"
+  },
+  {
+    "firm_id": "FIRM_HMAC_b3eff5e4a3d02ba86f8f60af85bb6cc7417457619cd619ae7e2d220a00d5afc9",
+    "timestamp_obs": "2023-06-10T12:00:00Z",
+    "timestamp_avail": "2023-06-05T04:00:00Z",
+    "reporting_period": "2023-W23",
+    "metric_name": "daily_gross_inflows",
+    "metric_value": 5000.0,
+    "metric_unit": "CURRENCY_BASE",
+    "currency": "USD"
+  }
+]

@@ -1,0 +1,10 @@
+{
+  "title": "Synthetic Software Test Fixtures Manifest",
+  "warning": "STRICTLY FOR SOFTWARE TESTING. NEVER USE FOR RISK MODELING OR EMPIRICAL EVALUATION.",
+  "creation_timestamp_utc": "2026-10-13T06:57:33.050856+00:00",
+  "files": {
+    "banking": "D:\\Financial Distress\\tests\\phase6_8\\fixtures\\synthetic_banking_payload.json",
+    "trade": "D:\\Financial Distress\\tests\\phase6_8\\fixtures\\synthetic_trade_payload.json",
+    "macro": "D:\\Financial Distress\\tests\\phase6_8\\fixtures\\synthetic_macro_payload.json"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "timestamp_utc": "2026-10-13T06:57:33.090660+00:00",
+  "pit_firm_feature_extraction": {
+    "firm_id": "FIRM_HMAC_1dad573061d833fb11e802279f45219b534b2b690a0449a46b04f8fafdcf0eaa",
+    "t_pred": "2023-06-03T23:59:59+00:00",
+    "has_external_data": true,
+    "latest_eod_cash_balance": null,
+    "max_days_past_due": 0.0,
+    "nsf_returned_events_count": 0
+  },
+  "vintage_selection_may1_value": 5.0,
+  "vintage_selection_jun1_value": 5.25,
+  "lookahead_prevention_status": "VERIFIED_ACTIVE"
+}

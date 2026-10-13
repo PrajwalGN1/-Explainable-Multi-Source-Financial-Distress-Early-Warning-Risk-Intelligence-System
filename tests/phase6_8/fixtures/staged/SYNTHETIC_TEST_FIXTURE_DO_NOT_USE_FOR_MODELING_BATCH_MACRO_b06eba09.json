@@ -1,0 +1,48 @@
+[
+  {
+    "firm_id": "FIRM_HMAC_305b292df670d221c4d50d9301d5e01179c2ddeea9f7e32374913a121b0b3356",
+    "source_id": "SYNTHETIC_TEST_FIXTURE_DO_NOT_USE_FOR_MODELING",
+    "event_id": "64822a08-e983-43bd-9000-a0bcf44899c8",
+    "timestamp_obs": "2023-03-31T00:00:00Z",
+    "timestamp_pub": "2023-04-28T12:30:00Z",
+    "timestamp_avail": "2023-04-28T12:30:00Z",
+    "timestamp_ingest": "2026-10-13T06:57:33.070856+00:00",
+    "reporting_period": "2023-Q1",
+    "metric_name": "central_bank_policy_rate",
+    "metric_value": 5.0,
+    "metric_unit": "PERCENT",
+    "currency": null,
+    "scale_factor": 1.0,
+    "is_imputed": false,
+    "missingness_code": "PRESENT",
+    "data_provenance": {
+      "schema_version": "1.1.0",
+      "source_batch_id": "BATCH_MACRO_b06eba09",
+      "raw_checksum_sha256": "00660dbf4cf61df8d4b76a2159cd57abce97b1483ca7f56b4a1397853b28be26",
+      "ingestion_pipeline_commit": "6635a6c"
+    }
+  },
+  {
+    "firm_id": "FIRM_HMAC_305b292df670d221c4d50d9301d5e01179c2ddeea9f7e32374913a121b0b3356",
+    "source_id": "SYNTHETIC_TEST_FIXTURE_DO_NOT_USE_FOR_MODELING",
+    "event_id": "044cd5a6-d14a-4151-87ec-6d47d9b45b0b",
+    "timestamp_obs": "2023-03-31T00:00:00Z",
+    "timestamp_pub": "2023-05-25T12:30:00Z",
+    "timestamp_avail": "2023-05-25T12:30:00Z",
+    "timestamp_ingest": "2026-10-13T06:57:33.070856+00:00",
+    "reporting_period": "2023-Q1",
+    "metric_name": "central_bank_policy_rate",
+    "metric_value": 5.25,
+    "metric_unit": "PERCENT",
+    "currency": null,
+    "scale_factor": 1.0,
+    "is_imputed": false,
+    "missingness_code": "PRESENT",
+    "data_provenance": {
+      "schema_version": "1.1.0",
+      "source_batch_id": "BATCH_MACRO_b06eba09",
+      "raw_checksum_sha256": "00660dbf4cf61df8d4b76a2159cd57abce97b1483ca7f56b4a1397853b28be26",
+      "ingestion_pipeline_commit": "6635a6c"
+    }
+  }
+]

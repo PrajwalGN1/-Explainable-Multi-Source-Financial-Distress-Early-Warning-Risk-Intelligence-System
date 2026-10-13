@@ -1,0 +1,129 @@
+{
+  "title": "Point-in-Time Data Contract Reconciliation Audit",
+  "version": "1.1.0",
+  "timestamp_utc": "2026-10-13T06:57:33.048618+00:00",
+  "reconciliation_summary": {
+    "previous_issue": "Phase 6.7 report text referenced a '15-field schema' while data_contract.json defined 16 keys.",
+    "resolution": "Codified 15 primitive columnar attributes + 1 lineage metadata object = 16 total canonical fields.",
+    "status": "RECONCILED_AND_VERSIONED"
+  },
+  "canonical_fields": [
+    {
+      "position": 1,
+      "name": "firm_id",
+      "type": "STRING",
+      "required": true,
+      "category": "PRIMITIVE_ATTRIBUTE"
+    },
+    {
+      "position": 2,
+      "name": "source_id",
+      "type": "STRING",
+      "required": true,
+      "category": "PRIMITIVE_ATTRIBUTE"
+    },
+    {
+      "position": 3,
+      "name": "event_id",
+      "type": "STRING",
+      "required": true,
+      "category": "PRIMITIVE_ATTRIBUTE"
+    },
+    {
+      "position": 4,
+      "name": "timestamp_obs",
+      "type": "TIMESTAMP_UTC",
+      "required": true,
+      "category": "PRIMITIVE_ATTRIBUTE"
+    },
+    {
+      "position": 5,
+      "name": "timestamp_pub",
+      "type": "TIMESTAMP_UTC",
+      "required": false,
+      "category": "PRIMITIVE_ATTRIBUTE"
+    },
+    {
+      "position": 6,
+      "name": "timestamp_avail",
+      "type": "TIMESTAMP_UTC",
+      "required": true,
+      "category": "PRIMITIVE_ATTRIBUTE"
+    },
+    {
+      "position": 7,
+      "name": "timestamp_ingest",
+      "type": "TIMESTAMP_UTC",
+      "required": true,
+      "category": "PRIMITIVE_ATTRIBUTE"
+    },
+    {
+      "position": 8,
+      "name": "reporting_period",
+      "type": "STRING",
+      "required": true,
+      "category": "PRIMITIVE_ATTRIBUTE"
+    },
+    {
+      "position": 9,
+      "name": "metric_name",
+      "type": "STRING",
+      "required": true,
+      "category": "PRIMITIVE_ATTRIBUTE"
+    },
+    {
+      "position": 10,
+      "name": "metric_value",
+      "type": "FLOAT",
+      "required": true,
+      "category": "PRIMITIVE_ATTRIBUTE"
+    },
+    {
+      "position": 11,
+      "name": "metric_unit",
+      "type": "STRING",
+      "required": true,
+      "category": "PRIMITIVE_ATTRIBUTE"
+    },
+    {
+      "position": 12,
+      "name": "currency",
+      "type": "STRING",
+      "required": false,
+      "category": "PRIMITIVE_ATTRIBUTE"
+    },
+    {
+      "position": 13,
+      "name": "scale_factor",
+      "type": "FLOAT",
+      "required": true,
+      "category": "PRIMITIVE_ATTRIBUTE"
+    },
+    {
+      "position": 14,
+      "name": "is_imputed",
+      "type": "BOOLEAN",
+      "required": true,
+      "category": "PRIMITIVE_ATTRIBUTE"
+    },
+    {
+      "position": 15,
+      "name": "missingness_code",
+      "type": "STRING",
+      "required": true,
+      "category": "PRIMITIVE_ATTRIBUTE"
+    },
+    {
+      "position": 16,
+      "name": "data_provenance",
+      "type": "OBJECT",
+      "required": true,
+      "category": "LINEAGE_METADATA_OBJECT"
+    }
+  ],
+  "invariants": [
+    "INVARIANT_01: T_obs <= T_avail <= T_ingest",
+    "INVARIANT_02: When T_pub present, T_obs <= T_pub <= T_avail",
+    "INVARIANT_03: Prediction cutoff T_avail <= T_pred strictly enforced"
+  ]
+}

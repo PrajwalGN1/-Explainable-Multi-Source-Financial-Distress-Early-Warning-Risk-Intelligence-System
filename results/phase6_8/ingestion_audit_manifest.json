@@ -1,0 +1,62 @@
+{
+  "timestamp_utc": "2026-10-13T06:57:33.091017+00:00",
+  "batches": [
+    {
+      "batch_id": "BATCH_BANK_c3e14ab2",
+      "source_id": "SYNTHETIC_TEST_FIXTURE_DO_NOT_USE_FOR_MODELING",
+      "schema_version": "1.1.0",
+      "raw_file_path": "D:\\Financial Distress\\tests\\phase6_8\\fixtures\\synthetic_banking_payload.json",
+      "raw_checksum_sha256": "55957e5165704085687d3b6cc3b37230ad11a11f88ae47040ef4d9f887139825",
+      "acquisition_timestamp_utc": "2026-10-13T06:57:33.058796+00:00",
+      "total_records_processed": 5,
+      "valid_records_staged": 4,
+      "quarantined_records_count": 1,
+      "staged_parquet_paths": [
+        "D:\\Financial Distress\\tests\\phase6_8\\fixtures\\staged\\SYNTHETIC_TEST_FIXTURE_DO_NOT_USE_FOR_MODELING_BATCH_BANK_c3e14ab2.json"
+      ],
+      "quarantine_log_path": "D:\\Financial Distress\\tests\\phase6_8\\fixtures\\quarantine\\SYNTHETIC_TEST_FIXTURE_DO_NOT_USE_FOR_MODELING_BATCH_BANK_c3e14ab2_quarantine.json",
+      "execution_status": "PARTIAL_SUCCESS",
+      "license_clearance": "VERIFIED_AUTHORIZED",
+      "error_summary": null
+    },
+    {
+      "batch_id": "BATCH_TRADE_1ec586ca",
+      "source_id": "SYNTHETIC_TEST_FIXTURE_DO_NOT_USE_FOR_MODELING",
+      "schema_version": "1.1.0",
+      "raw_file_path": "D:\\Financial Distress\\tests\\phase6_8\\fixtures\\synthetic_trade_payload.json",
+      "raw_checksum_sha256": "fc5adcd468bf92d1b2799569b5f2c024d506db77bafdd2683531458a3aaf1b6d",
+      "acquisition_timestamp_utc": "2026-10-13T06:57:33.067648+00:00",
+      "total_records_processed": 2,
+      "valid_records_staged": 2,
+      "quarantined_records_count": 0,
+      "staged_parquet_paths": [
+        "D:\\Financial Distress\\tests\\phase6_8\\fixtures\\staged\\SYNTHETIC_TEST_FIXTURE_DO_NOT_USE_FOR_MODELING_BATCH_TRADE_1ec586ca.json"
+      ],
+      "quarantine_log_path": null,
+      "execution_status": "SUCCESS",
+      "license_clearance": "VERIFIED_AUTHORIZED",
+      "error_summary": null
+    },
+    {
+      "batch_id": "BATCH_MACRO_b06eba09",
+      "source_id": "SYNTHETIC_TEST_FIXTURE_DO_NOT_USE_FOR_MODELING",
+      "schema_version": "1.1.0",
+      "raw_file_path": "D:\\Financial Distress\\tests\\phase6_8\\fixtures\\synthetic_macro_payload.json",
+      "raw_checksum_sha256": "00660dbf4cf61df8d4b76a2159cd57abce97b1483ca7f56b4a1397853b28be26",
+      "acquisition_timestamp_utc": "2026-10-13T06:57:33.069459+00:00",
+      "total_records_processed": 2,
+      "valid_records_staged": 2,
+      "quarantined_records_count": 0,
+      "staged_parquet_paths": [
+        "D:\\Financial Distress\\tests\\phase6_8\\fixtures\\staged\\SYNTHETIC_TEST_FIXTURE_DO_NOT_USE_FOR_MODELING_BATCH_MACRO_b06eba09.json"
+      ],
+      "quarantine_log_path": null,
+      "execution_status": "SUCCESS",
+      "license_clearance": "VERIFIED_AUTHORIZED",
+      "error_summary": null
+    }
+  ],
+  "total_records_processed": 9,
+  "total_valid_staged": 8,
+  "total_quarantined": 1
+}
