@@ -1,0 +1,146 @@
+{
+  "title": "Point-in-Time Enterprise Financial Risk Data Contract",
+  "version": "1.0.0",
+  "status": "APPROVED_SPECIFICATION",
+  "fields": {
+    "firm_id": {
+      "type": "STRING",
+      "required": true,
+      "format": "FIRM_HMAC_[a-f0-9]{32,64}",
+      "description": "Cryptographically masked, irreversible pseudonymous borrower identifier."
+    },
+    "source_id": {
+      "type": "STRING",
+      "required": true,
+      "enum": [
+        "BANK_PLAID_TRANSACTIONS",
+        "BANK_CODAT_LEDGER",
+        "BUREAU_DNB_PAYDEX",
+        "BUREAU_EXPERIAN_COMM",
+        "MACRO_FRED_ALFRED",
+        "INTERNAL_ACCOUNTING_DATASET_A"
+      ],
+      "description": "Registered unique identifier of data provider and stream."
+    },
+    "event_id": {
+      "type": "STRING",
+      "required": true,
+      "format": "UUIDv4 or SHA256 hex string",
+      "description": "Globally unique, deterministic identifier of observation event."
+    },
+    "timestamp_obs": {
+      "type": "STRING",
+      "required": true,
+      "format": "ISO 8601 UTC (YYYY-MM-DDTHH:MM:SSZ)",
+      "description": "Timestamp when the economic event occurred or account state was observed."
+    },
+    "timestamp_pub": {
+      "type": "STRING",
+      "required": true,
+      "format": "ISO 8601 UTC (YYYY-MM-DDTHH:MM:SSZ)",
+      "description": "Timestamp when the source provider published the record or finalized the tape."
+    },
+    "timestamp_avail": {
+      "type": "STRING",
+      "required": true,
+      "format": "ISO 8601 UTC (YYYY-MM-DDTHH:MM:SSZ)",
+      "description": "Timestamp when the data became queryable in the risk database. T_avail >= T_pub >= T_obs."
+    },
+    "timestamp_ingest": {
+      "type": "STRING",
+      "required": true,
+      "format": "ISO 8601 UTC (YYYY-MM-DDTHH:MM:SSZ)",
+      "description": "Timestamp when record was physically written to internal data lake landing zone."
+    },
+    "reporting_period": {
+      "type": "STRING",
+      "required": true,
+      "format": "YYYY-MM or YYYY-Q# or YYYY-W## or integer T",
+      "description": "Standardized accounting or economic reporting interval identifier."
+    },
+    "metric_name": {
+      "type": "STRING",
+      "required": true,
+      "format": "snake_case identifier",
+      "description": "Standardized canonical metric name."
+    },
+    "metric_value": {
+      "type": "FLOAT",
+      "required": true,
+      "description": "Normalized numeric value of metric."
+    },
+    "metric_unit": {
+      "type": "STRING",
+      "required": true,
+      "enum": [
+        "CURRENCY_BASE",
+        "PERCENT",
+        "PERCENT_BPS",
+        "RATIO",
+        "COUNT",
+        "DAYS",
+        "FLAG",
+        "INDEX_BASE100"
+      ],
+      "description": "Unit of measurement."
+    },
+    "currency": {
+      "type": "STRING",
+      "required": false,
+      "format": "ISO 4217 (e.g. USD, EUR, GBP)",
+      "description": "Denomination currency for monetary metrics. Null for dimensionless ratios."
+    },
+    "scale_factor": {
+      "type": "FLOAT",
+      "required": true,
+      "default": 1.0,
+      "description": "Multiplicative scaling factor applied to metric_value (e.g. 1000.0 for thousands)."
+    },
+    "is_imputed": {
+      "type": "BOOLEAN",
+      "required": true,
+      "default": false,
+      "description": "True if value was statistically imputed; False if raw observation."
+    },
+    "missingness_code": {
+      "type": "STRING",
+      "required": true,
+      "enum": [
+        "PRESENT",
+        "NOT_REPORTED",
+        "NOT_APPLICABLE",
+        "CORRUPTED",
+        "RIGHT_CENSORED"
+      ],
+      "description": "Categorical indicator of missingness status."
+    },
+    "data_provenance": {
+      "type": "OBJECT",
+      "required": true,
+      "properties": {
+        "schema_version": "STRING",
+        "source_batch_id": "STRING",
+        "raw_checksum_sha256": "STRING",
+        "ingestion_pipeline_commit": "STRING"
+      },
+      "description": "Complete cryptographic audit trail of data lineage."
+    }
+  },
+  "pseudonymous_identity_mapping_protocol": {
+    "algorithm": "HMAC-SHA256 with 256-bit cryptographically secure secret salt",
+    "salt_storage": "Enterprise Hardware Security Module (HSM) / Azure Key Vault / AWS KMS",
+    "salt_rotation_policy": "Annual rotation with deterministic legacy versioning",
+    "isolation_mandate": "Direct legal identifiers (Tax ID, Company Name, LEI) strictly barred from risk feature store and research workspaces.",
+    "entity_resolution_rules": [
+      "Exact match on Legal Entity Identifier (LEI) where available",
+      "Deterministic national registration number hash match",
+      "Fuzzy text matching on entity names strictly prohibited to prevent misattribution"
+    ]
+  },
+  "point_in_time_enforcement_invariants": [
+    "INVARIANT_TEMPORAL_ORDER: T_obs <= T_pub <= T_avail <= T_ingest",
+    "INVARIANT_PREDICTION_CUTOFF: Feature x valid at T_pred iff T_avail(x) <= T_pred",
+    "INVARIANT_VINTAGE_SELECTION: For revised macro series, MacroValue(t; T_pred) = Vintage(t, max{T_release <= T_pred})",
+    "INVARIANT_NO_FUTURE_PROXY: Zero synthesis or lookahead imputation permitted"
+  ]
+}

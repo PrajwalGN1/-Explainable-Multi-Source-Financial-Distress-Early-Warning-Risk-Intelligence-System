@@ -1,0 +1,64 @@
+{
+  "metadata": {
+    "title": "Point-in-Time Integration Architecture & Historical Evaluation Plan",
+    "version": "1.0.0",
+    "date": "2026-10-13",
+    "author": "Senior Financial Data Engineer & Model Risk Validator"
+  },
+  "multi_tier_architecture": {
+    "tier_1_raw_landing_zone": {
+      "path": "data/external/raw/<source_id>/<year>/<month>/",
+      "format": "Immutable raw payload (JSON/CSV/XML) + SHA256 sidecar manifest",
+      "permissions": "Read-only (WORM - Write Once, Read Many)",
+      "governance": "Cryptographically signed; legal license metadata required before write."
+    },
+    "tier_2_staged_validated": {
+      "path": "data/external/staged/<source_id>/",
+      "format": "Apache Parquet partitioned by reporting_period",
+      "schema_enforcement": "Point-in-Time Data Contract v1.0.0 schema applied",
+      "quality_filtering": "Passed all 10 Data Quality Rules (DQ_RULE_01 to DQ_RULE_10)"
+    },
+    "tier_3_point_in_time_feature_mart": {
+      "path": "data/external/integrated/",
+      "format": "Standardized longitudinal feature mart",
+      "point_in_time_enforcement": "Features joined strictly where T_avail <= T_pred",
+      "leakage_safeguard": "Delta T reporting delay explicitly added to observation timestamps."
+    }
+  },
+  "historical_evaluation_plan": {
+    "statistical_power_analysis": {
+      "objective": "Determine minimum sudden distress events required to validate candidate sensitivity superiority.",
+      "baseline_production_sudden_recall": 0.0,
+      "target_candidate_sudden_recall": 0.6,
+      "significance_level_alpha": 0.05,
+      "target_statistical_power": 0.8,
+      "minimum_required_sudden_distress_events": 35,
+      "minimum_total_distress_events": 70,
+      "minimum_total_firms_in_validation_cohort": 875,
+      "alert_cap_formula": "M = floor(0.08 * N_firms)",
+      "conclusion": "Statistical power requires at least 35 sudden distress cases to reliably confirm a 60% sensitivity gain under the 8% alert budget."
+    },
+    "audit_of_existing_t13_to_t14_cohort_limitations": {
+      "cohort_identifier": "Tehran SME Panel (Dataset A) T=13 to T=14 transition",
+      "total_eligible_firms": 262,
+      "total_distress_events": 11,
+      "sudden_distress_events": 5,
+      "chronic_distress_events": 6,
+      "alert_cap_at_8_percent": 20,
+      "critical_limitations": [
+        "EXHAUSTED_RESEARCH_SAMPLE: Cohort repeatedly evaluated across Phases 6.4, 6.4.1, 6.4.2, 6.4.3, 6.5, and 6.6.",
+        "CIRCULAR_OVERFITTING_RISK: Any model optimized on this specific cohort represents retrospective data snooping, not confirmatory testing.",
+        "INSUFFICIENT_STATISTICAL_POWER: With only 5 sudden failure cases, a single misclassification shifts recall by 20.0 percentage points.",
+        "UNVERIFIED_FOR_PROMOTION: Cannot be used as an untouched confirmatory holdout under Federal Reserve SR 11-7 standards."
+      ],
+      "confirmatory_claim_prohibition": "Confirmatory performance claims based on the T13-to-T14 cohort are strictly prohibited."
+    },
+    "requirements_for_prospective_evaluation_cohort": {
+      "minimum_firms": 1000,
+      "minimum_longitudinal_depth_years": 5,
+      "untouched_quarantine": "Prospective cohort must remain strictly sequestered in cold storage until model architecture is frozen.",
+      "reporting_lag_simulation": "Systematic lag testing across Delta T in [15d, 30d, 60d, 90d, 180d].",
+      "right_censored_treatment": "Firms exiting observation without distress within 12 months must be censored, not marked non-distressed."
+    }
+  }
+}

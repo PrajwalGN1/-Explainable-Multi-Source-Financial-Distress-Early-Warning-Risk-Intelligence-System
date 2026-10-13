@@ -1,0 +1,87 @@
+{
+  "engine_version": "1.0.0",
+  "total_rules": 10,
+  "execution_mode": "STRICT_PRE_INGESTION_GATE",
+  "rules": [
+    {
+      "rule_id": "DQ_RULE_01",
+      "rule_name": "PRIMARY_KEY_AND_DUPLICATE_EVENT_CHECK",
+      "severity": "FATAL_REJECTION",
+      "description": "Ensures no duplicate records exist for combination of (firm_id, source_id, metric_name, timestamp_obs).",
+      "logic": "count(records) == count(distinct(firm_id, source_id, metric_name, timestamp_obs))",
+      "action_on_failure": "Reject entire batch; alert pipeline engineer."
+    },
+    {
+      "rule_id": "DQ_RULE_02",
+      "rule_name": "TEMPORAL_TIMESTAMP_SEQUENCE_INTEGRITY",
+      "severity": "FATAL_REJECTION",
+      "description": "Enforces valid ISO 8601 formatting and strict inequality: T_obs <= T_pub <= T_avail <= T_ingest <= Now_UTC.",
+      "logic": "T_obs <= T_pub and T_pub <= T_avail and T_avail <= T_ingest and T_ingest <= current_timestamp_utc()",
+      "action_on_failure": "Reject offending record; log timestamp discrepancy anomaly."
+    },
+    {
+      "rule_id": "DQ_RULE_03",
+      "rule_name": "PHYSICAL_AND_NUMERICAL_VALUE_SANITY",
+      "severity": "FATAL_REJECTION",
+      "description": "Validates that metric values fall within physically admissible domains.",
+      "logic": "For DPD: value >= 0; For Overdraft Headroom: 0.0 <= value <= 5.0; For Bank Balance: not null and not NaN and not +/-Inf.",
+      "action_on_failure": "Quarantine record into dead-letter queue."
+    },
+    {
+      "rule_id": "DQ_RULE_04",
+      "rule_name": "CURRENCY_AND_DENOMINATION_STANDARDIZATION",
+      "severity": "ERROR_CORRECTION_REQUIRED",
+      "description": "Monetary metrics must have valid ISO 4217 currency; must be converted to base currency via point-in-time FX spot.",
+      "logic": "currency in ['USD', 'EUR', 'GBP', 'JPY', 'IRR', 'TWD'] and fx_rate_timestamp == T_obs",
+      "action_on_failure": "Reject conversion if historical point-in-time FX rate unavailable."
+    },
+    {
+      "rule_id": "DQ_RULE_05",
+      "rule_name": "TEMPORAL_CADENCE_AND_UNEXPECTED_GAPS",
+      "severity": "WARNING_INVESTIGATION",
+      "description": "Flags abnormal gaps in continuous reporting feeds (e.g. daily bank feed missing > 14 consecutive calendar days).",
+      "logic": "max_gap_days(firm_id, source_id) <= expected_cadence_days * 3",
+      "action_on_failure": "Mark entity as 'INCOMPLETE_SERIES'; do not use for sudden distress validation."
+    },
+    {
+      "rule_id": "DQ_RULE_06",
+      "rule_name": "BACKFILLED_RECORD_DETECTION_AND_TAGGING",
+      "severity": "GOVERNANCE_RESTRICTION",
+      "description": "Flags records where T_ingest occurs > 30 days after T_avail as backfills.",
+      "logic": "if (T_ingest - T_avail) > 30 days then is_backfilled = true",
+      "action_on_failure": "Disallow backfilled record in backtesting for any T_pred < T_ingest."
+    },
+    {
+      "rule_id": "DQ_RULE_07",
+      "rule_name": "FIRM_PSEUDONYM_HASH_INTEGRITY",
+      "severity": "FATAL_REJECTION",
+      "description": "Validates that firm_id conforms to approved pseudonym regex and matches active key registry.",
+      "logic": "matches_regex(firm_id, '^FIRM_HMAC_[a-f0-9]{32,64}$') and is_registered(firm_id)",
+      "action_on_failure": "Drop record immediately; security alert for unmapped identity."
+    },
+    {
+      "rule_id": "DQ_RULE_08",
+      "rule_name": "REPORTING_CADENCE_CONSISTENCY",
+      "severity": "WARNING_INVESTIGATION",
+      "description": "Verifies that reporting frequency does not fluctuate erratically without provider notification.",
+      "logic": "frequency_variance(firm_id, source_id) <= tolerance_threshold",
+      "action_on_failure": "Trigger provider feed health alert."
+    },
+    {
+      "rule_id": "DQ_RULE_09",
+      "rule_name": "STATISTICAL_DISTRIBUTION_SHIFT_ALERT",
+      "severity": "WARNING_INVESTIGATION",
+      "description": "Monitors population stability index (PSI) and extreme z-score excursions (> 6 sigma) against baseline.",
+      "logic": "PSI(current_batch, historical_baseline) < 0.25 and abs(z_score) < 6.0",
+      "action_on_failure": "Escalate to Model Risk Validator for drift review."
+    },
+    {
+      "rule_id": "DQ_RULE_10",
+      "rule_name": "CRYPTOGRAPHIC_DATA_PROVENANCE_AND_LEGAL_SEAL",
+      "severity": "FATAL_REJECTION",
+      "description": "Verifies SHA-256 hash of source raw payload and confirms active legal license metadata.",
+      "logic": "sha256(raw_payload) == data_provenance.raw_checksum_sha256 and legal_clearance_status == 'APPROVED'",
+      "action_on_failure": "Halt ingestion pipeline; data quarantined until compliance sign-off."
+    }
+  ]
+}

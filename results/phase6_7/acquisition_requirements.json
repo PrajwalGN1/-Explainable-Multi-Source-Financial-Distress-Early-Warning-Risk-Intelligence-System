@@ -1,0 +1,158 @@
+{
+  "metadata": {
+    "title": "External Data Requirements Specification",
+    "version": "1.0.0",
+    "date": "2026-10-13",
+    "objective": "Define explicit technical requirements to anticipate sudden distress in SMEs under the strict 8% alert cap."
+  },
+  "modalities": {
+    "family_a_banking_cash_flow": {
+      "description": "High-frequency transaction-level bank account telemetry to monitor liquidity burn and cash-flow volatility.",
+      "fields": [
+        {
+          "name": "daily_gross_inflows",
+          "type": "FLOAT",
+          "unit": "CURRENCY_BASE",
+          "description": "Sum of all incoming account credits settling on observation date T_obs."
+        },
+        {
+          "name": "daily_gross_outflows",
+          "type": "FLOAT",
+          "unit": "CURRENCY_BASE",
+          "description": "Sum of all outgoing account debits settling on observation date T_obs."
+        },
+        {
+          "name": "eod_available_cash_balance",
+          "type": "FLOAT",
+          "unit": "CURRENCY_BASE",
+          "description": "End-of-day ledger balance net of encumbered funds and pending holds."
+        },
+        {
+          "name": "rolling_30d_net_cash_flow_volatility",
+          "type": "FLOAT",
+          "unit": "RATIO_OR_CURRENCY",
+          "description": "Sample standard deviation of daily net cash flows over backward-looking 30-day window."
+        },
+        {
+          "name": "nsf_returned_payment_count",
+          "type": "INTEGER",
+          "unit": "COUNT",
+          "description": "Count of bounced checks, returned ACH debits, or failed outward payments on date T_obs."
+        },
+        {
+          "name": "overdraft_headroom_utilization",
+          "type": "FLOAT",
+          "unit": "RATIO",
+          "description": "Drawn balance divided by approved credit limit. Values > 1.0 indicate unapproved overdraft."
+        }
+      ],
+      "temporal_specifications": {
+        "cadence": "DAILY_OR_WEEKLY",
+        "observation_timestamp_definition": "Transaction settlement timestamp T_obs (ISO 8601 UTC).",
+        "availability_timestamp_definition": "API availability timestamp T_avail = T_obs + Delta_T, where Delta_T <= 24 hours.",
+        "minimum_historical_depth_months": 36,
+        "target_frequency_hz": "1 / day"
+      },
+      "feasibility_rationale": "SME acute distress typically presents as a liquidity run 30-60 days before legal insolvency; daily cash dynamics capture sudden depletion invisible to annual accrual ratios."
+    },
+    "family_b_trade_credit_payment_behavior": {
+      "description": "Commercial B2B trade credit payment tape and supplier invoice aging records.",
+      "fields": [
+        {
+          "name": "invoice_issue_date",
+          "type": "TIMESTAMP",
+          "unit": "ISO8601",
+          "description": "Date supplier generated invoice."
+        },
+        {
+          "name": "invoice_due_date",
+          "type": "TIMESTAMP",
+          "unit": "ISO8601",
+          "description": "Contractual payment due date."
+        },
+        {
+          "name": "invoice_settlement_date",
+          "type": "TIMESTAMP",
+          "unit": "ISO8601",
+          "description": "Date invoice was cleared/paid (or null if delinquent/unpaid)."
+        },
+        {
+          "name": "days_past_due_max",
+          "type": "INTEGER",
+          "unit": "DAYS",
+          "description": "Maximum days past due across all active outstanding supplier invoices."
+        },
+        {
+          "name": "delinquency_amount_30_60_dpd",
+          "type": "FLOAT",
+          "unit": "CURRENCY_BASE",
+          "description": "Total monetary value of trade payables delinquent between 31 and 60 days."
+        },
+        {
+          "name": "delinquency_amount_90plus_dpd",
+          "type": "FLOAT",
+          "unit": "CURRENCY_BASE",
+          "description": "Total monetary value of trade payables delinquent beyond 90 days."
+        },
+        {
+          "name": "supplier_dispute_flag",
+          "type": "BOOLEAN",
+          "unit": "FLAG",
+          "description": "True if borrower has formal trade disputes, stop-shipments, or COD conversions logged."
+        }
+      ],
+      "temporal_specifications": {
+        "cadence": "MONTHLY_BUREAU_TAPE",
+        "observation_timestamp_definition": "Billing cycle cutoff date T_obs (e.g. month-end).",
+        "availability_timestamp_definition": "Bureau tape publication date T_avail = T_obs + Delta_T, where Delta_T is typically 30 to 45 days.",
+        "minimum_historical_depth_months": 48,
+        "target_frequency_hz": "1 / month"
+      },
+      "feasibility_rationale": "Distressed SMEs systematically stretch supplier trade credit (DPO) and default on vendors prior to defaulting on bank debt."
+    },
+    "family_c_macroeconomic_and_sector_stress": {
+      "description": "Macroeconomic interest rate curves, sector industrial output indices, and commodity prices.",
+      "fields": [
+        {
+          "name": "central_bank_policy_rate",
+          "type": "FLOAT",
+          "unit": "PERCENT",
+          "description": "Target benchmark policy rate (e.g. Fed Funds, ECB MRO rate)."
+        },
+        {
+          "name": "sovereign_yield_spread_10y_2y",
+          "type": "FLOAT",
+          "unit": "PERCENT_BPS",
+          "description": "10-year minus 2-year sovereign bond yield spread (yield curve slope)."
+        },
+        {
+          "name": "sector_industrial_production_index",
+          "type": "FLOAT",
+          "unit": "INDEX_BASE100",
+          "description": "Monthly volume of production for 2-digit industry classification."
+        },
+        {
+          "name": "sector_demand_shock_delta",
+          "type": "FLOAT",
+          "unit": "PERCENT_CHANGE",
+          "description": "Year-over-year percentage change in monthly sector manufacturing or retail sales."
+        },
+        {
+          "name": "energy_commodity_price_index",
+          "type": "FLOAT",
+          "unit": "INDEX_BASE100",
+          "description": "Broad energy/fuel input commodity price index."
+        }
+      ],
+      "temporal_specifications": {
+        "cadence": "DAILY_OR_MONTHLY",
+        "observation_timestamp_definition": "Calendar month or trade date T_obs.",
+        "availability_timestamp_definition": "Official release date of initial vintage T_pub = T_avail. Historical revisions must be indexed by vintage release date.",
+        "minimum_historical_depth_months": 120,
+        "target_frequency_hz": "Daily for rates/commodities; Monthly for production"
+      },
+      "feasibility_rationale": "SMEs exhibit high sensitivity to monetary tightening cycles and sector-specific demand contractions."
+    }
+  },
+  "governance_mandate": "All candidate data specifications are requirements. None may be assumed present until physically verified in repository storage."
+}

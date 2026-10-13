@@ -1,0 +1,197 @@
+{
+  "assessment_metadata": {
+    "evaluation_date": "2026-10-13",
+    "evaluator": "Senior Financial Data Engineer & Model Risk Validator",
+    "total_providers_audited": 5,
+    "governance_rule": "Claims regarding capabilities, pricing, and coverage must be labeled CONFIRMED or UNVERIFIED_ESTIMATE."
+  },
+  "providers": [
+    {
+      "provider_id": "PLAID_TECH",
+      "provider_name": "Plaid Inc.",
+      "product_name": "Plaid Assets & Transactions API",
+      "category": "Banking & Cash-Flow Aggregator",
+      "geographic_coverage": "United States, Canada, United Kingdom, European Union",
+      "sme_eligibility": "Requires SME borrower to complete OAuth account-linking consent flow.",
+      "data_fields_available": [
+        "historical_transactions_24m",
+        "real_time_balance",
+        "nsf_fee_events",
+        "income_verification"
+      ],
+      "historical_depth": "Up to 24 months of settled transaction ledger entries.",
+      "refresh_frequency": "Continuous / Webhook on settlement (1 to 4 syncs daily).",
+      "timestamp_guarantees": "ISO 8601 transaction posted timestamp and authorized timestamp provided.",
+      "reporting_lag_guarantee": "Delta T <= 24 hours from bank clearing.",
+      "licensing_and_permitted_use": "Commercial SaaS agreement. Permitted for underwriting and credit risk monitoring. Re-distribution prohibited.",
+      "consent_and_privacy_requirements": "Explicit SME authorized officer consent under Dodd-Frank 1033 / GDPR / PSD2. 90-180 day consent re-authorization required in EU/UK.",
+      "indicative_cost": {
+        "status": "UNVERIFIED_ESTIMATE",
+        "estimated_range_usd": "$1.50 - $3.50 per connected account / month + API volume fees",
+        "basis": "Industry benchmark pricing; formal vendor quote required."
+      },
+      "delivery_method": "REST API (JSON) + Webhook push notifications",
+      "minimum_viable_sample_size": "500 SME cohorts with continuous 24-month connection",
+      "acquisition_owner": "Credit Technology & Data Engineering Lead",
+      "approval_dependencies": [
+        "Enterprise Vendor Security Review (SOC 2 Type II audit)",
+        "Legal & Regulatory Privacy Compliance Review",
+        "Executive Credit Risk Committee Budget Approval"
+      ],
+      "confirmed_capabilities_summary": "High API uptime (99.9%), standardized transaction classification, supports thousands of financial institutions.",
+      "unverified_assumptions": [
+        "Ability to obtain historical backfills for firms that subsequently failed",
+        "Willingness of distressed SMEs to maintain active OAuth tokens"
+      ]
+    },
+    {
+      "provider_id": "CODAT_IO",
+      "provider_name": "Codat Ltd.",
+      "product_name": "Codat Universal Accounting & Banking API",
+      "category": "Accounting & Banking Integration Platform",
+      "geographic_coverage": "US, UK, EU, Australia, New Zealand",
+      "sme_eligibility": "SMEs utilizing cloud accounting (QuickBooks, Xero, Sage) or business banking.",
+      "data_fields_available": [
+        "daily_bank_transactions",
+        "accounts_payable_ledger",
+        "accounts_receivable_aging",
+        "profit_and_loss_monthly"
+      ],
+      "historical_depth": "Up to 36 months of accounting ledger and bank feeds.",
+      "refresh_frequency": "Scheduled daily sync or on-demand push.",
+      "timestamp_guarantees": "Direct ledger entry timestamps from underlying SME accounting software.",
+      "reporting_lag_guarantee": "Real-time to 24-hour sync lag depending on SME accounting updates.",
+      "licensing_and_permitted_use": "Enterprise data platform license. Data storage in enterprise cloud permitted.",
+      "consent_and_privacy_requirements": "Single sign-on SME consent; subject to GDPR and local data protection regulations.",
+      "indicative_cost": {
+        "status": "UNVERIFIED_ESTIMATE",
+        "estimated_range_usd": "$20.00 - $45.00 per active SME profile / month",
+        "basis": "Enterprise SaaS tier estimate; custom contract negotiation required."
+      },
+      "delivery_method": "REST API + Webhooks + Direct Cloud Storage Export (Parquet/S3)",
+      "minimum_viable_sample_size": "300 SME cohorts with linked accounting ledgers",
+      "acquisition_owner": "SME Lending Product Team",
+      "approval_dependencies": [
+        "Data Protection Officer (DPO) Privacy Impact Assessment",
+        "Architecture Review Board Approval"
+      ],
+      "confirmed_capabilities_summary": "Unified data model across multiple ERPs, includes both bank cash-flow and invoice aging.",
+      "unverified_assumptions": [
+        "Consistent bookkeeping hygiene across distressed micro-enterprises",
+        "Latency of SME manual reconciliation"
+      ]
+    },
+    {
+      "provider_id": "DNB_GLOBAL",
+      "provider_name": "Dun & Bradstreet",
+      "product_name": "D&B Commercial Credit Risk / PAYDEX Data Tape",
+      "category": "Commercial Credit Bureau",
+      "geographic_coverage": "Global (over 500 million commercial entities across 200+ countries)",
+      "sme_eligibility": "All registered commercial enterprises with active trade supplier lines.",
+      "data_fields_available": [
+        "paydex_score",
+        "total_past_due_amount",
+        "aging_buckets_30_60_90_120_dpd",
+        "trade_payment_experiences_count",
+        "commercial_credit_rating"
+      ],
+      "historical_depth": "Up to 60 months of historical monthly snapshots.",
+      "refresh_frequency": "Monthly batch tapes; On-demand API queries.",
+      "timestamp_guarantees": "Monthly reporting cycle cutoff timestamp (T_obs) and publication timestamp (T_pub).",
+      "reporting_lag_guarantee": "Delta T between 30 and 45 calendar days past statement cycle.",
+      "licensing_and_permitted_use": "Commercial Credit Bureau Data License. Internal credit modeling permitted. Third-party disclosure prohibited.",
+      "consent_and_privacy_requirements": "Business entity data (B2B); generally exempt from consumer credit laws (FCRA), but corporate entity licensing terms apply.",
+      "indicative_cost": {
+        "status": "UNVERIFIED_ESTIMATE",
+        "estimated_range_usd": "$25,000 - $75,000 / year enterprise subscription based on entity volume",
+        "basis": "Commercial bureau tier pricing; formal sales quotation required."
+      },
+      "delivery_method": "SFTP Batch (CSV/Parquet) + Direct REST API",
+      "minimum_viable_sample_size": "1,000+ commercial SMEs across diverse industrial sectors",
+      "acquisition_owner": "Enterprise Risk Management & Credit Bureau Relationship Manager",
+      "approval_dependencies": [
+        "Corporate Procurement & Legal Contract Execution",
+        "Model Risk Management Data Lineage Approval"
+      ],
+      "confirmed_capabilities_summary": "Standardized PAYDEX score (0-100), deep longitudinal trade credit payment experiences.",
+      "unverified_assumptions": [
+        "Sufficient trade reference density for very small or newly established SMEs",
+        "Exact mapping of D&B D-U-N-S numbers to anonymized Dataset A entities (Structurally impossible without unmasking)"
+      ]
+    },
+    {
+      "provider_id": "EXPERIAN_COMM",
+      "provider_name": "Experian Commercial",
+      "product_name": "Experian Commercial Credit & Intelliscore Plus",
+      "category": "Commercial Credit Bureau",
+      "geographic_coverage": "US, UK, select European markets",
+      "sme_eligibility": "Commercial entities with trade credit and commercial banking relationships.",
+      "data_fields_available": [
+        "intelliscore_plus",
+        "commercial_trade_lines",
+        "days_beyond_terms_dbt",
+        "derogatory_legal_filings",
+        "tax_liens_and_bankruptcies"
+      ],
+      "historical_depth": "36 to 84 months longitudinal depth.",
+      "refresh_frequency": "Monthly batch / Real-time API query.",
+      "timestamp_guarantees": "Observation date and trade reporting date explicitly recorded.",
+      "reporting_lag_guarantee": "Delta T approx 30-40 days for trade payment experiences.",
+      "licensing_and_permitted_use": "Commercial Risk Analytics License. Model development authorized.",
+      "consent_and_privacy_requirements": "Commercial permissible purpose under business credit evaluation standards.",
+      "indicative_cost": {
+        "status": "UNVERIFIED_ESTIMATE",
+        "estimated_range_usd": "$20,000 - $60,000 / year based on query volume",
+        "basis": "Standard commercial data agreements."
+      },
+      "delivery_method": "Secure SFTP + REST API",
+      "minimum_viable_sample_size": "1,000 SME entities",
+      "acquisition_owner": "Credit Bureau Vendor Manager",
+      "approval_dependencies": [
+        "Vendor Due Diligence Review",
+        "Legal Data Use Agreement"
+      ],
+      "confirmed_capabilities_summary": "Comprehensive DBT metrics, combined business and principal credit risk analytics.",
+      "unverified_assumptions": [
+        "Match rates on cross-border or foreign SME cohorts"
+      ]
+    },
+    {
+      "provider_id": "FRED_ALFRED",
+      "provider_name": "Federal Reserve Bank of St. Louis",
+      "product_name": "ALFRED (Archival Federal Reserve Economic Data)",
+      "category": "Official Macroeconomic Real-Time Vintages",
+      "geographic_coverage": "United States and major international sovereign economies",
+      "sme_eligibility": "Public macroeconomic benchmarks; applicable to all commercial risk models.",
+      "data_fields_available": [
+        "effective_federal_funds_rate",
+        "treasury_yield_curve_spreads",
+        "industrial_production_by_sector",
+        "consumer_price_index",
+        "crude_oil_and_commodity_prices"
+      ],
+      "historical_depth": "Over 50 years of historical observations and vintage revisions.",
+      "refresh_frequency": "Daily / Weekly / Monthly depending on series.",
+      "timestamp_guarantees": "Exact vintage release dates and historical revision timestamps verified.",
+      "reporting_lag_guarantee": "Initial release published on official release calendar (Delta T = 0 from official release).",
+      "licensing_and_permitted_use": "Public Domain / Open Data. Unrestricted commercial and research use.",
+      "consent_and_privacy_requirements": "None. Aggregate macroeconomic statistics contain zero PII.",
+      "indicative_cost": {
+        "status": "CONFIRMED_FREE",
+        "estimated_range_usd": "$0.00 (Public Service)",
+        "basis": "Official public data API provided by Federal Reserve Bank."
+      },
+      "delivery_method": "Public REST API (JSON / XML / CSV)",
+      "minimum_viable_sample_size": "Full temporal coverage (all macroeconomic dates)",
+      "acquisition_owner": "Senior Financial Data Engineer",
+      "approval_dependencies": [
+        "API Key Registration (Self-service)",
+        "Data Governance Architecture Review"
+      ],
+      "confirmed_capabilities_summary": "Gold-standard vintage tracking prevents lookahead bias from ex-post revisions.",
+      "unverified_assumptions": [
+        "Direct correlation of US/OECD macro curves with emerging-market SME distress trajectories"
+      ]
+    }
+  ]
+}
