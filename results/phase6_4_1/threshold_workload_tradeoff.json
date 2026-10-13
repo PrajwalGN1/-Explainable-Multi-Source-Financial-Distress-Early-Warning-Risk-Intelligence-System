@@ -1,0 +1,118 @@
+{
+  "operating_rules": {
+    "integer_cap_rule": "maximum_alerts = floor(cohort_size * 0.08)",
+    "registered_candidate_operating_point": 0.0894,
+    "official_production_operating_point": 0.08
+  },
+  "prospective_cohort_audit": {
+    "cohort_size": 270,
+    "integer_cap": 21,
+    "candidate_alerts_at_registered_threshold": 23,
+    "alert_rate_pct": 8.52,
+    "excess_alerts": 2,
+    "compliance_status": "CAPACITY_BREACH"
+  },
+  "matured_cohort_audit": {
+    "cohort_size": 264,
+    "integer_cap": 21,
+    "candidate_alerts": 19,
+    "alert_rate_pct": 7.2,
+    "excess_alerts": 0,
+    "compliance_status": "COMPLIANT"
+  },
+  "threshold_workload_tradeoff_ledger": [
+    {
+      "threshold": 0.08,
+      "prospective_alerts": 26,
+      "prospective_alert_rate_pct": 9.63,
+      "prospective_excess_alerts": 5,
+      "is_prospective_compliant": false,
+      "matured_distress_detected": 5,
+      "matured_distress_missed": 3,
+      "matured_recall": 0.625
+    },
+    {
+      "threshold": 0.085,
+      "prospective_alerts": 26,
+      "prospective_alert_rate_pct": 9.63,
+      "prospective_excess_alerts": 5,
+      "is_prospective_compliant": false,
+      "matured_distress_detected": 5,
+      "matured_distress_missed": 3,
+      "matured_recall": 0.625
+    },
+    {
+      "threshold": 0.0894,
+      "prospective_alerts": 23,
+      "prospective_alert_rate_pct": 8.52,
+      "prospective_excess_alerts": 2,
+      "is_prospective_compliant": false,
+      "matured_distress_detected": 5,
+      "matured_distress_missed": 3,
+      "matured_recall": 0.625
+    },
+    {
+      "threshold": 0.09,
+      "prospective_alerts": 23,
+      "prospective_alert_rate_pct": 8.52,
+      "prospective_excess_alerts": 2,
+      "is_prospective_compliant": false,
+      "matured_distress_detected": 5,
+      "matured_distress_missed": 3,
+      "matured_recall": 0.625
+    },
+    {
+      "threshold": 0.092,
+      "prospective_alerts": 22,
+      "prospective_alert_rate_pct": 8.15,
+      "prospective_excess_alerts": 1,
+      "is_prospective_compliant": false,
+      "matured_distress_detected": 5,
+      "matured_distress_missed": 3,
+      "matured_recall": 0.625
+    },
+    {
+      "threshold": 0.093,
+      "prospective_alerts": 20,
+      "prospective_alert_rate_pct": 7.41,
+      "prospective_excess_alerts": 0,
+      "is_prospective_compliant": true,
+      "matured_distress_detected": 4,
+      "matured_distress_missed": 4,
+      "matured_recall": 0.5
+    },
+    {
+      "threshold": 0.095,
+      "prospective_alerts": 20,
+      "prospective_alert_rate_pct": 7.41,
+      "prospective_excess_alerts": 0,
+      "is_prospective_compliant": true,
+      "matured_distress_detected": 4,
+      "matured_distress_missed": 4,
+      "matured_recall": 0.5
+    },
+    {
+      "threshold": 0.1,
+      "prospective_alerts": 19,
+      "prospective_alert_rate_pct": 7.04,
+      "prospective_excess_alerts": 0,
+      "is_prospective_compliant": true,
+      "matured_distress_detected": 4,
+      "matured_distress_missed": 4,
+      "matured_recall": 0.5
+    }
+  ],
+  "policy_assessment_of_alternative_threshold_0_0930": {
+    "candidate_threshold": 0.093,
+    "prospective_alerts": 20,
+    "prospective_excess": 0,
+    "compliance_status": "COMPLIANT (7.41% <= 8.0%)",
+    "distress_recall_impact": {
+      "recall_at_registered_0_0894": 0.625,
+      "recall_at_alternative_0_0930": 0.5,
+      "missed_distress_events_delta": 1,
+      "recall_penalty_percentage_points": 12.5
+    },
+    "governance_ruling": "REJECTED AS SILENT ADJUSTMENT. Although raising the candidate threshold to 0.0930 mechanically satisfies the 8% capacity cap, it imposes an immediate 12.5 percentage point penalty on distress recall (dropping from 62.5% to 50.0% and missing an additional corporate distress case). Adopting 0.0930 without formal governance re-authorization would constitute unapproved post-hoc optimization. The registered threshold remains fixed at 0.0894."
+  }
+}

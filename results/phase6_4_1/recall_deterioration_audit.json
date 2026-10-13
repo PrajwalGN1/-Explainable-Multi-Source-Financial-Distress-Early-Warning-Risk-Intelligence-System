@@ -1,0 +1,273 @@
+{
+  "evaluation_cohort_composition": {
+    "prediction_observation_period": 13,
+    "target_realization_period": 14,
+    "total_observed_at_t13": 274,
+    "matured_cohort_size": 262,
+    "right_censored_filing_cessation_count": 12,
+    "matured_distress_event_count": 11,
+    "matured_healthy_firm_count": 251,
+    "overlap_with_t13_distress_events": {
+      "overlap_count": 0,
+      "overlap_company_ids": [],
+      "finding": "ZERO_OVERLAP. The 11 distress events at T=14 represent an entirely new set of corporate failures distinct from T=13."
+    },
+    "prediction_horizon_consistency": "IDENTICAL (1-period forward horizon T -> T+1, statutory distress threshold FD <= -0.5)"
+  },
+  "performance_reconstruction": {
+    "production_baseline": {
+      "detected_count": 5,
+      "total_distress": 11,
+      "recall": 0.4545,
+      "precision": 0.1351,
+      "alerts": 37,
+      "brier_score": 0.0382
+    },
+    "shadow_candidate": {
+      "detected_count": 3,
+      "total_distress": 11,
+      "recall": 0.2727,
+      "precision": 0.15,
+      "alerts": 20,
+      "brier_score": 0.0389
+    },
+    "performance_differential": {
+      "recall_delta": -0.1818,
+      "recall_loss_percentage_points": 18.18,
+      "verdict": "SEVERE_RECALL_DETERIORATION (Candidate recall drops to 27.27% vs 45.45% for production)"
+    }
+  },
+  "case_level_paired_detection_audit": {
+    "total_distress_cases": 11,
+    "both_detected_count": 3,
+    "production_only_detected_count": 2,
+    "candidate_only_detected_count": 0,
+    "both_missed_count": 6,
+    "production_only_detected_cases": [
+      {
+        "case_identifier": "Case_T14_02",
+        "anonymized_firm_id": 28,
+        "prior_period_distress_fd_t13": 1.443,
+        "target_period_distress_fd_t14": -0.6815,
+        "prior_ratio_x12_at_t13": 2.509,
+        "prior_ratio_x48_at_t13": 4423.1,
+        "prior_ratio_x16_at_t13": 0.0356,
+        "prior_ratio_x25_at_t13": 1025.3,
+        "prior_ratio_x2_at_t13": 0.0322,
+        "production_calibrated_prob": 0.0858,
+        "production_alert_decision": true,
+        "candidate_calibrated_prob": 0.0496,
+        "candidate_alert_decision": false,
+        "paired_concordance": "PRODUCTION_ONLY_DETECTED"
+      },
+      {
+        "case_identifier": "Case_T14_05",
+        "anonymized_firm_id": 60,
+        "prior_period_distress_fd_t13": 0.1357,
+        "target_period_distress_fd_t14": -1.2361,
+        "prior_ratio_x12_at_t13": 1.477,
+        "prior_ratio_x48_at_t13": 1456.7,
+        "prior_ratio_x16_at_t13": 0.0501,
+        "prior_ratio_x25_at_t13": 100.28,
+        "prior_ratio_x2_at_t13": 0.0228,
+        "production_calibrated_prob": 0.1135,
+        "production_alert_decision": true,
+        "candidate_calibrated_prob": 0.0695,
+        "candidate_alert_decision": false,
+        "paired_concordance": "PRODUCTION_ONLY_DETECTED"
+      }
+    ],
+    "both_detected_cases": [
+      {
+        "case_identifier": "Case_T14_07",
+        "anonymized_firm_id": 100,
+        "prior_period_distress_fd_t13": -0.4824,
+        "target_period_distress_fd_t14": -1.0118,
+        "prior_ratio_x12_at_t13": -7.4356,
+        "prior_ratio_x48_at_t13": 903.04,
+        "prior_ratio_x16_at_t13": -0.226,
+        "prior_ratio_x25_at_t13": -244.2,
+        "prior_ratio_x2_at_t13": -0.1506,
+        "production_calibrated_prob": 0.1072,
+        "production_alert_decision": true,
+        "candidate_calibrated_prob": 0.1098,
+        "candidate_alert_decision": true,
+        "paired_concordance": "BOTH_DETECTED"
+      },
+      {
+        "case_identifier": "Case_T14_08",
+        "anonymized_firm_id": 101,
+        "prior_period_distress_fd_t13": -0.3137,
+        "target_period_distress_fd_t14": -1.9532,
+        "prior_ratio_x12_at_t13": 0.0598,
+        "prior_ratio_x48_at_t13": 1436.4,
+        "prior_ratio_x16_at_t13": 0.0045,
+        "prior_ratio_x25_at_t13": -384.0,
+        "prior_ratio_x2_at_t13": -0.0294,
+        "production_calibrated_prob": 0.15,
+        "production_alert_decision": true,
+        "candidate_calibrated_prob": 0.2223,
+        "candidate_alert_decision": true,
+        "paired_concordance": "BOTH_DETECTED"
+      },
+      {
+        "case_identifier": "Case_T14_09",
+        "anonymized_firm_id": 112,
+        "prior_period_distress_fd_t13": -0.0699,
+        "target_period_distress_fd_t14": -1.9827,
+        "prior_ratio_x12_at_t13": 0.9766,
+        "prior_ratio_x48_at_t13": 1138.9,
+        "prior_ratio_x16_at_t13": 0.0971,
+        "prior_ratio_x25_at_t13": 10.072,
+        "prior_ratio_x2_at_t13": 0.0017,
+        "production_calibrated_prob": 0.1701,
+        "production_alert_decision": true,
+        "candidate_calibrated_prob": 0.1305,
+        "candidate_alert_decision": true,
+        "paired_concordance": "BOTH_DETECTED"
+      }
+    ],
+    "both_missed_cases": [
+      {
+        "case_identifier": "Case_T14_01",
+        "anonymized_firm_id": 23,
+        "prior_period_distress_fd_t13": -0.482,
+        "target_period_distress_fd_t14": -3.9594,
+        "prior_ratio_x12_at_t13": 0.9292,
+        "prior_ratio_x48_at_t13": 4557.4,
+        "prior_ratio_x16_at_t13": 0.1559,
+        "prior_ratio_x25_at_t13": 2.4333,
+        "prior_ratio_x2_at_t13": 0.0001,
+        "production_calibrated_prob": 0.0768,
+        "production_alert_decision": false,
+        "candidate_calibrated_prob": 0.0763,
+        "candidate_alert_decision": false,
+        "paired_concordance": "BOTH_MISSED"
+      },
+      {
+        "case_identifier": "Case_T14_03",
+        "anonymized_firm_id": 29,
+        "prior_period_distress_fd_t13": -0.4929,
+        "target_period_distress_fd_t14": -1.1315,
+        "prior_ratio_x12_at_t13": 7.5439,
+        "prior_ratio_x48_at_t13": 6722.2,
+        "prior_ratio_x16_at_t13": 0.1499,
+        "prior_ratio_x25_at_t13": 2067.7,
+        "prior_ratio_x2_at_t13": 0.1321,
+        "production_calibrated_prob": 0.019,
+        "production_alert_decision": false,
+        "candidate_calibrated_prob": 0.0141,
+        "candidate_alert_decision": false,
+        "paired_concordance": "BOTH_MISSED"
+      },
+      {
+        "case_identifier": "Case_T14_04",
+        "anonymized_firm_id": 53,
+        "prior_period_distress_fd_t13": -0.1569,
+        "target_period_distress_fd_t14": -2.7519,
+        "prior_ratio_x12_at_t13": 2.0408,
+        "prior_ratio_x48_at_t13": 2364.1,
+        "prior_ratio_x16_at_t13": 0.3571,
+        "prior_ratio_x25_at_t13": 1326.7,
+        "prior_ratio_x2_at_t13": 0.1056,
+        "production_calibrated_prob": 0.0187,
+        "production_alert_decision": false,
+        "candidate_calibrated_prob": 0.0133,
+        "candidate_alert_decision": false,
+        "paired_concordance": "BOTH_MISSED"
+      },
+      {
+        "case_identifier": "Case_T14_06",
+        "anonymized_firm_id": 84,
+        "prior_period_distress_fd_t13": 0.0019,
+        "target_period_distress_fd_t14": -0.5589,
+        "prior_ratio_x12_at_t13": 3.738,
+        "prior_ratio_x48_at_t13": 1384.5,
+        "prior_ratio_x16_at_t13": 0.1825,
+        "prior_ratio_x25_at_t13": 414.74,
+        "prior_ratio_x2_at_t13": 0.0582,
+        "production_calibrated_prob": 0.0308,
+        "production_alert_decision": false,
+        "candidate_calibrated_prob": 0.0292,
+        "candidate_alert_decision": false,
+        "paired_concordance": "BOTH_MISSED"
+      },
+      {
+        "case_identifier": "Case_T14_10",
+        "anonymized_firm_id": 225,
+        "prior_period_distress_fd_t13": 0.244,
+        "target_period_distress_fd_t14": -0.8835,
+        "prior_ratio_x12_at_t13": 33.205,
+        "prior_ratio_x48_at_t13": 1726.0,
+        "prior_ratio_x16_at_t13": 0.2395,
+        "prior_ratio_x25_at_t13": 680.55,
+        "prior_ratio_x2_at_t13": 0.0872,
+        "production_calibrated_prob": 0.0247,
+        "production_alert_decision": false,
+        "candidate_calibrated_prob": 0.013,
+        "candidate_alert_decision": false,
+        "paired_concordance": "BOTH_MISSED"
+      },
+      {
+        "case_identifier": "Case_T14_11",
+        "anonymized_firm_id": 376,
+        "prior_period_distress_fd_t13": 0.5252,
+        "target_period_distress_fd_t14": -0.5805,
+        "prior_ratio_x12_at_t13": 1.9281,
+        "prior_ratio_x48_at_t13": 1511.5,
+        "prior_ratio_x16_at_t13": 0.1095,
+        "prior_ratio_x25_at_t13": 307.2,
+        "prior_ratio_x2_at_t13": 0.046,
+        "production_calibrated_prob": 0.0674,
+        "production_alert_decision": false,
+        "candidate_calibrated_prob": 0.0398,
+        "candidate_alert_decision": false,
+        "paired_concordance": "BOTH_MISSED"
+      }
+    ]
+  },
+  "forensic_analysis_of_additional_misses": {
+    "additional_missed_firms": [
+      28,
+      60
+    ],
+    "case_details": [
+      {
+        "case_id": "Case_T14_02",
+        "firm_id": 28,
+        "status_at_t13": "Solvent and healthy (FD > 0.0)",
+        "fd_at_t13": 1.443,
+        "fd_at_t14": -0.6815,
+        "production_prob": 0.0858,
+        "candidate_prob": 0.0496,
+        "threshold_gap_explanation": "Candidate probability was 0.0496, which is below BOTH the candidate threshold (0.0894) AND the production threshold (0.0800). Therefore, the miss was NOT caused merely by the candidate's higher threshold (0.0894 vs 0.0800), but by genuinely lower probability assignment."
+      },
+      {
+        "case_id": "Case_T14_05",
+        "firm_id": 60,
+        "status_at_t13": "Solvent and healthy (FD > 0.0)",
+        "fd_at_t13": 0.1357,
+        "fd_at_t14": -1.2361,
+        "production_prob": 0.1135,
+        "candidate_prob": 0.0695,
+        "threshold_gap_explanation": "Candidate probability was 0.0695, which is below BOTH the candidate threshold (0.0894) AND the production threshold (0.0800). Therefore, the miss was NOT caused merely by the candidate's higher threshold (0.0894 vs 0.0800), but by genuinely lower probability assignment."
+      }
+    ],
+    "x12_causal_hypothesis_refutation": {
+      "hypothesis": "Did x12 feature drift cause the candidate model's recall decline?",
+      "temporal_audit": {
+        "psi_x12_at_prediction_time_t13": 0.082,
+        "psi_x12_at_target_realization_time_t14": 0.1785,
+        "drift_status_at_t13": "STABLE (PSI = 0.0820 < 0.10)",
+        "drift_status_at_t14": "MODERATE_DRIFT (PSI = 0.1785 >= 0.10)"
+      },
+      "causal_conclusion": "REFUTED. Features fed into the models at inference time were observed at T=13. At T=13, x12 was completely STABLE (PSI = 0.0820). The moderate drift of x12 to 0.1785 occurred at T=14 contemporaneously with default. Because models had zero access to future T=14 features, x12 drift did NOT cause the candidate's lower predictions at T=13. Attributing the recall decline to x12 drift is causally and temporally unfounded.",
+      "actual_root_cause": "Both missed firms (Cases 28 and 60) exhibited strong historical solvency at T=13 (FD = +1.44 and +0.14) prior to sudden unpredicted collapse. The Phase 5 candidate model, heavily tuned to penalize deterioration transitions on firms showing prior distress signs, assigned low risk (0.0496 and 0.0695) to historically safe firms. This demonstrates that the candidate model trades off sensitivity to sudden distress shocks in exchange for suppressing false alarms on healthy firms."
+    }
+  },
+  "brier_score_and_data_integrity_audit": {
+    "cohort_comparability": "IDENTICAL (Evaluated on exactly the same 262 matured firm observations at T=14)",
+    "leakage_audit": "CLEAN (Zero future information used in feature extraction)",
+    "missingness_audit": "CLEAN (Standard imputation applied identically to both models)"
+  }
+}

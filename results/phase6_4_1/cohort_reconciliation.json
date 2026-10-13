@@ -1,0 +1,38 @@
+{
+  "registered_shadow_surveillance_cohort_t12_t13": {
+    "observation_period": 12,
+    "target_period": 13,
+    "total_prospective_firms": 270,
+    "matured_firms": 264,
+    "right_censored_firms": 6,
+    "matured_distress_count": 8,
+    "matured_healthy_count": 256,
+    "candidate_alerts": 23,
+    "candidate_alert_rate_prospective_pct": 8.52,
+    "candidate_alert_rate_matured_pct": 7.2,
+    "candidate_recall": 0.625,
+    "production_recall": 0.625,
+    "role": "OFFICIAL_GOVERNING_SHADOW_MONITORING_COHORT"
+  },
+  "exploratory_diagnostic_cohort_t13_t14": {
+    "observation_period": 13,
+    "target_period": 14,
+    "total_prospective_firms": 274,
+    "matured_firms": 262,
+    "right_censored_firms": 12,
+    "matured_distress_count": 11,
+    "matured_healthy_count": 251,
+    "candidate_alerts_matured": 20,
+    "candidate_alert_rate_matured_pct": 7.63,
+    "candidate_recall": 0.2727,
+    "production_recall": 0.4545,
+    "role": "EXPLORATORY_STRESS_DIAGNOSTIC_COHORT"
+  },
+  "cohort_comparison_summary": {
+    "distress_overlap_count": 0,
+    "cumulative_matured_distress_across_both_cycles": 19,
+    "look_1_maturity_target": 20,
+    "cumulative_progress_towards_look_1_pct": 95.0,
+    "isolated_censored_firms_handling": "Right-censored firms (N=6 in Cohort 1, N=12 in Cohort 2) strictly excluded from binary contingency tables."
+  }
+}
