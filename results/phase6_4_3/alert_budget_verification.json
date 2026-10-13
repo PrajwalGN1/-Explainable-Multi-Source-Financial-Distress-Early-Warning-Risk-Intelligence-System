@@ -1,0 +1,44 @@
+{
+  "policy_formula": "maximum_alerts = floor(0.08 * eligible_firms)",
+  "cohort_verifications": [
+    {
+      "cohort": "T13->T14 Matured",
+      "eligible": 262,
+      "cap_exact": 20.96,
+      "integer_cap": 20,
+      "reported_alerts": 20,
+      "compliant": true
+    },
+    {
+      "cohort": "T12 Prospective",
+      "eligible": 270,
+      "cap_exact": 21.6,
+      "integer_cap": 21,
+      "reported_alerts": 23,
+      "compliant": false
+    },
+    {
+      "cohort": "T12->T13 Matured",
+      "eligible": 264,
+      "cap_exact": 21.12,
+      "integer_cap": 21,
+      "reported_alerts": 19,
+      "compliant": true
+    },
+    {
+      "cohort": "T13 Prospective",
+      "eligible": 274,
+      "cap_exact": 21.92,
+      "integer_cap": 21,
+      "reported_alerts": null,
+      "compliant": null
+    }
+  ],
+  "reconciliation_of_reported_alert_counts": {
+    "20_alerts_on_262_firms": "COMPLIANT. Candidate on T13->T14 matured cohort (7.63% <= 8.0%).",
+    "23_alerts_on_270_firms": "BREACH (+2 excess). Candidate on T12 prospective cohort (8.52% > 8.0%).",
+    "19_alerts_on_264_firms": "COMPLIANT. Candidate on T12->T13 matured cohort (7.20% <= 8.0%).",
+    "37_alerts_on_262_firms": "BREACH (+17 excess). Production on T13->T14 matured cohort (14.12% > 8.0%)."
+  },
+  "threshold_shifting_ruling": "REJECTED. Forcing production baseline to comply requires threshold >= 0.1100, which incurs an 18.18 pp recall loss. Post-hoc threshold shifting violates SR 11-7 validation principles."
+}

@@ -1,0 +1,12 @@
+{
+  "protocol_governance_status": "UNVERIFIED_FOR_PROMOTION (DISPUTED_METHODOLOGICAL_SPECIFICATION)",
+  "discrepancy_summary": "The Lan-DeMets (1983) spending function 2 - 2*Phi(1.95996/sqrt(t)) incorporates a symmetric reflection factor and two-sided critical value constant Z_{0.025} while evaluating a strictly one-sided non-inferiority hypothesis. Pure one-sided spending 1 - Phi(1.64485/sqrt(t)) spends alpha 3.19x faster at Look 1.",
+  "regulatory_directive": "Neither formula may be used to authorize candidate promotion until pre-registered consensus is established. Equal observed recall on 8 events (62.50%) or 11 events (27.27%) cannot be treated as confirmatory non-inferiority.",
+  "event_count_limitations": {
+    "surveillance_cohort_t13_events": 8,
+    "stress_cohort_t14_events": 11,
+    "pooled_events": 19,
+    "minimum_target_for_confirmatory_power": 60,
+    "current_status": "STATISTICALLY_UNDERPOWERED_FOR_CONFIRMATORY_CLAIMS"
+  }
+}

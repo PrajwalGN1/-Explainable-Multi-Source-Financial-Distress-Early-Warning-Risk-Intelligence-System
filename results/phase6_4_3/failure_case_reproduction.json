@@ -1,0 +1,36 @@
+{
+  "audit_objective": "Independent reproduction of native scores for missed distress transitions",
+  "cases": {
+    "firm_28": {
+      "firm_identifier": "Firm 28",
+      "time_of_inference": 13,
+      "time_of_default": 14,
+      "antecedent_fd_t13": 1.443,
+      "realized_fd_t14": -0.6815,
+      "production_calibrated_probability": 0.0858,
+      "production_alert_decision": true,
+      "candidate_calibrated_probability": 0.0496,
+      "candidate_alert_decision": false,
+      "below_candidate_threshold_0_0894": true,
+      "below_production_threshold_0_0800": true,
+      "reproduction_status": "EXACT_REPRODUCED",
+      "ranking_collapse_verified": true
+    },
+    "firm_60": {
+      "firm_identifier": "Firm 60",
+      "time_of_inference": 13,
+      "time_of_default": 14,
+      "antecedent_fd_t13": 0.1357,
+      "realized_fd_t14": -1.2361,
+      "production_calibrated_probability": 0.1135,
+      "production_alert_decision": true,
+      "candidate_calibrated_probability": 0.0695,
+      "candidate_alert_decision": false,
+      "below_candidate_threshold_0_0894": true,
+      "below_production_threshold_0_0800": true,
+      "reproduction_status": "EXACT_REPRODUCED",
+      "ranking_collapse_verified": true
+    }
+  },
+  "verification_verdict": "CONFIRMED. Both candidate probabilities (0.0496 and 0.0695) fall strictly below 0.0800. Lowering candidate threshold to production threshold (0.0800) does not detect either firm."
+}

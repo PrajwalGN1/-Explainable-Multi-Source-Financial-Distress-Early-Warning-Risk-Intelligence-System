@@ -1,0 +1,68 @@
+{
+  "evaluation_cohort": "Matured T=13 -> T=14 (N=262, Distress N_D=11)",
+  "sample_counts": {
+    "total_matured_firms": 262,
+    "distress_events_actual": 11,
+    "healthy_firms_actual": 251
+  },
+  "production_baseline_reproduction": {
+    "operating_threshold": 0.08,
+    "confusion_matrix": {
+      "true_positives": 5,
+      "false_positives": 32,
+      "false_negatives": 6,
+      "true_negatives": 219,
+      "total_alerts": 37,
+      "alert_rate": 0.1412
+    },
+    "metrics": {
+      "recall": 0.4545,
+      "precision": 0.1351,
+      "specificity": 0.8725,
+      "roc_auc": 0.7961,
+      "pr_auc": 0.1816,
+      "brier_score": 0.0382
+    },
+    "subgroup_recall": {
+      "prior_healthy_distress_events": 5,
+      "prior_healthy_detected": 2,
+      "prior_healthy_recall": 0.4,
+      "prior_distressed_distress_events": 6,
+      "prior_distressed_detected": 3,
+      "prior_distressed_recall": 0.5
+    },
+    "match_with_phase6_4_2_reported": true
+  },
+  "shadow_candidate_reproduction": {
+    "operating_threshold": 0.0894,
+    "confusion_matrix": {
+      "true_positives": 3,
+      "false_positives": 17,
+      "false_negatives": 8,
+      "true_negatives": 234,
+      "total_alerts": 20,
+      "alert_rate": 0.0763
+    },
+    "metrics": {
+      "recall": 0.2727,
+      "precision": 0.15,
+      "specificity": 0.9323,
+      "roc_auc": 0.7521,
+      "pr_auc": 0.141,
+      "brier_score": 0.0389
+    },
+    "subgroup_recall": {
+      "prior_healthy_distress_events": 5,
+      "prior_healthy_detected": 0,
+      "prior_healthy_recall": 0.0,
+      "prior_distressed_distress_events": 6,
+      "prior_distressed_detected": 3,
+      "prior_distressed_recall": 0.5
+    },
+    "match_with_phase6_4_2_reported": true
+  },
+  "discrepancy_audit": {
+    "material_discrepancies_found": false,
+    "finding": "ALL_METRICS_EXACTLY_REPRODUCED. Zero rounding or numerator/denominator discrepancies."
+  }
+}

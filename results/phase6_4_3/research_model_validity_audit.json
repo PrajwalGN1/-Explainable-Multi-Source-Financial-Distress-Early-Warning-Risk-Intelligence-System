@@ -1,0 +1,17 @@
+{
+  "historical_transition_analysis": {
+    "total_evaluated_transitions": 3020,
+    "total_distress_events": 106,
+    "sudden_distress_transitions_count": 36,
+    "sudden_distress_share": 0.3396,
+    "chronic_distress_transitions_count": 70,
+    "chronic_distress_share": 0.6604,
+    "generalization_finding": "Sudden transitions account for 36/106 (34.0%) of all corporate failures in Dataset A. The candidate model's failure on Firms 28 and 60 is NOT an isolated anomaly; it reflects a structural vulnerability to more than one-third of all empirical defaults."
+  },
+  "leakage_and_holdout_audit": {
+    "temporal_leakage": "ZERO. All models evaluate strictly point-in-time features.",
+    "company_overlap_leakage": "PROTECTED. 5-Fold GroupKFold enforces company-level isolation.",
+    "hyperparameter_leakage": "PROTECTED. Resampling and calibration fitted inside training folds.",
+    "holdout_reuse": "EXPLORATORY_ONLY. Out-of-time T=13->T=14 cohort used strictly for evaluation, not tuning."
+  }
+}
